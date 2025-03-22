@@ -1,0 +1,33 @@
+package com.bps.plantseeds3.data.model
+
+data class SeedFormData(
+    val name: String = "",
+    val scientificName: String = "",
+    val species: String = "",
+    val variety: String = "",
+    val category: String = "",
+    val description: String = "",
+    val needsPreparation: Boolean = false,
+    val preparationDescription: String = "",
+    val plantingInstructions: String = "",
+    val plantingDepth: String = "",
+    val plantingDistance: String = "",
+    val plantingDates: String = "",
+    val harvestPeriod: String = "",
+    val maintenanceDates: String = "",
+    val notes: String = "",
+    val sowingInstructions: String = "",
+    val growingInstructions: String = "",
+    val harvestInstructions: String = "",
+    val daysToGermination: String = "",
+    val daysToHarvest: String = "",
+    val plantSpacing: String = "",
+    val rowSpacing: String = "",
+    val sunRequirement: String = "",
+    val waterRequirement: String = "",
+    val soilRequirement: String = "",
+    val hardiness: String = "",
+    val companionPlants: String = "",
+    val avoidPlants: String = "",
+    val tags: String = ""
+) 

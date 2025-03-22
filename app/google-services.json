@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "55198852632",
+    "project_id": "plantseeds-app",
+    "storage_bucket": "plantseeds-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55198852632:android:340c7b2c7e70ecf487856d",
+        "android_client_info": {
+          "package_name": "com.bps.plantseeds3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55198852632-hep37ekb8k3urm4k5ofsqqkae8j5incd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bps.plantseeds3",
+            "certificate_hash": "bc668b09a806b5dbce74cd742f2bc6b311ec8a20"
+          }
+        },
+        {
+          "client_id": "55198852632-3ectbuac2us202m4v3ubb17jhl7dasg1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkH28WI7A1g74Q7PDQOj96v-gRSv0aP0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55198852632-3ectbuac2us202m4v3ubb17jhl7dasg1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

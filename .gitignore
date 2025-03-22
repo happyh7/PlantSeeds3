@@ -1,0 +1,24 @@
+# Firebase credentials
+Scripts/firebase-credentials.json
+Scripts/firebase-key.json
+*.key
+*.pem
+*.json.key
+
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+/app/build/
+/app/release/
+/app/debug/
+*.apk
+*.aab
+*.hprof
+*.log
