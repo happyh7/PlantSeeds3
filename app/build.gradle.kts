@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
+    id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
     id("com.google.gms.google-services")
 }
 
@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.bps.plantseeds3"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -23,10 +23,12 @@ android {
         }
 
         // Room schema export directory
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += mapOf("room.schemaLocation" to "$projectDir/schemas")
-            }
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+            arg("room.incremental", "true")
+            arg("room.expandProjection", "true")
+            arg("ksp.incremental", "true")
+            arg("ksp.verbose", "true")
         }
     }
 
@@ -48,7 +50,7 @@ android {
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = compose_version
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
     packaging {
         resources {
@@ -64,7 +66,8 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.8.2")
 
     // Compose
-    implementation(platform("androidx.compose:compose-bom:2024.02.00"))
+    val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
+    implementation(composeBom)
     androidTestImplementation(composeBom)
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
@@ -74,23 +77,25 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.50")
+    ksp("com.google.dagger:hilt-android-compiler:2.50")
+    ksp("androidx.hilt:hilt-compiler:1.1.0")
+
     // Room
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
-
-    // Hilt
-    implementation("com.google.dagger:hilt-android:$hilt_version")
-    kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
+    ksp("androidx.room:room-compiler:$room_version")
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:$firebase_version"))
-    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
 
     // WorkManager
-    implementation("androidx.work:work-runtime-ktx:$work_version")
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
 
     // Coil
     implementation("io.coil-kt:coil-compose:2.5.0")

@@ -1,4 +1,4 @@
-package com.bps.plantseeds3.data.model
+package com.bps.plantseeds3.data.local.entity
 
 data class SeedFormData(
     val name: String = "",

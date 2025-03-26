@@ -1,6 +1,7 @@
 # Firebase credentials
 Scripts/firebase-credentials.json
 Scripts/firebase-key.json
+Scripts/serviceAccountKey.json
 *.key
 *.pem
 *.json.key

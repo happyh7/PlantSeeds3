@@ -1,0 +1,36 @@
+package com.bps.plantseeds3.presentation.seeds.add_edit
+
+import com.bps.plantseeds3.data.local.entity.SeedFormData
+
+sealed class AddEditSeedEvent {
+    data class EnteredName(val value: String) : AddEditSeedEvent()
+    data class EnteredSpecies(val value: String) : AddEditSeedEvent()
+    data class EnteredDescription(val value: String) : AddEditSeedEvent()
+    data class EnteredSowingInstructions(val value: String) : AddEditSeedEvent()
+    data class EnteredDaysToGermination(val value: String) : AddEditSeedEvent()
+    data class EnteredDaysToHarvest(val value: String) : AddEditSeedEvent()
+    data class EnteredScientificName(val value: String) : AddEditSeedEvent()
+    data class EnteredVariety(val value: String) : AddEditSeedEvent()
+    data class EnteredCategory(val value: String) : AddEditSeedEvent()
+    data class EnteredPlantingDepth(val value: String) : AddEditSeedEvent()
+    data class EnteredPlantingDistance(val value: String) : AddEditSeedEvent()
+    data class EnteredPlantingDates(val value: String) : AddEditSeedEvent()
+    data class EnteredHarvestPeriod(val value: String) : AddEditSeedEvent()
+    data class EnteredMaintenanceDates(val value: String) : AddEditSeedEvent()
+    data class EnteredNotes(val value: String) : AddEditSeedEvent()
+    data class EnteredGrowingInstructions(val value: String) : AddEditSeedEvent()
+    data class EnteredHarvestInstructions(val value: String) : AddEditSeedEvent()
+    data class EnteredPlantSpacing(val value: String) : AddEditSeedEvent()
+    data class EnteredRowSpacing(val value: String) : AddEditSeedEvent()
+    data class EnteredSunRequirement(val value: String) : AddEditSeedEvent()
+    data class EnteredWaterRequirement(val value: String) : AddEditSeedEvent()
+    data class EnteredSoilRequirement(val value: String) : AddEditSeedEvent()
+    data class EnteredHardiness(val value: String) : AddEditSeedEvent()
+    data class EnteredCompanionPlants(val value: String) : AddEditSeedEvent()
+    data class EnteredAvoidPlants(val value: String) : AddEditSeedEvent()
+    data class EnteredTags(val value: String) : AddEditSeedEvent()
+    data object SaveSeed : AddEditSeedEvent()
+    data object ToggleSuggestions : AddEditSeedEvent()
+    data class SelectSuggestion(val suggestion: SeedFormData) : AddEditSeedEvent()
+    data object ClearAll : AddEditSeedEvent()
+} 

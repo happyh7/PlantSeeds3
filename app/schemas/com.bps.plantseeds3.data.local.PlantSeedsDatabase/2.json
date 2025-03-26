@@ -1,0 +1,434 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "d26fe98b1efbd731dfa5725abc54fdbb",
+    "entities": [
+      {
+        "tableName": "gardens",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `location` TEXT, `description` TEXT, `size` REAL, `soilType` TEXT, `sunExposure` TEXT, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "location",
+            "columnName": "location",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "size",
+            "columnName": "size",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "soilType",
+            "columnName": "soilType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sunExposure",
+            "columnName": "sunExposure",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "seeds",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `scientificName` TEXT NOT NULL, `species` TEXT NOT NULL, `variety` TEXT NOT NULL, `category` TEXT NOT NULL, `description` TEXT NOT NULL, `plantingDepth` REAL NOT NULL, `plantingDistance` REAL NOT NULL, `plantSpacing` REAL NOT NULL, `rowSpacing` REAL NOT NULL, `plantingDates` TEXT NOT NULL, `sunRequirement` TEXT NOT NULL, `waterRequirement` TEXT NOT NULL, `soilRequirement` TEXT NOT NULL, `soilPh` TEXT NOT NULL, `hardiness` TEXT NOT NULL, `sowingInstructions` TEXT NOT NULL, `growingInstructions` TEXT NOT NULL, `harvestInstructions` TEXT NOT NULL, `storageInstructions` TEXT NOT NULL, `daysToGermination` INTEGER NOT NULL, `daysToHarvest` INTEGER NOT NULL, `harvestPeriod` TEXT NOT NULL, `lifespan` TEXT NOT NULL, `maintenanceDates` TEXT NOT NULL, `fertilizingSchedule` TEXT NOT NULL, `pruningSchedule` TEXT NOT NULL, `companionPlants` TEXT NOT NULL, `avoidPlants` TEXT NOT NULL, `height` REAL NOT NULL, `spread` REAL NOT NULL, `yield` TEXT NOT NULL, `culinaryUses` TEXT NOT NULL, `medicinalUses` TEXT NOT NULL, `tags` TEXT NOT NULL, `notes` TEXT NOT NULL, `imageUrl` TEXT NOT NULL, `source` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scientificName",
+            "columnName": "scientificName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "species",
+            "columnName": "species",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "variety",
+            "columnName": "variety",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plantingDepth",
+            "columnName": "plantingDepth",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plantingDistance",
+            "columnName": "plantingDistance",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plantSpacing",
+            "columnName": "plantSpacing",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rowSpacing",
+            "columnName": "rowSpacing",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plantingDates",
+            "columnName": "plantingDates",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sunRequirement",
+            "columnName": "sunRequirement",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "waterRequirement",
+            "columnName": "waterRequirement",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "soilRequirement",
+            "columnName": "soilRequirement",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "soilPh",
+            "columnName": "soilPh",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hardiness",
+            "columnName": "hardiness",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sowingInstructions",
+            "columnName": "sowingInstructions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "growingInstructions",
+            "columnName": "growingInstructions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "harvestInstructions",
+            "columnName": "harvestInstructions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "storageInstructions",
+            "columnName": "storageInstructions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "daysToGermination",
+            "columnName": "daysToGermination",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "daysToHarvest",
+            "columnName": "daysToHarvest",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "harvestPeriod",
+            "columnName": "harvestPeriod",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lifespan",
+            "columnName": "lifespan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "maintenanceDates",
+            "columnName": "maintenanceDates",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fertilizingSchedule",
+            "columnName": "fertilizingSchedule",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pruningSchedule",
+            "columnName": "pruningSchedule",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "companionPlants",
+            "columnName": "companionPlants",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "avoidPlants",
+            "columnName": "avoidPlants",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "height",
+            "columnName": "height",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spread",
+            "columnName": "spread",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "yield",
+            "columnName": "yield",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "culinaryUses",
+            "columnName": "culinaryUses",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "medicinalUses",
+            "columnName": "medicinalUses",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tags",
+            "columnName": "tags",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageUrl",
+            "columnName": "imageUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "plants",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `scientificName` TEXT NOT NULL, `species` TEXT NOT NULL, `variety` TEXT NOT NULL, `category` TEXT NOT NULL, `description` TEXT NOT NULL, `gardenId` TEXT NOT NULL, `status` TEXT NOT NULL, `plantingDate` INTEGER NOT NULL, `harvestDate` INTEGER, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scientificName",
+            "columnName": "scientificName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "species",
+            "columnName": "species",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "variety",
+            "columnName": "variety",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gardenId",
+            "columnName": "gardenId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plantingDate",
+            "columnName": "plantingDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "harvestDate",
+            "columnName": "harvestDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd26fe98b1efbd731dfa5725abc54fdbb')"
+    ]
+  }
+}
