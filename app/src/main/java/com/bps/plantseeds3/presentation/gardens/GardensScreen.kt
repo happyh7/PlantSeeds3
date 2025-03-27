@@ -16,7 +16,56 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bps.plantseeds3.R
+import com.bps.plantseeds3.data.local.entity.Garden
 import com.bps.plantseeds3.presentation.navigation.Screen
+
+@Composable
+fun GardenItem(
+    garden: Garden,
+    onGardenClick: (Garden) -> Unit,
+    onDeleteGarden: (Garden) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { onGardenClick(garden) }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = garden.name,
+                    style = MaterialTheme.typography.titleMedium
+                )
+                
+                if (garden.location != null && garden.location.isNotBlank()) {
+                    Text(
+                        text = garden.location,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+            
+            IconButton(
+                onClick = { onDeleteGarden(garden) }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "Ta bort trädgård"
+                )
+            }
+        }
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -63,84 +112,48 @@ fun GardensScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.gardens)) }
+                title = { Text(stringResource(R.string.gardens)) },
+                actions = {
+                    IconButton(
+                        onClick = { navController.navigate(Screen.AddEditGarden.route) }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = stringResource(R.string.add_garden)
+                        )
+                    }
+                }
             )
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { navController.navigate(Screen.AddEditGarden.route) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = stringResource(R.string.add_garden)
-                )
-            }
         }
-    ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
-            if (state.isLoading) {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
-                )
-            } else if (state.gardens.isEmpty()) {
+    ) { padding ->
+        if (state.gardens.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding),
+                contentAlignment = Alignment.Center
+            ) {
                 Text(
                     text = stringResource(R.string.no_gardens),
-                    modifier = Modifier.align(Alignment.Center)
+                    style = MaterialTheme.typography.bodyLarge
                 )
-            } else {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(state.gardens) { garden ->
-                        Card(
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Column(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .clickable {
-                                            navController.navigate(
-                                                Screen.AddEditGarden.route + "?gardenId=${garden.id}"
-                                            )
-                                        }
-                                ) {
-                                    Text(
-                                        text = garden.name,
-                                        style = MaterialTheme.typography.titleMedium
-                                    )
-                                    if (garden.location != null && garden.location.isNotBlank()) {
-                                        Spacer(modifier = Modifier.height(4.dp))
-                                        Text(
-                                            text = garden.location,
-                                            style = MaterialTheme.typography.bodyMedium
-                                        )
-                                    }
-                                }
-                                IconButton(
-                                    onClick = { viewModel.deleteGarden(garden) }
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Delete,
-                                        contentDescription = "Ta bort trädgård",
-                                        tint = MaterialTheme.colorScheme.error
-                                    )
-                                }
-                            }
-                        }
-                    }
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(state.gardens) { garden ->
+                    GardenItem(
+                        garden = garden,
+                        onGardenClick = { 
+                            navController.navigate(Screen.GardenDetails.createRoute(it.id))
+                        },
+                        onDeleteGarden = { viewModel.deleteGarden(it) }
+                    )
                 }
             }
         }

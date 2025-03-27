@@ -10,6 +10,7 @@ import com.bps.plantseeds3.presentation.plants.add_edit.AddEditPlantScreen
 import com.bps.plantseeds3.presentation.plants.detail.PlantDetailScreen
 import com.bps.plantseeds3.presentation.gardens.GardensScreen
 import com.bps.plantseeds3.presentation.gardens.add_edit.AddEditGardenScreen
+import com.bps.plantseeds3.presentation.gardens.details.GardenDetailsScreen
 
 @Composable
 fun ComposeNavGraph(navController: NavHostController) {
@@ -66,6 +67,22 @@ fun ComposeNavGraph(navController: NavHostController) {
             val plantId = backStackEntry.arguments?.getString("plantId")?.toIntOrNull()
             PlantDetailScreen(
                 plantId = plantId,
+                navController = navController
+            )
+        }
+
+        composable(
+            route = "garden_details?gardenId={gardenId}",
+            arguments = listOf(
+                navArgument("gardenId") {
+                    type = androidx.navigation.NavType.StringType
+                    nullable = false
+                }
+            )
+        ) { backStackEntry ->
+            val gardenId = backStackEntry.arguments?.getString("gardenId") ?: return@composable
+            GardenDetailsScreen(
+                gardenId = gardenId,
                 navController = navController
             )
         }

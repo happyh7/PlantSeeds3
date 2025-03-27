@@ -5,6 +5,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.bps.plantseeds3.presentation.gardens.GardensScreen
+import com.bps.plantseeds3.presentation.gardens.add_edit.AddEditGardenScreen
+import com.bps.plantseeds3.presentation.gardens.details.GardenDetailsScreen
 import com.bps.plantseeds3.presentation.plants.PlantsScreen
 import com.bps.plantseeds3.presentation.plants.add_edit.AddEditPlantScreen
 import com.bps.plantseeds3.presentation.plants.detail.PlantDetailScreen
@@ -43,6 +46,43 @@ fun NavigationGraph(navController: NavHostController) {
             val plantId = backStackEntry.arguments?.getString("plantId")?.toIntOrNull()
             PlantDetailScreen(
                 plantId = plantId,
+                navController = navController
+            )
+        }
+
+        composable("gardens") {
+            GardensScreen(navController = navController)
+        }
+
+        composable(
+            route = "add_edit_garden?gardenId={gardenId}",
+            arguments = listOf(
+                navArgument("gardenId") {
+                    type = androidx.navigation.NavType.StringType
+                    nullable = true
+                    defaultValue = "-1"
+                }
+            )
+        ) { backStackEntry ->
+            val gardenId = backStackEntry.arguments?.getString("gardenId")
+            AddEditGardenScreen(
+                gardenId = gardenId,
+                navController = navController
+            )
+        }
+
+        composable(
+            route = "garden_details?gardenId={gardenId}",
+            arguments = listOf(
+                navArgument("gardenId") {
+                    type = androidx.navigation.NavType.StringType
+                    nullable = false
+                }
+            )
+        ) { backStackEntry ->
+            val gardenId = backStackEntry.arguments?.getString("gardenId") ?: return@composable
+            GardenDetailsScreen(
+                gardenId = gardenId,
                 navController = navController
             )
         }
