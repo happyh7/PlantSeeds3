@@ -14,6 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bps.plantseeds3.data.local.entity.PlantCategory
 import com.bps.plantseeds3.data.local.entity.PlantStatus
+import com.bps.plantseeds3.presentation.components.CapitalizedTextField
 import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,7 +26,6 @@ fun AddEditPlantScreen(
     val state by viewModel.state.collectAsState()
     var showCategoryDialog by remember { mutableStateOf(false) }
     var showStatusDialog by remember { mutableStateOf(false) }
-    var selectedCategory by remember { mutableStateOf(PlantCategory.SEED) }
     var selectedStatus by remember { mutableStateOf(PlantStatus.SEED) }
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -71,32 +71,32 @@ fun AddEditPlantScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.name,
                 onValueChange = { viewModel.onNameChange(it) },
-                label = { Text("Namn *") },
+                label = "Namn *",
                 modifier = Modifier.fillMaxWidth(),
                 isError = state.error != null && state.name.isBlank()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.scientificName,
                 onValueChange = { viewModel.onScientificNameChange(it) },
-                label = { Text("Vetenskapligt namn") },
+                label = "Vetenskapligt namn",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.species,
                 onValueChange = { viewModel.onSpeciesChange(it) },
-                label = { Text("Art") },
+                label = "Art",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.variety,
                 onValueChange = { viewModel.onVarietyChange(it) },
-                label = { Text("Sort") },
+                label = "Sort",
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -114,169 +114,169 @@ fun AddEditPlantScreen(
                 Text("Status: ${state.status}")
             }
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.description,
                 onValueChange = { viewModel.onDescriptionChange(it) },
-                label = { Text("Beskrivning") },
+                label = "Beskrivning",
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.sowingDepth ?: "",
                 onValueChange = { viewModel.onSowingDepthChange(it) },
-                label = { Text("Sådjup") },
+                label = "Sådjup",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.spacing ?: "",
                 onValueChange = { viewModel.onSpacingChange(it) },
-                label = { Text("Avstånd mellan plantor") },
+                label = "Avstånd mellan plantor",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.daysToGermination ?: "",
                 onValueChange = { viewModel.onDaysToGerminationChange(it) },
-                label = { Text("Dagar till grodd") },
+                label = "Dagar till grodd",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.daysToMaturity ?: "",
                 onValueChange = { viewModel.onDaysToMaturityChange(it) },
-                label = { Text("Dagar till mognad") },
+                label = "Dagar till mognad",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.sunRequirement ?: "",
                 onValueChange = { viewModel.onSunRequirementChange(it) },
-                label = { Text("Solbehov") },
+                label = "Solbehov",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.waterRequirement ?: "",
                 onValueChange = { viewModel.onWaterRequirementChange(it) },
-                label = { Text("Vattenbehov") },
+                label = "Vattenbehov",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.soilRequirement ?: "",
                 onValueChange = { viewModel.onSoilRequirementChange(it) },
-                label = { Text("Jordbehov") },
+                label = "Jordbehov",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.soilPh ?: "",
                 onValueChange = { viewModel.onSoilPhChange(it) },
-                label = { Text("Jord pH") },
+                label = "Jord pH",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.hardiness ?: "",
                 onValueChange = { viewModel.onHardinessChange(it) },
-                label = { Text("Hårdhet") },
+                label = "Hårdhet",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.sowingInstructions ?: "",
                 onValueChange = { viewModel.onSowingInstructionsChange(it) },
-                label = { Text("Såinstruktioner") },
+                label = "Såinstruktioner",
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.growingInstructions ?: "",
                 onValueChange = { viewModel.onGrowingInstructionsChange(it) },
-                label = { Text("Odlingsinstruktioner") },
+                label = "Odlingsinstruktioner",
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.harvestInstructions ?: "",
                 onValueChange = { viewModel.onHarvestInstructionsChange(it) },
-                label = { Text("Skördeinstruktioner") },
+                label = "Skördeinstruktioner",
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.storageInstructions ?: "",
                 onValueChange = { viewModel.onStorageInstructionsChange(it) },
-                label = { Text("Förvaringsinstruktioner") },
+                label = "Förvaringsinstruktioner",
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.companionPlants ?: "",
                 onValueChange = { viewModel.onCompanionPlantsChange(it) },
-                label = { Text("Följeväxter") },
+                label = "Följeväxter",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.avoidPlants ?: "",
                 onValueChange = { viewModel.onAvoidPlantsChange(it) },
-                label = { Text("Undvik dessa växter") },
+                label = "Undvik dessa växter",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.height ?: "",
                 onValueChange = { viewModel.onHeightChange(it) },
-                label = { Text("Höjd") },
+                label = "Höjd",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.spread ?: "",
                 onValueChange = { viewModel.onSpreadChange(it) },
-                label = { Text("Bredd") },
+                label = "Bredd",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.yield ?: "",
                 onValueChange = { viewModel.onYieldChange(it) },
-                label = { Text("Skörd") },
+                label = "Skörd",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.culinaryUses ?: "",
                 onValueChange = { viewModel.onCulinaryUsesChange(it) },
-                label = { Text("Kulinariska användningar") },
+                label = "Kulinariska användningar",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.medicinalUses ?: "",
                 onValueChange = { viewModel.onMedicinalUsesChange(it) },
-                label = { Text("Medicinska användningar") },
+                label = "Medicinska användningar",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.tags ?: "",
                 onValueChange = { viewModel.onTagsChange(it) },
-                label = { Text("Taggar") },
+                label = "Taggar",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = state.notes ?: "",
                 onValueChange = { viewModel.onNotesChange(it) },
-                label = { Text("Anteckningar") },
+                label = "Anteckningar",
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3
             )
@@ -292,7 +292,6 @@ fun AddEditPlantScreen(
                     PlantCategory.values().forEach { category ->
                         TextButton(
                             onClick = {
-                                selectedCategory = category
                                 viewModel.onCategoryChange(category.name)
                                 showCategoryDialog = false
                             }

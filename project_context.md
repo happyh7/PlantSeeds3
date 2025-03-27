@@ -1,5 +1,6 @@
 # PlantSeeds3 - Projektkontext
 
+Kör alltid gradle efter kodändringar, för att se så allr fungerar som det ska.
 ## Syfte
 PlantSeeds3 är en Android-app för att hantera fröer och växtinformation. Appen ska vara enkel att använda samtidigt som den erbjuder omfattande funktionalitet för mer avancerade användare.
 

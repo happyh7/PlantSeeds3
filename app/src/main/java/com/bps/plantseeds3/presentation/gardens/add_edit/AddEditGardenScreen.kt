@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bps.plantseeds3.presentation.navigation.Screen
+import com.bps.plantseeds3.presentation.components.CapitalizedTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,7 +65,7 @@ fun AddEditGardenScreen(
     }
 
     LaunchedEffect(state.error) {
-        state.error?.let { error ->
+        state.error?.let { _ ->
             // Visa felmeddelande
             // TODO: Implementera felhantering
         }
@@ -116,33 +117,33 @@ fun AddEditGardenScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("Namn *") },
+                label = "Namn *",
                 modifier = Modifier.fillMaxWidth(),
                 isError = state.error != null && name.isBlank()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = location,
                 onValueChange = { location = it },
-                label = { Text("Plats") },
+                label = "Plats",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = description,
                 onValueChange = { description = it },
-                label = { Text("Beskrivning") },
+                label = "Beskrivning",
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = size,
                 onValueChange = { size = it },
-                label = { Text("Storlek (m²)") },
+                label = "Storlek (m²)",
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -150,16 +151,16 @@ fun AddEditGardenScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                OutlinedTextField(
+                CapitalizedTextField(
                     value = width,
                     onValueChange = { width = it },
-                    label = { Text("Bredd (m)") },
+                    label = "Bredd (m)",
                     modifier = Modifier.weight(1f)
                 )
-                OutlinedTextField(
+                CapitalizedTextField(
                     value = length,
                     onValueChange = { length = it },
-                    label = { Text("Längd (m)") },
+                    label = "Längd (m)",
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -168,52 +169,52 @@ fun AddEditGardenScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                OutlinedTextField(
+                CapitalizedTextField(
                     value = elevation,
                     onValueChange = { elevation = it },
-                    label = { Text("Höjd (m)") },
+                    label = "Höjd (m)",
                     modifier = Modifier.weight(1f)
                 )
-                OutlinedTextField(
+                CapitalizedTextField(
                     value = slope,
                     onValueChange = { slope = it },
-                    label = { Text("Lutning (°)") },
+                    label = "Lutning (°)",
                     modifier = Modifier.weight(1f)
                 )
             }
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = soilType,
                 onValueChange = { soilType = it },
-                label = { Text("Jordtyp") },
+                label = "Jordtyp",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = sunExposure,
                 onValueChange = { sunExposure = it },
-                label = { Text("Solsken") },
+                label = "Solsken",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = irrigation,
                 onValueChange = { irrigation = it },
-                label = { Text("Bevattning") },
+                label = "Bevattning",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = fence,
                 onValueChange = { fence = it },
-                label = { Text("Staket/Avgränsning") },
+                label = "Staket",
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedTextField(
+            CapitalizedTextField(
                 value = notes,
                 onValueChange = { notes = it },
-                label = { Text("Anteckningar") },
+                label = "Anteckningar",
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3
             )
