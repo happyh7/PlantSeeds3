@@ -243,6 +243,19 @@ class AddEditGardenViewModel @Inject constructor(
 }
 
 data class AddEditGardenState(
-    val isSaved: Boolean = false,
-    val error: String? = null
+    val name: String = "",
+    val location: String = "",
+    val description: String = "",
+    val size: String = "",
+    val width: String = "",
+    val length: String = "",
+    val elevation: String = "",
+    val slope: String = "",
+    val soilType: String = "",
+    val sunExposure: String = "",
+    val irrigation: String = "",
+    val fence: String = "",
+    val notes: String = "",
+    val error: String? = null,
+    val isSaved: Boolean = false
 ) 

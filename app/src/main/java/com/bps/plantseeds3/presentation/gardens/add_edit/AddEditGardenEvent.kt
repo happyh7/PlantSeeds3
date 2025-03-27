@@ -14,5 +14,5 @@ sealed class AddEditGardenEvent {
     data class EnteredIrrigation(val value: String) : AddEditGardenEvent()
     data class EnteredFence(val value: String) : AddEditGardenEvent()
     data class EnteredNotes(val value: String) : AddEditGardenEvent()
-    data object SaveGarden : AddEditGardenEvent()
+    object SaveGarden : AddEditGardenEvent()
 } 
