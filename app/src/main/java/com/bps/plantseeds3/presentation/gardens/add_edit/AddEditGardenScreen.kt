@@ -59,9 +59,7 @@ fun AddEditGardenScreen(
 
     LaunchedEffect(state.isSaved) {
         if (state.isSaved) {
-            navController.navigate(Screen.Gardens.route) {
-                popUpTo(Screen.Gardens.route) { inclusive = true }
-            }
+            onNavigateBack()
         }
     }
 
