@@ -1,6 +1,9 @@
 # PlantSeeds3 - Projektkontext
 
 Kör alltid gradle efter kodändringar, för att se så allr fungerar som det ska.
+
+> **Viktigt**: Uppdatera alltid [CHANGELOG.md](CHANGELOG.md) när du gör ändringar i projektet. Detta hjälper oss att hålla koll på utvecklingen och göra det enklare för nya utvecklare att förstå projektets historia.
+
 ## Syfte
 PlantSeeds3 är en Android-app för att hantera fröer och växtinformation. Appen ska vara enkel att använda samtidigt som den erbjuder omfattande funktionalitet för mer avancerade användare.
 
@@ -160,73 +163,155 @@ PlantSeeds3 är en Android-applikation för att hantera och planera trädgårdso
 3. ✓ Grundläggande UI-komponenter
 4. ✓ CRUD för frön
 5. ✓ Sökfunktionalitet
-6. ⚪ Implementera trädgårdsfunktionalitet
-7. ⚪ Implementera planteringsfunktionalitet
-8. ⚪ Implementera tidslinje och påminnelser
-9. ⚪ Implementera väderintegration
-10. ⚪ Implementera bildhantering för frön och plantor
+6. ✓ Implementera trädgårdsfunktionalitet
+7. ⚪ Implementera planteringsfunktionalitet:
+   - ⚪ Skapa grundläggande planteringsvy
+   - ⚪ Implementera drag-and-drop för plantor
+   - ⚪ Lägga till plantinformation
+   - ⚪ Hantera plantstatus
+   - ⚪ Implementera plantredigering
+   - ⚪ Lägga till plantkommentarer
+8. ⚪ Implementera tidslinje och påminnelser:
+   - ⚪ Skapa tidslinjevy
+   - ⚪ Implementera datumhantering
+   - ⚪ Lägga till påminnelser
+   - ⚪ Hantera upprepande händelser
+   - ⚪ Implementera notifikationer
+   - ⚪ Lägga till kalenderintegration
+9. ⚪ Implementera väderintegration:
+   - ⚪ Ansluta till väder-API
+   - ⚪ Visa aktuellt väder
+   - ⚪ Implementera väderprognos
+   - ⚪ Lägga till väderbaserade rekommendationer
+   - ⚪ Hantera väderhistorik
+10. ⚪ Implementera bildhantering för frön och plantor:
+    - ⚪ Implementera kameraintegration
+    - ⚪ Hantera bildlagring
+    - ⚪ Implementera bildredigering
+    - ⚪ Lägga till bildkommentarer
+    - ⚪ Implementera bildgalleri
+    - ⚪ Hantera bildbackup
 
 ### Fas 2: Android-förbättringar
-1. ⚪ Förbättra användargränssnittet
-2. ⚪ Lägga till animationer
-3. ⚪ Implementera dark/light theme
-4. ⚪ Optimera prestanda
-5. ⚪ Implementera backup/restore-funktionalitet
-6. ⚪ Lägga till statistik och rapporter
-7. ⚪ Implementera widgets
-8. ⚪ Förbättra felhantering och användarfeedback
+1. ⚪ Förbättra användargränssnittet:
+   - ⚪ Implementera snyggare övergångar
+   - ⚪ Förbättra formulärdesign
+   - ⚪ Lägga till fler Material 3-komponenter
+   - ⚪ Förbättra responsiviteten
+   - ⚪ Implementera bättre felmeddelanden
+2. ⚪ Lägga till animationer:
+   - ⚪ Implementera övergångsanimationer
+   - ⚪ Lägga till laddningsanimationer
+   - ⚪ Implementera interaktiva animationer
+   - ⚪ Förbättra feedback-animationer
+   - ⚪ Lägga till micro-interaktioner
+3. ✓ Implementera dark/light theme
+4. ⚪ Optimera prestanda:
+   - ⚪ Förbättra databasprestanda
+   - ⚪ Optimera bildhantering
+   - ⚪ Implementera bättre cachning
+   - ⚪ Minska minnesanvändning
+   - ⚪ Förbättra appstartstid
+5. ⚪ Implementera backup/restore-funktionalitet:
+   - ⚪ Implementera automatisk backup
+   - ⚪ Lägga till manuell backup
+   - ⚪ Implementera återställning
+   - ⚪ Hantera backup-historik
+   - ⚪ Säkerställa dataintegritet
+6. ⚪ Lägga till statistik och rapporter:
+   - ⚪ Implementera grundläggande statistik
+   - ⚪ Lägga till diagram och grafer
+   - ⚪ Implementera anpassade rapporter
+   - ⚪ Lägga till exportfunktionalitet
+   - ⚪ Implementera trendanalys
+7. ⚪ Implementera widgets:
+   - ⚪ Skapa trädgårdswidget
+   - ⚪ Implementera väderwidget
+   - ⚪ Lägga till planteringswidget
+   - ⚪ Skapa påminnelsewidget
+   - ⚪ Implementera statistikwidget
+8. ⚪ Förbättra felhantering och användarfeedback:
+   - ⚪ Implementera bättre felmeddelanden
+   - ⚪ Lägga till felrapportering
+   - ⚪ Implementera crash reporting
+   - ⚪ Förbättra användarfeedback
+   - ⚪ Lägga till hjälpfunktioner
 
-### Fas 3: iOS-portering med Kotlin Multiplatform Mobile (KMM)
+### Fas 3: Fröbanken (Prio 1)
+1. ✓ Grundläggande fröbankstruktur
+2. ✓ Databasintegration för fröbank
+3. ✓ UI för fröbank
+4. ⚪ Förbättra fröbanken:
+   - ⚪ Lägga till kategorisering av frön
+   - ⚪ Implementera sökfunktion med filter
+   - ⚪ Lägga till sorteringsmöjligheter
+   - ⚪ Implementera favoritmarkering
+   - ⚪ Lägga till bilder för frön
+   - ⚪ Implementera delning av frön
+   - ⚪ Lägga till QR-kod för frön
+   - ⚪ Implementera import/export av frödata
+   - ⚪ Lägga till statistik över fröbanken
+   - ⚪ Implementera backup av fröbanken
 
-#### Förberedelser (Prio 1)
-1. ⚪ Analysera nuvarande kodbas för delning
-2. ⚪ Skapa en migrationsplan
-3. ⚪ Sätta upp utvecklingsmiljö för iOS (Xcode, CocoaPods)
-4. ⚪ Konfigurera KMM-projekt
+### Fas 4: Planteringsfunktionalitet (Prio 2)
+1. ⚪ Grundläggande planteringsfunktioner:
+   - ⚪ Skapa planteringsplan
+   - ⚪ Lägga till plantor
+   - ⚪ Hantera plantstatus
+   - ⚪ Spåra tillväxt
+2. ⚪ Avancerade planteringsfunktioner:
+   - ⚪ Automatisk planteringsplanering
+   - ⚪ Växtföljdsrekommendationer
+   - ⚪ Skördeprognos
+   - ⚪ Vattningspåminnelser
+3. ⚪ Visualisering:
+   - ⚪ Trädgårdsöversikt
+   - ⚪ Plantkarta
+   - ⚪ Tillväxtdiagram
+   - ⚪ Skördeprognosdiagram
 
-#### Kodmigrering (Prio 2)
-1. ⚪ Migrera datamodeller till shared module
-   - Seed
-   - Garden
-   - Plant
-   - Alla relaterade dataklasser
-2. ⚪ Migrera repositories till shared module
-   - SeedRepository
-   - GardenRepository
-   - PlantRepository
-3. ⚪ Migrera use cases till shared module
-4. ⚪ Ersätta Android-specifika beroenden med multiplattformslösningar:
-   - Room → SQLDelight
-   - Dagger Hilt → Koin
-   - AndroidX → Ktor för nätverk
+### Fas 5: Tidslinje och Påminnelser (Prio 3)
+1. ⚪ Grundläggande tidslinje:
+   - ⚪ Visa planteringsdatum
+   - ⚪ Visa förväntad skörd
+   - ⚪ Hantera faktiska datum
+2. ⚪ Påminnelser:
+   - ⚪ Vattningspåminnelser
+   - ⚪ Skördepåminnelser
+   - ⚪ Skötselpåminnelser
+   - ⚪ Anpassade påminnelser
+3. ⚪ Kalenderintegration:
+   - ⚪ Synkronisera med systemkalender
+   - ⚪ Visa planteringskalender
+   - ⚪ Hantera upprepande händelser
 
-#### iOS-implementation (Prio 3)
-1. ⚪ Skapa grundläggande iOS-projekt med SwiftUI
-2. ⚪ Implementera UI-komponenter:
-   - SeedList
-   - AddEditSeed
-   - GardenList
-   - PlantList
-3. ⚪ Implementera navigering
-4. ⚪ Implementera iOS-specifika features:
-   - WidgetKit
-   - Push Notifications
-   - iCloud backup
-5. ⚪ Anpassa UI för iOS-designriktlinjer
+### Fas 6: Väderintegration (Prio 4)
+1. ⚪ Grundläggande väderdata:
+   - ⚪ Visa aktuellt väder
+   - ⚪ Väderprognos
+   - ⚪ Temperaturdata
+2. ⚪ Väderbaserade rekommendationer:
+   - ⚪ Planteringsrekommendationer
+   - ⚪ Vattningsrekommendationer
+   - ⚪ Skyddsrekommendationer
+3. ⚪ Väderhistorik:
+   - ⚪ Spåra väderdata
+   - ⚪ Analysera väderpåverkan
+   - ⚪ Jämföra med tidigare år
 
-#### Testning och Optimering (Prio 4)
-1. ⚪ Implementera tester för shared code
-2. ⚪ Implementera UI-tester för iOS
-3. ⚪ Prestandaoptimering
-4. ⚪ Minnesoptimering
-5. ⚪ Batterianvändningsoptimering
-
-#### Distribution (Prio 5)
-1. ⚪ Förbereda App Store-material
-2. ⚪ Skapa screenshots och beskrivningar
-3. ⚪ Implementera analytics och crash reporting
-4. ⚪ Genomföra App Store Review Guidelines
-5. ⚪ Publicera på App Store
+### Fas 7: Bildhantering (Prio 5)
+1. ⚪ Grundläggande bildhantering:
+   - ⚪ Ta bilder av frön
+   - ⚪ Ta bilder av plantor
+   - ⚪ Visa bilder i appen
+2. ⚪ Avancerad bildhantering:
+   - ⚪ Bildredigering
+   - ⚪ Bildkategorisering
+   - ⚪ Bildkommentarer
+3. ⚪ Bildbackup:
+   - ⚪ Molnlagring
+   - ⚪ Automatisk backup
+   - ⚪ Bildåterställning
 
 ## Kodriktlinjer
 - Följ Clean Architecture-principer
