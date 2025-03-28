@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocalFlorist
 import androidx.compose.material.icons.filled.Park
+import androidx.compose.material.icons.filled.Spa
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -38,12 +39,14 @@ fun MainScreen() {
     
     val items = listOf(
         "plants" to Icons.Default.LocalFlorist,
-        "gardens" to Icons.Default.Park
+        "gardens" to Icons.Default.Park,
+        "seeds" to Icons.Default.Spa
     )
     
     val selectedIndex = when (currentRoute) {
         "plants" -> 0
         "gardens" -> 1
+        "seeds" -> 2
         else -> 0
     }
 
@@ -52,8 +55,16 @@ fun MainScreen() {
             NavigationBar {
                 items.forEachIndexed { index, (route, icon) ->
                     NavigationBarItem(
-                        icon = { Icon(icon, contentDescription = if (route == "plants") "Växter" else "Trädgårdar") },
-                        label = { Text(if (route == "plants") "Växter" else "Trädgårdar") },
+                        icon = { Icon(icon, contentDescription = when (route) {
+                            "plants" -> "Växter"
+                            "gardens" -> "Trädgårdar"
+                            else -> "Fröbank"
+                        }) },
+                        label = { Text(when (route) {
+                            "plants" -> "Växter"
+                            "gardens" -> "Trädgårdar"
+                            else -> "Fröbank"
+                        }) },
                         selected = selectedIndex == index,
                         onClick = {
                             navController.navigate(route) {

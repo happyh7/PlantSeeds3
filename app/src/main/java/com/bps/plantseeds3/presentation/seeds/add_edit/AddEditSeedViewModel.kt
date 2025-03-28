@@ -5,32 +5,25 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bps.plantseeds3.data.local.entity.SeedFormData
 import com.bps.plantseeds3.data.local.entity.Seed
-import com.bps.plantseeds3.domain.use_case.seed.SeedUseCases
+import com.bps.plantseeds3.data.local.entity.SeedFormData
+import com.bps.plantseeds3.domain.repository.SeedRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class AddEditSeedViewModel @Inject constructor(
-    private val seedUseCases: SeedUseCases,
+    private val repository: SeedRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _formData = mutableStateOf(SeedFormData())
-    val formData: State<SeedFormData> = _formData
-
-    private val _validationErrors = mutableStateOf<List<String>>(emptyList())
-    val validationErrors: State<List<String>> = _validationErrors
-
-    private val _showSuggestions = mutableStateOf(true)
-    val showSuggestions: State<Boolean> = _showSuggestions
-
-    private val _suggestions = mutableStateOf<List<SeedFormData>>(emptyList())
-    val suggestions: State<List<SeedFormData>> = _suggestions
+    private val _state = mutableStateOf(AddEditSeedState())
+    val state: State<AddEditSeedState> = _state
 
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
@@ -41,82 +34,7 @@ class AddEditSeedViewModel @Inject constructor(
         savedStateHandle.get<String>("seedId")?.let { seedId ->
             if (seedId.isNotEmpty()) {
                 currentSeedId = seedId
-                viewModelScope.launch {
-                    seedUseCases.getSeed(seedId)?.let { seed ->
-                        _formData.value = _formData.value.copy(
-                            name = seed.name,
-                            scientificName = seed.scientificName,
-                            species = seed.species,
-                            variety = seed.variety,
-                            category = seed.category,
-                            description = seed.description,
-                            plantingInstructions = seed.sowingInstructions,
-                            daysToGermination = seed.daysToGermination.toString(),
-                            daysToHarvest = seed.daysToHarvest.toString(),
-                            plantingDepth = seed.plantingDepth.toString(),
-                            plantingDistance = seed.plantingDistance.toString(),
-                            plantSpacing = seed.plantSpacing.toString(),
-                            rowSpacing = seed.rowSpacing.toString(),
-                            sunRequirement = seed.sunRequirement,
-                            waterRequirement = seed.waterRequirement,
-                            soilRequirement = seed.soilRequirement,
-                            hardiness = seed.hardiness,
-                            companionPlants = seed.companionPlants,
-                            avoidPlants = seed.avoidPlants,
-                            tags = seed.tags
-                        )
-                    }
-                }
-            }
-        }
-    }
-
-    private fun validateForm(): Boolean {
-        val errors = mutableListOf<String>()
-        
-        if (_formData.value.name.isBlank()) {
-            errors.add("Namn är obligatoriskt")
-        }
-        
-        _validationErrors.value = errors
-        return errors.isEmpty()
-    }
-
-    private fun updateSuggestions(query: String) {
-        viewModelScope.launch {
-            seedUseCases.getSeeds().collect { seeds ->
-                _suggestions.value = seeds
-                    .filter { seed: Seed -> seed.name.startsWith(query, ignoreCase = true) }
-                    .map { seed: Seed ->
-                        SeedFormData(
-                            name = seed.name,
-                            scientificName = seed.scientificName,
-                            species = seed.species,
-                            variety = seed.variety,
-                            category = seed.category,
-                            description = seed.description,
-                            plantingDepth = seed.plantingDepth.toString(),
-                            plantingDistance = seed.plantingDistance.toString(),
-                            plantingDates = seed.plantingDates,
-                            harvestPeriod = seed.harvestPeriod,
-                            maintenanceDates = seed.maintenanceDates,
-                            notes = seed.notes,
-                            sowingInstructions = seed.sowingInstructions,
-                            growingInstructions = seed.growingInstructions,
-                            harvestInstructions = seed.harvestInstructions,
-                            daysToGermination = seed.daysToGermination.toString(),
-                            daysToHarvest = seed.daysToHarvest.toString(),
-                            plantSpacing = seed.plantSpacing.toString(),
-                            rowSpacing = seed.rowSpacing.toString(),
-                            sunRequirement = seed.sunRequirement,
-                            waterRequirement = seed.waterRequirement,
-                            soilRequirement = seed.soilRequirement,
-                            hardiness = seed.hardiness,
-                            companionPlants = seed.companionPlants,
-                            avoidPlants = seed.avoidPlants,
-                            tags = seed.tags
-                        )
-                    }
+                loadSeed(seedId)
             }
         }
     }
@@ -124,143 +42,213 @@ class AddEditSeedViewModel @Inject constructor(
     fun onEvent(event: AddEditSeedEvent) {
         when (event) {
             is AddEditSeedEvent.EnteredName -> {
-                _formData.value = _formData.value.copy(name = event.value)
-                if (_showSuggestions.value) {
-                    updateSuggestions(event.value)
-                }
-            }
-            is AddEditSeedEvent.ToggleSuggestions -> {
-                _showSuggestions.value = !_showSuggestions.value
-                if (!_showSuggestions.value) {
-                    _suggestions.value = emptyList()
-                } else {
-                    updateSuggestions(_formData.value.name)
-                }
-            }
-            is AddEditSeedEvent.SelectSuggestion -> {
-                _formData.value = event.suggestion
-                _suggestions.value = emptyList()
-            }
-            is AddEditSeedEvent.ClearAll -> {
-                _formData.value = SeedFormData()
-                _suggestions.value = emptyList()
-            }
-            is AddEditSeedEvent.EnteredSpecies -> {
-                _formData.value = _formData.value.copy(species = event.value)
-            }
-            is AddEditSeedEvent.EnteredDescription -> {
-                _formData.value = _formData.value.copy(description = event.value)
-            }
-            is AddEditSeedEvent.EnteredSowingInstructions -> {
-                _formData.value = _formData.value.copy(plantingInstructions = event.value)
-            }
-            is AddEditSeedEvent.EnteredDaysToGermination -> {
-                _formData.value = _formData.value.copy(daysToGermination = event.value)
-            }
-            is AddEditSeedEvent.EnteredDaysToHarvest -> {
-                _formData.value = _formData.value.copy(daysToHarvest = event.value)
+                _state.value = _state.value.copy(name = event.value)
             }
             is AddEditSeedEvent.EnteredScientificName -> {
-                _formData.value = _formData.value.copy(scientificName = event.value)
+                _state.value = _state.value.copy(scientificName = event.value)
+            }
+            is AddEditSeedEvent.EnteredSpecies -> {
+                _state.value = _state.value.copy(species = event.value)
             }
             is AddEditSeedEvent.EnteredVariety -> {
-                _formData.value = _formData.value.copy(variety = event.value)
+                _state.value = _state.value.copy(variety = event.value)
             }
             is AddEditSeedEvent.EnteredCategory -> {
-                _formData.value = _formData.value.copy(category = event.value)
+                _state.value = _state.value.copy(category = event.value)
+            }
+            is AddEditSeedEvent.EnteredDescription -> {
+                _state.value = _state.value.copy(description = event.value)
             }
             is AddEditSeedEvent.EnteredPlantingDepth -> {
-                _formData.value = _formData.value.copy(plantingDepth = event.value)
+                _state.value = _state.value.copy(plantingDepth = event.value)
             }
             is AddEditSeedEvent.EnteredPlantingDistance -> {
-                _formData.value = _formData.value.copy(plantingDistance = event.value)
+                _state.value = _state.value.copy(plantingDistance = event.value)
             }
             is AddEditSeedEvent.EnteredPlantingDates -> {
-                _formData.value = _formData.value.copy(plantingDates = event.value)
-            }
-            is AddEditSeedEvent.EnteredHarvestPeriod -> {
-                _formData.value = _formData.value.copy(harvestPeriod = event.value)
-            }
-            is AddEditSeedEvent.EnteredMaintenanceDates -> {
-                _formData.value = _formData.value.copy(maintenanceDates = event.value)
-            }
-            is AddEditSeedEvent.EnteredNotes -> {
-                _formData.value = _formData.value.copy(notes = event.value)
-            }
-            is AddEditSeedEvent.EnteredGrowingInstructions -> {
-                _formData.value = _formData.value.copy(growingInstructions = event.value)
-            }
-            is AddEditSeedEvent.EnteredHarvestInstructions -> {
-                _formData.value = _formData.value.copy(harvestInstructions = event.value)
-            }
-            is AddEditSeedEvent.EnteredPlantSpacing -> {
-                _formData.value = _formData.value.copy(plantSpacing = event.value)
-            }
-            is AddEditSeedEvent.EnteredRowSpacing -> {
-                _formData.value = _formData.value.copy(rowSpacing = event.value)
+                _state.value = _state.value.copy(plantingDates = event.value)
             }
             is AddEditSeedEvent.EnteredSunRequirement -> {
-                _formData.value = _formData.value.copy(sunRequirement = event.value)
+                _state.value = _state.value.copy(sunRequirement = event.value)
             }
             is AddEditSeedEvent.EnteredWaterRequirement -> {
-                _formData.value = _formData.value.copy(waterRequirement = event.value)
+                _state.value = _state.value.copy(waterRequirement = event.value)
             }
             is AddEditSeedEvent.EnteredSoilRequirement -> {
-                _formData.value = _formData.value.copy(soilRequirement = event.value)
+                _state.value = _state.value.copy(soilRequirement = event.value)
             }
             is AddEditSeedEvent.EnteredHardiness -> {
-                _formData.value = _formData.value.copy(hardiness = event.value)
+                _state.value = _state.value.copy(hardiness = event.value)
+            }
+            is AddEditSeedEvent.EnteredSowingInstructions -> {
+                _state.value = _state.value.copy(sowingInstructions = event.value)
+            }
+            is AddEditSeedEvent.EnteredGrowingInstructions -> {
+                _state.value = _state.value.copy(growingInstructions = event.value)
+            }
+            is AddEditSeedEvent.EnteredHarvestInstructions -> {
+                _state.value = _state.value.copy(harvestInstructions = event.value)
+            }
+            is AddEditSeedEvent.EnteredDaysToGermination -> {
+                _state.value = _state.value.copy(daysToGermination = event.value)
+            }
+            is AddEditSeedEvent.EnteredDaysToHarvest -> {
+                _state.value = _state.value.copy(daysToHarvest = event.value)
+            }
+            is AddEditSeedEvent.EnteredHarvestPeriod -> {
+                _state.value = _state.value.copy(harvestPeriod = event.value)
             }
             is AddEditSeedEvent.EnteredCompanionPlants -> {
-                _formData.value = _formData.value.copy(companionPlants = event.value)
+                _state.value = _state.value.copy(companionPlants = event.value)
             }
             is AddEditSeedEvent.EnteredAvoidPlants -> {
-                _formData.value = _formData.value.copy(avoidPlants = event.value)
+                _state.value = _state.value.copy(avoidPlants = event.value)
+            }
+            is AddEditSeedEvent.EnteredPlantSpacing -> {
+                _state.value = _state.value.copy(plantSpacing = event.value)
+            }
+            is AddEditSeedEvent.EnteredRowSpacing -> {
+                _state.value = _state.value.copy(rowSpacing = event.value)
             }
             is AddEditSeedEvent.EnteredTags -> {
-                _formData.value = _formData.value.copy(tags = event.value)
+                _state.value = _state.value.copy(tags = event.value)
+            }
+            is AddEditSeedEvent.EnteredNotes -> {
+                _state.value = _state.value.copy(notes = event.value)
             }
             is AddEditSeedEvent.SaveSeed -> {
-                viewModelScope.launch {
-                    try {
-                        if (!validateForm()) {
-                            _eventFlow.emit(UiEvent.ShowError("Vänligen korrigera följande fel:\n" + _validationErrors.value.joinToString("\n")))
-                            return@launch
-                        }
-                        
-                        seedUseCases.addSeed(
-                            name = _formData.value.name,
-                            scientificName = _formData.value.scientificName,
-                            species = _formData.value.species,
-                            variety = _formData.value.variety,
-                            category = _formData.value.category,
-                            description = _formData.value.description,
-                            plantingDepth = _formData.value.plantingDepth.toFloatOrNull() ?: 0f,
-                            plantingDistance = _formData.value.plantingDistance.toFloatOrNull() ?: 0f,
-                            plantSpacing = _formData.value.plantSpacing.toFloatOrNull() ?: 0f,
-                            rowSpacing = _formData.value.rowSpacing.toFloatOrNull() ?: 0f,
-                            plantingDates = _formData.value.plantingDates,
-                            sunRequirement = _formData.value.sunRequirement,
-                            waterRequirement = _formData.value.waterRequirement,
-                            soilRequirement = _formData.value.soilRequirement,
-                            hardiness = _formData.value.hardiness,
-                            sowingInstructions = _formData.value.sowingInstructions,
-                            growingInstructions = _formData.value.growingInstructions,
-                            harvestInstructions = _formData.value.harvestInstructions,
-                            daysToGermination = _formData.value.daysToGermination.toIntOrNull() ?: 0,
-                            daysToHarvest = _formData.value.daysToHarvest.toIntOrNull() ?: 0,
-                            harvestPeriod = _formData.value.harvestPeriod,
-                            maintenanceDates = _formData.value.maintenanceDates,
-                            companionPlants = _formData.value.companionPlants,
-                            avoidPlants = _formData.value.avoidPlants,
-                            tags = _formData.value.tags,
-                            notes = _formData.value.notes
-                        )
-                        _eventFlow.emit(UiEvent.SaveSeed)
-                    } catch (e: Exception) {
-                        _eventFlow.emit(UiEvent.ShowError(e.message ?: "Kunde inte spara fröet"))
-                    }
+                saveSeed()
+            }
+            is AddEditSeedEvent.ToggleSuggestions -> {
+                _state.value = _state.value.copy(showSuggestions = !_state.value.showSuggestions)
+            }
+            is AddEditSeedEvent.SelectSuggestion -> {
+                _state.value = _state.value.copy(
+                    name = event.suggestion.name,
+                    scientificName = event.suggestion.scientificName ?: "",
+                    species = event.suggestion.species ?: "",
+                    variety = event.suggestion.variety ?: "",
+                    category = event.suggestion.category ?: "",
+                    description = event.suggestion.description ?: "",
+                    plantingDepth = event.suggestion.plantingDepth?.toString() ?: "",
+                    plantingDistance = event.suggestion.plantingDistance?.toString() ?: "",
+                    plantingDates = event.suggestion.plantingDates ?: "",
+                    sunRequirement = event.suggestion.sunRequirement ?: "",
+                    waterRequirement = event.suggestion.waterRequirement ?: "",
+                    soilRequirement = event.suggestion.soilRequirement ?: "",
+                    hardiness = event.suggestion.hardiness ?: "",
+                    sowingInstructions = event.suggestion.sowingInstructions ?: "",
+                    growingInstructions = event.suggestion.growingInstructions ?: "",
+                    harvestInstructions = event.suggestion.harvestInstructions ?: "",
+                    daysToGermination = event.suggestion.daysToGermination?.toString() ?: "",
+                    daysToHarvest = event.suggestion.daysToHarvest?.toString() ?: "",
+                    harvestPeriod = event.suggestion.harvestPeriod ?: "",
+                    companionPlants = event.suggestion.companionPlants ?: "",
+                    avoidPlants = event.suggestion.avoidPlants ?: "",
+                    plantSpacing = event.suggestion.plantSpacing?.toString() ?: "",
+                    rowSpacing = event.suggestion.rowSpacing?.toString() ?: "",
+                    tags = event.suggestion.tags ?: "",
+                    notes = event.suggestion.notes ?: "",
+                    showSuggestions = false
+                )
+            }
+            is AddEditSeedEvent.ClearAll -> {
+                _state.value = AddEditSeedState()
+            }
+        }
+    }
+
+    fun loadSeed(seedId: String) {
+        viewModelScope.launch {
+            try {
+                repository.getSeedById(seedId)?.let { seed ->
+                    _state.value = _state.value.copy(
+                        name = seed.name,
+                        scientificName = seed.scientificName ?: "",
+                        species = seed.species ?: "",
+                        variety = seed.variety ?: "",
+                        category = seed.category ?: "",
+                        description = seed.description ?: "",
+                        plantingDepth = seed.plantingDepth?.toString() ?: "",
+                        plantingDistance = seed.plantingDistance?.toString() ?: "",
+                        plantingDates = seed.plantingDates ?: "",
+                        sunRequirement = seed.sunRequirement ?: "",
+                        waterRequirement = seed.waterRequirement ?: "",
+                        soilRequirement = seed.soilRequirement ?: "",
+                        hardiness = seed.hardiness ?: "",
+                        sowingInstructions = seed.sowingInstructions ?: "",
+                        growingInstructions = seed.growingInstructions ?: "",
+                        harvestInstructions = seed.harvestInstructions ?: "",
+                        daysToGermination = seed.daysToGermination?.toString() ?: "",
+                        daysToHarvest = seed.daysToHarvest?.toString() ?: "",
+                        harvestPeriod = seed.harvestPeriod ?: "",
+                        companionPlants = seed.companionPlants ?: "",
+                        avoidPlants = seed.avoidPlants ?: "",
+                        plantSpacing = seed.plantSpacing?.toString() ?: "",
+                        rowSpacing = seed.rowSpacing?.toString() ?: "",
+                        tags = seed.tags ?: "",
+                        notes = seed.notes ?: ""
+                    )
                 }
+            } catch (e: Exception) {
+                viewModelScope.launch {
+                    _eventFlow.emit(UiEvent.ShowError("Kunde inte hämta fröet: ${e.message}"))
+                }
+            }
+        }
+    }
+
+    private fun saveSeed() {
+        val currentState = _state.value
+        if (currentState.name.isBlank()) {
+            viewModelScope.launch {
+                _eventFlow.emit(UiEvent.ShowError("Namn krävs"))
+            }
+            return
+        }
+
+        viewModelScope.launch {
+            try {
+                val seed = Seed(
+                    id = currentSeedId ?: UUID.randomUUID().toString(),
+                    name = currentState.name,
+                    scientificName = currentState.scientificName.takeIf { it.isNotBlank() },
+                    species = currentState.species.takeIf { it.isNotBlank() },
+                    variety = currentState.variety.takeIf { it.isNotBlank() },
+                    category = currentState.category.takeIf { it.isNotBlank() },
+                    description = currentState.description.takeIf { it.isNotBlank() },
+                    plantingDepth = currentState.plantingDepth.toFloatOrNull(),
+                    plantingDistance = currentState.plantingDistance.toFloatOrNull(),
+                    plantingDates = currentState.plantingDates.takeIf { it.isNotBlank() },
+                    sunRequirement = currentState.sunRequirement.takeIf { it.isNotBlank() },
+                    waterRequirement = currentState.waterRequirement.takeIf { it.isNotBlank() },
+                    soilRequirement = currentState.soilRequirement.takeIf { it.isNotBlank() },
+                    hardiness = currentState.hardiness.takeIf { it.isNotBlank() },
+                    sowingInstructions = currentState.sowingInstructions.takeIf { it.isNotBlank() },
+                    growingInstructions = currentState.growingInstructions.takeIf { it.isNotBlank() },
+                    harvestInstructions = currentState.harvestInstructions.takeIf { it.isNotBlank() },
+                    daysToGermination = currentState.daysToGermination.toIntOrNull(),
+                    daysToHarvest = currentState.daysToHarvest.toIntOrNull(),
+                    harvestPeriod = currentState.harvestPeriod.takeIf { it.isNotBlank() },
+                    companionPlants = currentState.companionPlants.takeIf { it.isNotBlank() },
+                    avoidPlants = currentState.avoidPlants.takeIf { it.isNotBlank() },
+                    plantSpacing = currentState.plantSpacing.toFloatOrNull(),
+                    rowSpacing = currentState.rowSpacing.toFloatOrNull(),
+                    tags = currentState.tags.takeIf { it.isNotBlank() },
+                    notes = currentState.notes.takeIf { it.isNotBlank() },
+                    createdAt = LocalDate.now(),
+                    updatedAt = LocalDate.now()
+                )
+
+                if (currentSeedId == null) {
+                    repository.insertSeed(seed)
+                } else {
+                    repository.updateSeed(seed)
+                }
+
+                _eventFlow.emit(UiEvent.SaveSeed)
+            } catch (e: Exception) {
+                _eventFlow.emit(UiEvent.ShowError("Kunde inte spara fröet: ${e.message}"))
             }
         }
     }
