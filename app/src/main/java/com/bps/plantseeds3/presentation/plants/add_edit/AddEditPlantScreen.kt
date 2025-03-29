@@ -12,10 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.bps.plantseeds3.data.local.entity.PlantCategory
-import com.bps.plantseeds3.data.local.entity.PlantStatus
+import com.bps.plantseeds3.domain.model.PlantCategory
+import com.bps.plantseeds3.domain.model.PlantStatus
 import com.bps.plantseeds3.presentation.components.CapitalizedTextField
 import java.time.LocalDate
+import androidx.compose.foundation.clickable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -290,58 +291,13 @@ fun AddEditPlantScreen(
             text = {
                 Column {
                     PlantCategory.values().forEach { category ->
-                        TextButton(
-                            onClick = {
+                        ListItem(
+                            headlineContent = { Text(category.displayName) },
+                            modifier = Modifier.clickable {
                                 viewModel.onCategoryChange(category.name)
                                 showCategoryDialog = false
                             }
-                        ) {
-                            Text(text = when (category) {
-                                PlantCategory.SEED -> "Frö"
-                                PlantCategory.PLANT -> "Planta"
-                                PlantCategory.BULB -> "Lök"
-                                PlantCategory.CUTTING -> "Stickling"
-                                PlantCategory.SEEDLING -> "Groddplanta"
-                                PlantCategory.TREE -> "Träd"
-                                PlantCategory.SHRUB -> "Buske"
-                                PlantCategory.HERB -> "Ört"
-                                PlantCategory.VEGETABLE -> "Grönsak"
-                                PlantCategory.FRUIT -> "Frukt"
-                                PlantCategory.FLOWER -> "Blomma"
-                                PlantCategory.SUCCULENT -> "Suckulent"
-                                PlantCategory.CACTUS -> "Kaktus"
-                                PlantCategory.FERN -> "Ormbunke"
-                                PlantCategory.GRASS -> "Gräs"
-                                PlantCategory.CLIMBER -> "Klätterväxt"
-                                PlantCategory.GROUND_COVER -> "Marktäckare"
-                                PlantCategory.AQUATIC -> "Vattenväxt"
-                                PlantCategory.TROPICAL -> "Tropisk växt"
-                                PlantCategory.MEDITERRANEAN -> "Medelhavsväxt"
-                                PlantCategory.ALPINE -> "Alpinväxt"
-                                PlantCategory.BONSAI -> "Bonsai"
-                                PlantCategory.INDOOR -> "Inomhusväxt"
-                                PlantCategory.OUTDOOR -> "Utomhusväxt"
-                                PlantCategory.ANNUAL -> "Ettårig"
-                                PlantCategory.BIENNIAL -> "Tvåårig"
-                                PlantCategory.PERENNIAL -> "Flerårig"
-                                PlantCategory.EVERGREEN -> "Städsegrön"
-                                PlantCategory.DECIDUOUS -> "Lövfällande"
-                                PlantCategory.CONIFER -> "Barrväxt"
-                                PlantCategory.BAMBOO -> "Bambu"
-                                PlantCategory.PALM -> "Palm"
-                                PlantCategory.CYCAD -> "Kottepalm"
-                                PlantCategory.GINGER -> "Ingefära"
-                                PlantCategory.BROMELIAD -> "Bromeliad"
-                                PlantCategory.ORCHID -> "Orkidé"
-                                PlantCategory.CARNIVOROUS -> "Köttätande växt"
-                                PlantCategory.AIR_PLANT -> "Luftväxt"
-                                PlantCategory.MOSS -> "Mossa"
-                                PlantCategory.LICHEN -> "Lav"
-                                PlantCategory.FUNGUS -> "Svamp"
-                                PlantCategory.ALGAE -> "Alg"
-                                PlantCategory.OTHER -> "Övrigt"
-                            })
-                        }
+                        )
                     }
                 }
             },
@@ -367,15 +323,20 @@ fun AddEditPlantScreen(
                                 showStatusDialog = false
                             }
                         ) {
-                            Text(text = when (status) {
-                                PlantStatus.SEED -> "Frö"
-                                PlantStatus.SEEDLING -> "Groddplanta"
-                                PlantStatus.GROWING -> "Växande"
-                                PlantStatus.FLOWERING -> "Blommar"
-                                PlantStatus.FRUITING -> "Bär frukt"
-                                PlantStatus.HARVESTED -> "Skördad"
-                                PlantStatus.DEAD -> "Död"
-                            })
+                            Text(
+                                text = when (status) {
+                                    PlantStatus.SEED -> "Frö"
+                                    PlantStatus.SEEDLING -> "Grodd"
+                                    PlantStatus.GROWING -> "Växande"
+                                    PlantStatus.MATURE -> "Mogen"
+                                    PlantStatus.FLOWERING -> "Blommande"
+                                    PlantStatus.FRUITING -> "Fruktbärande"
+                                    PlantStatus.HARVESTED -> "Skördad"
+                                    PlantStatus.DORMANT -> "Vilande"
+                                    PlantStatus.DEAD -> "Död"
+                                },
+                                style = MaterialTheme.typography.bodyMedium
+                            )
                         }
                     }
                 }

@@ -4,8 +4,9 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bps.plantseeds3.data.local.entity.Plant
-import com.bps.plantseeds3.data.local.entity.PlantStatus
+import com.bps.plantseeds3.domain.model.Plant
+import com.bps.plantseeds3.domain.model.PlantCategory
+import com.bps.plantseeds3.domain.model.PlantStatus
 import com.bps.plantseeds3.domain.repository.GardenRepository
 import com.bps.plantseeds3.domain.repository.PlantRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,36 +33,18 @@ class AddEditPlantViewModel @Inject constructor(
                     plantRepository.getPlantById(plantId)?.let { plant ->
                         _state.value = AddEditPlantState(
                             name = plant.name,
-                            scientificName = plant.scientificName,
-                            species = plant.species,
-                            variety = plant.variety,
-                            category = plant.category,
-                            description = plant.description,
+                            scientificName = plant.scientificName ?: "",
+                            species = plant.species ?: "",
+                            variety = plant.variety ?: "",
+                            category = plant.category?.name ?: "",
+                            description = plant.description ?: "",
                             selectedGardenId = plant.gardenId,
-                            status = plant.status,
-                            plantingDate = plant.plantingDate,
-                            harvestDate = plant.harvestDate,
-                            sowingDepth = plant.sowingDepth,
-                            spacing = plant.spacing,
-                            daysToGermination = plant.daysToGermination,
-                            daysToMaturity = plant.daysToMaturity,
+                            status = plant.status ?: PlantStatus.SEED,
+                            plantingDate = plant.plantingDate?.let { LocalDate.parse(it) } ?: LocalDate.now(),
+                            harvestDate = plant.harvestDate?.let { LocalDate.parse(it) },
                             sunRequirement = plant.sunRequirement,
                             waterRequirement = plant.waterRequirement,
                             soilRequirement = plant.soilRequirement,
-                            soilPh = plant.soilPh,
-                            hardiness = plant.hardiness,
-                            sowingInstructions = plant.sowingInstructions,
-                            growingInstructions = plant.growingInstructions,
-                            harvestInstructions = plant.harvestInstructions,
-                            storageInstructions = plant.storageInstructions,
-                            companionPlants = plant.companionPlants,
-                            avoidPlants = plant.avoidPlants,
-                            height = plant.height,
-                            spread = plant.spread,
-                            yield = plant.yield,
-                            culinaryUses = plant.culinaryUses,
-                            medicinalUses = plant.medicinalUses,
-                            tags = plant.tags,
                             notes = plant.notes
                         )
                     }
@@ -112,6 +95,22 @@ class AddEditPlantViewModel @Inject constructor(
         _state.value = _state.value.copy(harvestDate = date)
     }
 
+    fun onSunRequirementChange(requirement: String) {
+        _state.value = _state.value.copy(sunRequirement = requirement)
+    }
+
+    fun onWaterRequirementChange(requirement: String) {
+        _state.value = _state.value.copy(waterRequirement = requirement)
+    }
+
+    fun onSoilRequirementChange(requirement: String) {
+        _state.value = _state.value.copy(soilRequirement = requirement)
+    }
+
+    fun onNotesChange(notes: String) {
+        _state.value = _state.value.copy(notes = notes)
+    }
+
     fun onSowingDepthChange(depth: String) {
         _state.value = _state.value.copy(sowingDepth = depth)
     }
@@ -126,18 +125,6 @@ class AddEditPlantViewModel @Inject constructor(
 
     fun onDaysToMaturityChange(days: String) {
         _state.value = _state.value.copy(daysToMaturity = days)
-    }
-
-    fun onSunRequirementChange(requirement: String) {
-        _state.value = _state.value.copy(sunRequirement = requirement)
-    }
-
-    fun onWaterRequirementChange(requirement: String) {
-        _state.value = _state.value.copy(waterRequirement = requirement)
-    }
-
-    fun onSoilRequirementChange(requirement: String) {
-        _state.value = _state.value.copy(soilRequirement = requirement)
     }
 
     fun onSoilPhChange(ph: String) {
@@ -196,10 +183,6 @@ class AddEditPlantViewModel @Inject constructor(
         _state.value = _state.value.copy(tags = tags)
     }
 
-    fun onNotesChange(notes: String) {
-        _state.value = _state.value.copy(notes = notes)
-    }
-
     fun savePlant() {
         viewModelScope.launch {
             val currentState = _state.value
@@ -226,42 +209,22 @@ class AddEditPlantViewModel @Inject constructor(
                     scientificName = currentState.scientificName.trim(),
                     species = currentState.species.trim(),
                     variety = currentState.variety.trim(),
-                    category = currentState.category.trim(),
                     description = currentState.description.trim(),
-                    gardenId = currentState.selectedGardenId!!,
+                    category = currentState.category.let { PlantCategory.fromName(it) },
                     status = currentState.status,
-                    plantingDate = currentState.plantingDate,
-                    harvestDate = currentState.harvestDate,
-                    sowingDepth = currentState.sowingDepth?.trim(),
-                    spacing = currentState.spacing?.trim(),
-                    daysToGermination = currentState.daysToGermination?.trim(),
-                    daysToMaturity = currentState.daysToMaturity?.trim(),
-                    sunRequirement = currentState.sunRequirement?.trim(),
-                    waterRequirement = currentState.waterRequirement?.trim(),
-                    soilRequirement = currentState.soilRequirement?.trim(),
-                    soilPh = currentState.soilPh?.trim(),
-                    hardiness = currentState.hardiness?.trim(),
-                    sowingInstructions = currentState.sowingInstructions?.trim(),
-                    growingInstructions = currentState.growingInstructions?.trim(),
-                    harvestInstructions = currentState.harvestInstructions?.trim(),
-                    storageInstructions = currentState.storageInstructions?.trim(),
-                    companionPlants = currentState.companionPlants?.trim(),
-                    avoidPlants = currentState.avoidPlants?.trim(),
-                    height = currentState.height?.trim(),
-                    spread = currentState.spread?.trim(),
-                    yield = currentState.yield?.trim(),
-                    culinaryUses = currentState.culinaryUses?.trim(),
-                    medicinalUses = currentState.medicinalUses?.trim(),
-                    tags = currentState.tags?.trim(),
-                    notes = currentState.notes?.trim(),
-                    createdAt = LocalDate.now(),
-                    updatedAt = LocalDate.now()
+                    plantingDate = currentState.plantingDate.toString(),
+                    harvestDate = currentState.harvestDate?.toString() ?: "",
+                    sunRequirement = currentState.sunRequirement?.trim() ?: "",
+                    waterRequirement = currentState.waterRequirement?.trim() ?: "",
+                    soilRequirement = currentState.soilRequirement?.trim() ?: "",
+                    notes = currentState.notes?.trim() ?: "",
+                    gardenId = currentState.selectedGardenId!!
                 )
 
                 Log.d("AddEditPlantViewModel", "Sparar växt: ${plant.name}")
                 plantRepository.insertPlant(plant)
                 Log.d("AddEditPlantViewModel", "Växt sparad framgångsrikt")
-                _state.value = currentState.copy(isSaved = true, error = null)
+                _state.value = currentState.copy(isSaved = true)
             } catch (e: Exception) {
                 Log.e("AddEditPlantViewModel", "Fel vid sparning av växt: ${e.message}")
                 _state.value = currentState.copy(error = "Kunde inte spara växten: ${e.message}")

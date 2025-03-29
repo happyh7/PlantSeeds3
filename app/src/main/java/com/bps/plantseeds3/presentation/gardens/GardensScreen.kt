@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bps.plantseeds3.R
-import com.bps.plantseeds3.data.local.entity.Garden
+import com.bps.plantseeds3.domain.model.Garden
 import com.bps.plantseeds3.presentation.navigation.Screen
 
 @Composable

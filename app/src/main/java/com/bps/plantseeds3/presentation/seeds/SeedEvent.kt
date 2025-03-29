@@ -1,6 +1,6 @@
 package com.bps.plantseeds3.presentation.seeds
 
-import com.bps.plantseeds3.data.local.entity.Seed
+import com.bps.plantseeds3.domain.model.Seed
 
 sealed class SeedEvent {
     data class SearchSeeds(val query: String) : SeedEvent()

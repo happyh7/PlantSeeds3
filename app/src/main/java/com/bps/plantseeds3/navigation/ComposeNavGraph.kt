@@ -2,9 +2,11 @@ package com.bps.plantseeds3.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.bps.plantseeds3.presentation.plants.PlantsScreen
 import com.bps.plantseeds3.presentation.plants.add_edit.AddEditPlantScreen
 import com.bps.plantseeds3.presentation.plants.detail.PlantDetailScreen
@@ -13,6 +15,15 @@ import com.bps.plantseeds3.presentation.gardens.add_edit.AddEditGardenScreen
 import com.bps.plantseeds3.presentation.gardens.details.GardenDetailsScreen
 import com.bps.plantseeds3.presentation.seeds.SeedBankScreen
 import com.bps.plantseeds3.presentation.seeds.add_edit.AddEditSeedScreen
+import com.bps.plantseeds3.presentation.seeds.add_edit.AddEditSeedViewModel
+import com.bps.plantseeds3.presentation.seeds.list.SeedListScreen
+
+sealed class Screen(val route: String) {
+    object SeedList : Screen("seed_list")
+    object AddEditSeed : Screen("add_edit_seed?seedId={seedId}") {
+        fun createRoute(seedId: String = "") = "add_edit_seed?seedId=$seedId"
+    }
+}
 
 @Composable
 fun ComposeNavGraph(navController: NavHostController) {
@@ -29,7 +40,11 @@ fun ComposeNavGraph(navController: NavHostController) {
         }
 
         composable("seeds") {
-            SeedBankScreen(navController = navController)
+            SeedBankScreen(
+                onNavigateToAddEditSeed = { seedId ->
+                    navController.navigate(Screen.AddEditSeed.createRoute(seedId ?: ""))
+                }
+            )
         }
 
         composable(
@@ -93,17 +108,24 @@ fun ComposeNavGraph(navController: NavHostController) {
             )
         }
 
+        composable(route = Screen.SeedList.route) {
+            SeedListScreen(
+                navController = navController,
+                viewModel = hiltViewModel()
+            )
+        }
+        
         composable(
-            route = "add_edit_seed?seedId={seedId}",
+            route = Screen.AddEditSeed.route,
             arguments = listOf(
                 navArgument("seedId") {
-                    type = androidx.navigation.NavType.StringType
+                    type = NavType.StringType
                     nullable = true
                     defaultValue = null
                 }
             )
-        ) { backStackEntry ->
-            val seedId = backStackEntry.arguments?.getString("seedId")
+        ) { entry ->
+            val seedId = entry.arguments?.getString("seedId")
             AddEditSeedScreen(
                 seedId = seedId,
                 navController = navController

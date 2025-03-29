@@ -25,7 +25,7 @@ fun SeedScreen(
     viewModel: SeedViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    val state by viewModel.state
+    val state by viewModel.state.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
 
     Scaffold(
@@ -52,7 +52,7 @@ fun SeedScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navController.navigate("add_edit_seed")
+                    navController.navigate(Screen.AddEditSeed.createRoute())
                 }
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Lägg till")
@@ -93,7 +93,7 @@ fun SeedScreen(
                                     viewModel.onEvent(SeedEvent.DeleteSeed(seed))
                                 },
                                 onEditClick = {
-                                    navController.navigate("add_edit_seed?seedId=${seed.id}")
+                                    navController.navigate(Screen.AddEditSeed.createRoute(seed.id))
                                 }
                             )
                         }

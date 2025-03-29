@@ -3,8 +3,9 @@ package com.bps.plantseeds3.presentation.plants
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bps.plantseeds3.data.local.entity.Plant
-import com.bps.plantseeds3.data.local.entity.PlantStatus
+import com.bps.plantseeds3.domain.model.Plant
+import com.bps.plantseeds3.domain.model.PlantCategory
+import com.bps.plantseeds3.domain.model.PlantStatus
 import com.bps.plantseeds3.domain.repository.GardenRepository
 import com.bps.plantseeds3.domain.repository.PlantRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,18 +27,24 @@ class PlantViewModel @Inject constructor(
     val state: StateFlow<PlantState> = _state.asStateFlow()
 
     private val gardenNames = mutableMapOf<String, String>()
+    private var currentGardenId: String = ""
 
-    init {
+    fun setGardenId(gardenId: String) {
+        currentGardenId = gardenId
         loadPlants()
+        loadGardenName(gardenId)
     }
 
     private fun loadPlants() {
         viewModelScope.launch {
             repository.getAllPlants().collect { plants ->
                 _state.value = _state.value.copy(
-                    plants = plants
+                    plants = if (currentGardenId.isNotEmpty()) {
+                        plants.filter { it.gardenId == currentGardenId }
+                    } else {
+                        plants
+                    }
                 )
-                // Ladda trädgårdsnamn för alla växter
                 plants.forEach { plant ->
                     if (!gardenNames.containsKey(plant.gardenId)) {
                         loadGardenName(plant.gardenId)
@@ -67,7 +74,6 @@ class PlantViewModel @Inject constructor(
     fun addPlant(
         name: String,
         species: String,
-        gardenId: String,
         plantingDate: LocalDate? = null,
         description: String? = null,
         notes: String? = null
@@ -77,39 +83,19 @@ class PlantViewModel @Inject constructor(
                 val plant = Plant(
                     id = UUID.randomUUID().toString(),
                     name = name.trim(),
-                    scientificName = "",
+                    scientificName = null,
                     species = species.trim(),
-                    variety = "",
-                    category = "",
-                    description = description?.trim() ?: "",
-                    gardenId = gardenId,
+                    variety = null,
+                    description = description?.trim(),
+                    category = PlantCategory.OTHER,
                     status = PlantStatus.SEED,
-                    plantingDate = plantingDate ?: LocalDate.now(),
+                    plantingDate = plantingDate?.toString(),
                     harvestDate = null,
-                    sowingDepth = null,
-                    spacing = null,
-                    daysToGermination = null,
-                    daysToMaturity = null,
                     sunRequirement = null,
                     waterRequirement = null,
                     soilRequirement = null,
-                    soilPh = null,
-                    hardiness = null,
-                    sowingInstructions = null,
-                    growingInstructions = null,
-                    harvestInstructions = null,
-                    storageInstructions = null,
-                    companionPlants = null,
-                    avoidPlants = null,
-                    height = null,
-                    spread = null,
-                    yield = null,
-                    culinaryUses = null,
-                    medicinalUses = null,
-                    tags = null,
                     notes = notes?.trim(),
-                    createdAt = LocalDate.now(),
-                    updatedAt = LocalDate.now()
+                    gardenId = currentGardenId
                 )
                 
                 Log.d("PlantViewModel", "Sparar växt: ${plant.name}")

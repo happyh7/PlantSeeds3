@@ -3,7 +3,7 @@ package com.bps.plantseeds3.presentation.gardens
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bps.plantseeds3.data.local.entity.Garden
+import com.bps.plantseeds3.domain.model.Garden
 import com.bps.plantseeds3.domain.repository.GardenRepository
 import com.bps.plantseeds3.domain.repository.PlantRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

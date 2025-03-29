@@ -1,13 +1,14 @@
 package com.bps.plantseeds3.presentation.seeds
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bps.plantseeds3.data.local.entity.Seed
+import com.bps.plantseeds3.domain.model.Seed
+import com.bps.plantseeds3.domain.model.PlantCategory
 import com.bps.plantseeds3.domain.repository.SeedRepository
+import com.bps.plantseeds3.domain.use_case.seed.SeedUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,59 +20,110 @@ enum class SortOrder {
 
 @HiltViewModel
 class SeedBankViewModel @Inject constructor(
-    private val repository: SeedRepository
+    private val repository: SeedRepository,
+    private val seedUseCases: SeedUseCases
 ) : ViewModel() {
 
+    private val TAG = "SeedBankViewModel"
     private val _state = MutableStateFlow(SeedBankState())
     val state: StateFlow<SeedBankState> = _state.asStateFlow()
 
     init {
+        Log.d(TAG, "SeedBankViewModel initieras")
         loadSeeds()
     }
 
     private fun loadSeeds() {
+        Log.d(TAG, "Hämtar frön från databasen")
         viewModelScope.launch {
             try {
-                _state.value = _state.value.copy(isLoading = true)
-                repository.getAllSeeds().collect { seeds ->
-                    _state.value = _state.value.copy(
-                        seeds = seeds,
-                        filteredSeeds = filterAndSortSeeds(seeds),
-                        isLoading = false,
-                        error = null
-                    )
-                }
+                _state.update { it.copy(isLoading = true, error = null) }
+                repository.getAllSeeds()
+                    .catch { e ->
+                        Log.e(TAG, "Fel vid hämtning av frön", e)
+                        _state.update { it.copy(error = "Kunde inte hämta frön: ${e.message}") }
+                    }
+                    .collect { seeds ->
+                        Log.d(TAG, "Hämtade ${seeds.size} frön: ${seeds.map { it.name }}")
+                        _state.update { currentState ->
+                            currentState.copy(
+                                seeds = seeds,
+                                filteredSeeds = seeds,
+                                isLoading = false,
+                                error = null
+                            )
+                        }
+                    }
             } catch (e: Exception) {
-                _state.value = _state.value.copy(
-                    isLoading = false,
-                    error = "Kunde inte hämta frön: ${e.message}"
-                )
+                Log.e(TAG, "Oväntat fel vid hämtning av frön", e)
+                _state.update { it.copy(error = "Ett oväntat fel uppstod: ${e.message}") }
             }
         }
     }
 
     fun onEvent(event: SeedBankEvent) {
         when (event) {
-            is SeedBankEvent.DeleteSeed -> {
-                deleteSeed(event.seed)
-            }
             is SeedBankEvent.SearchSeeds -> {
-                _state.value = _state.value.copy(
-                    searchQuery = event.query,
-                    filteredSeeds = filterAndSortSeeds(_state.value.seeds)
-                )
+                Log.d(TAG, "Söker efter frön med query: ${event.query}")
+                _state.update { currentState ->
+                    currentState.copy(
+                        searchQuery = event.query,
+                        filteredSeeds = currentState.seeds.filter { seed ->
+                            seed.name.contains(event.query, ignoreCase = true) ||
+                            seed.scientificName?.contains(event.query, ignoreCase = true) == true
+                        }
+                    )
+                }
             }
             is SeedBankEvent.SortSeeds -> {
-                _state.value = _state.value.copy(
-                    sortOrder = event.sortOrder,
-                    filteredSeeds = filterAndSortSeeds(_state.value.seeds)
-                )
+                Log.d(TAG, "Sorterar frön efter: ${event.order}")
+                _state.update { currentState ->
+                    currentState.copy(
+                        filteredSeeds = currentState.filteredSeeds.sortedWith(
+                            when (event.order) {
+                                SortOrder.NAME_ASC -> compareBy { it.name }
+                                SortOrder.NAME_DESC -> compareByDescending { it.name }
+                                SortOrder.SPECIES_ASC -> compareBy { it.scientificName }
+                                SortOrder.SPECIES_DESC -> compareByDescending { it.scientificName }
+                                SortOrder.CATEGORY_ASC -> compareBy { it.category.displayName }
+                                SortOrder.CATEGORY_DESC -> compareByDescending { it.category.displayName }
+                            }
+                        )
+                    )
+                }
             }
             is SeedBankEvent.FilterByCategory -> {
-                _state.value = _state.value.copy(
-                    selectedCategory = event.category,
-                    filteredSeeds = filterAndSortSeeds(_state.value.seeds)
-                )
+                Log.d(TAG, "Filtrerar frön efter kategori: ${event.category}")
+                _state.update { currentState ->
+                    currentState.copy(
+                        filteredSeeds = if (event.category == null) {
+                            currentState.seeds
+                        } else {
+                            currentState.seeds.filter { it.category.displayName == event.category }
+                        }
+                    )
+                }
+            }
+            is SeedBankEvent.DeleteSeed -> {
+                Log.d(TAG, "Tar bort frö: ${event.seed.name}")
+                viewModelScope.launch {
+                    try {
+                        repository.deleteSeed(event.seed)
+                        _state.update { currentState ->
+                            currentState.copy(
+                                seeds = currentState.seeds.filter { it.id != event.seed.id },
+                                filteredSeeds = currentState.filteredSeeds.filter { it.id != event.seed.id }
+                            )
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Fel vid borttagning av frö", e)
+                        _state.update { it.copy(error = "Kunde inte ta bort frö: ${e.message}") }
+                    }
+                }
+            }
+            is SeedBankEvent.RefreshSeeds -> {
+                Log.d(TAG, "Uppdaterar frölistan")
+                loadSeeds()
             }
         }
     }
@@ -83,15 +135,15 @@ class SeedBankViewModel @Inject constructor(
         if (_state.value.searchQuery.isNotBlank()) {
             filteredSeeds = filteredSeeds.filter { seed ->
                 seed.name.contains(_state.value.searchQuery, ignoreCase = true) ||
-                seed.species?.contains(_state.value.searchQuery, ignoreCase = true) == true ||
-                seed.category?.contains(_state.value.searchQuery, ignoreCase = true) == true
+                (seed.species?.contains(_state.value.searchQuery, ignoreCase = true) ?: false) ||
+                seed.category.displayName.contains(_state.value.searchQuery, ignoreCase = true)
             }
         }
 
         // Filtrera efter kategori
         if (_state.value.selectedCategory != null) {
             filteredSeeds = filteredSeeds.filter { seed ->
-                seed.category == _state.value.selectedCategory
+                seed.category.displayName == _state.value.selectedCategory
             }
         }
 
@@ -99,24 +151,24 @@ class SeedBankViewModel @Inject constructor(
         filteredSeeds = when (_state.value.sortOrder) {
             SortOrder.NAME_ASC -> filteredSeeds.sortedBy { it.name }
             SortOrder.NAME_DESC -> filteredSeeds.sortedByDescending { it.name }
-            SortOrder.SPECIES_ASC -> filteredSeeds.sortedBy { it.species }
-            SortOrder.SPECIES_DESC -> filteredSeeds.sortedByDescending { it.species }
-            SortOrder.CATEGORY_ASC -> filteredSeeds.sortedBy { it.category }
-            SortOrder.CATEGORY_DESC -> filteredSeeds.sortedByDescending { it.category }
+            SortOrder.SPECIES_ASC -> filteredSeeds.sortedBy { it.species ?: "" }
+            SortOrder.SPECIES_DESC -> filteredSeeds.sortedByDescending { it.species ?: "" }
+            SortOrder.CATEGORY_ASC -> filteredSeeds.sortedBy { it.category.displayName }
+            SortOrder.CATEGORY_DESC -> filteredSeeds.sortedByDescending { it.category.displayName }
         }
 
         return filteredSeeds
     }
 
-    private fun deleteSeed(seed: Seed) {
+    private fun updateInvalidCategories() {
         viewModelScope.launch {
             try {
-                repository.deleteSeed(seed)
+                seedUseCases.updateInvalidCategories()
                 loadSeeds()
             } catch (e: Exception) {
-                _state.value = _state.value.copy(
-                    error = "Kunde inte ta bort fröet: ${e.message}"
-                )
+                _state.update { it.copy(
+                    error = "Kunde inte uppdatera kategorierna: ${e.message}"
+                )}
             }
         }
     }
@@ -135,6 +187,7 @@ data class SeedBankState(
 sealed class SeedBankEvent {
     data class DeleteSeed(val seed: Seed) : SeedBankEvent()
     data class SearchSeeds(val query: String) : SeedBankEvent()
-    data class SortSeeds(val sortOrder: SortOrder) : SeedBankEvent()
+    data class SortSeeds(val order: SortOrder) : SeedBankEvent()
     data class FilterByCategory(val category: String?) : SeedBankEvent()
+    object RefreshSeeds : SeedBankEvent()
 } 

@@ -608,3 +608,33 @@ data class Plant(
 3. Buggfixar
 4. Release kandidat
 5. Final release 
+
+## Utvecklingsmiljö och Kom-igång-guide
+
+### Förutsättningar
+- Android Studio (senaste versionen)
+- JDK 17 eller senare
+- Git
+- Gradle 8.0 eller senare
+
+### Kom igång
+1. Klona projektet:
+   ```bash
+   git clone [repository-url]
+   ```
+2. Öppna projektet i Android Studio
+3. Synkronisera Gradle-filer
+4. Kör `./gradlew clean build` för att verifiera uppsättningen
+
+### Utvecklingsprocess
+1. Skapa en ny branch för din feature
+2. Följ kodningsriktlinjerna i detta dokument
+3. Testa lokalt med `./gradlew test`
+4. Skapa en pull request
+5. Vänta på kodgranskning
+
+### Viktiga kommandon
+- `./gradlew clean build` - Bygger projektet
+- `./gradlew test` - Kör alla tester
+- `./gradlew installDebug` - Installerar debug-versionen
+- `./gradlew lint` - Kör lint-kontroller 

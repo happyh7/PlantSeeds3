@@ -27,6 +27,7 @@
     <string name="water_requirement">Vattenkrav</string>
     <string name="soil_requirement">Jordkrav</string>
     <string name="hardiness">Härdighet</string>
+    <string name="hardiness_zone">Härdighetszon</string>
     <string name="instructions">Instruktioner</string>
     <string name="sowing_instructions">Såinstruktioner</string>
     <string name="growing_instructions">Odlingsinstruktioner</string>

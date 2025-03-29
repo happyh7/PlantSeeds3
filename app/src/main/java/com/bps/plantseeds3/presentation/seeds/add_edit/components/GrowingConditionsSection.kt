@@ -15,8 +15,8 @@ fun GrowingConditionsSection(
     state: AddEditSeedState,
     onUpdateSunRequirement: (String) -> Unit,
     onUpdateWaterRequirement: (String) -> Unit,
-    onUpdateSoilRequirement: (String) -> Unit,
-    onUpdateHardiness: (String) -> Unit
+    onUpdateSoilType: (String) -> Unit,
+    onUpdateHardinessZone: (String) -> Unit
 ) {
     Card(
         modifier = Modifier.fillMaxWidth()
@@ -45,15 +45,15 @@ fun GrowingConditionsSection(
             )
             
             CapitalizedTextField(
-                value = state.soilRequirement,
-                onValueChange = onUpdateSoilRequirement,
-                label = stringResource(R.string.soil_requirement)
+                value = state.soilType,
+                onValueChange = onUpdateSoilType,
+                label = stringResource(R.string.soil_type)
             )
             
             CapitalizedTextField(
-                value = state.hardiness,
-                onValueChange = onUpdateHardiness,
-                label = stringResource(R.string.hardiness)
+                value = state.hardinessZone,
+                onValueChange = onUpdateHardinessZone,
+                label = stringResource(R.string.hardiness_zone)
             )
         }
     }

@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bps.plantseeds3.data.local.entity.Garden
-import com.bps.plantseeds3.data.local.entity.Plant
+import com.bps.plantseeds3.domain.model.Garden
+import com.bps.plantseeds3.domain.model.Plant
 import com.bps.plantseeds3.domain.repository.GardenRepository
 import com.bps.plantseeds3.domain.repository.PlantRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +24,14 @@ class PlantsViewModel @Inject constructor(
     private val _state = MutableStateFlow(PlantsState())
     val state: StateFlow<PlantsState> = _state.asStateFlow()
 
+    private var currentGardenId: String? = null
+
     init {
+        loadData()
+    }
+
+    fun setGardenId(gardenId: String) {
+        currentGardenId = gardenId
         loadData()
     }
 
@@ -46,9 +53,16 @@ class PlantsViewModel @Inject constructor(
                     val sortedGardens = gardens.sortedByDescending { garden ->
                         gardenPlantCounts[garden.id] ?: 0
                     }
+
+                    // Filtrera växter baserat på vald trädgård
+                    val filteredPlants = if (currentGardenId != null) {
+                        plants.filter { it.gardenId == currentGardenId }
+                    } else {
+                        plants
+                    }
                     
                     _state.value = _state.value.copy(
-                        plants = plants,
+                        plants = filteredPlants,
                         gardens = sortedGardens,
                         gardenPlantCounts = gardenPlantCounts,
                         isLoading = false,

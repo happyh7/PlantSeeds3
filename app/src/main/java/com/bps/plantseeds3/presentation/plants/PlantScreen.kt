@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.bps.plantseeds3.R
-import com.bps.plantseeds3.data.local.entity.Plant
+import com.bps.plantseeds3.domain.model.Plant
 
 @Composable
 fun PlantItem(

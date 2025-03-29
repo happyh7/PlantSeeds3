@@ -1,6 +1,6 @@
 package com.bps.plantseeds3.presentation.plants.add_edit
 
-import com.bps.plantseeds3.data.local.entity.PlantStatus
+import com.bps.plantseeds3.domain.model.PlantStatus
 import java.time.LocalDate
 
 data class AddEditPlantState(

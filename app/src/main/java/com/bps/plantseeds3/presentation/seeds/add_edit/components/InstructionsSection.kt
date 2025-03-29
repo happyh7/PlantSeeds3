@@ -15,7 +15,7 @@ fun InstructionsSection(
     state: AddEditSeedState,
     onUpdateSowingInstructions: (String) -> Unit,
     onUpdateGrowingInstructions: (String) -> Unit,
-    onUpdateHarvestInstructions: (String) -> Unit
+    onUpdateHarvestingInstructions: (String) -> Unit
 ) {
     Card(
         modifier = Modifier.fillMaxWidth()
@@ -44,8 +44,8 @@ fun InstructionsSection(
             )
             
             CapitalizedTextField(
-                value = state.harvestInstructions,
-                onValueChange = onUpdateHarvestInstructions,
+                value = state.harvestingInstructions,
+                onValueChange = onUpdateHarvestingInstructions,
                 label = stringResource(R.string.harvest_instructions)
             )
         }

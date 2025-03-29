@@ -1,6 +1,6 @@
 package com.bps.plantseeds3.domain.repository
 
-import com.bps.plantseeds3.data.local.entity.Garden
+import com.bps.plantseeds3.domain.model.Garden
 import kotlinx.coroutines.flow.Flow
 
 interface GardenRepository {

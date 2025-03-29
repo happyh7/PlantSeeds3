@@ -1,5 +1,6 @@
 package com.bps.plantseeds3.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -9,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun CapitalizedTextField(
@@ -16,40 +18,33 @@ fun CapitalizedTextField(
     onValueChange: (String) -> Unit,
     label: String,
     modifier: Modifier = Modifier,
-    isError: Boolean = false,
-    enabled: Boolean = true,
-    singleLine: Boolean = false,
-    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
-    minLines: Int = 1,
+    isRequired: Boolean = false,
     keyboardType: KeyboardType = KeyboardType.Text,
-    imeAction: ImeAction = ImeAction.Next
+    singleLine: Boolean = true,
+    maxLines: Int = 1,
+    minLines: Int = 1,
+    isError: Boolean = false
 ) {
-    val capitalizeText: (String) -> String = remember {
-        { text ->
-            if (text.isEmpty()) text
-            else text.split(". ").joinToString(". ") { sentence ->
-                if (sentence.isEmpty()) sentence
-                else sentence.replaceFirstChar { it.uppercase() }
-            }
-        }
-    }
+    val TAG = "CapitalizedTextField"
 
+    Log.d(TAG, "Visar textfält: $label")
     OutlinedTextField(
         value = value,
-        onValueChange = { newValue ->
-            onValueChange(capitalizeText(newValue))
+        onValueChange = { 
+            Log.d(TAG, "Uppdaterar värde för $label: $it")
+            onValueChange(it)
         },
-        label = { Text(label) },
+        label = { 
+            Text(
+                text = if (isRequired) "$label *" else label,
+                textAlign = TextAlign.Start
+            )
+        },
         modifier = modifier,
-        enabled = enabled,
-        isError = isError,
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
         singleLine = singleLine,
         maxLines = maxLines,
         minLines = minLines,
-        keyboardOptions = KeyboardOptions(
-            keyboardType = keyboardType,
-            imeAction = imeAction,
-            capitalization = androidx.compose.ui.text.input.KeyboardCapitalization.Sentences
-        )
+        isError = isError || (isRequired && value.isBlank())
     )
 } 

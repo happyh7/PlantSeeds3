@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bps.plantseeds3.data.local.entity.Garden
+import com.bps.plantseeds3.domain.model.Garden
 import com.bps.plantseeds3.data.local.entity.GardenFormData
 import com.bps.plantseeds3.domain.repository.GardenRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

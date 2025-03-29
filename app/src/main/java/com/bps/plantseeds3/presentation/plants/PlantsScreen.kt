@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bps.plantseeds3.R
-import com.bps.plantseeds3.data.local.entity.PlantStatus
+import com.bps.plantseeds3.domain.model.PlantStatus
 import com.bps.plantseeds3.presentation.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,6 +40,12 @@ fun PlantsScreen(
         // Återställ den senast valda trädgården om det finns en
         viewModel.getLastSelectedGardenId()?.let { id ->
             selectedGardenId = id
+        }
+    }
+
+    LaunchedEffect(selectedGardenId) {
+        selectedGardenId?.let { id ->
+            viewModel.setGardenId(id)
         }
     }
 
@@ -139,7 +145,22 @@ fun PlantsScreen(
                                         style = MaterialTheme.typography.titleMedium
                                     )
                                     Text(
-                                        text = plant.description,
+                                        text = plant.description ?: "",
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                    Text(
+                                        text = when (plant.status) {
+                                            PlantStatus.SEED -> "Frö"
+                                            PlantStatus.SEEDLING -> "Grodd"
+                                            PlantStatus.GROWING -> "Växande"
+                                            PlantStatus.MATURE -> "Mogen"
+                                            PlantStatus.FLOWERING -> "Blommande"
+                                            PlantStatus.FRUITING -> "Fruktbärande"
+                                            PlantStatus.HARVESTED -> "Skördad"
+                                            PlantStatus.DORMANT -> "Vilande"
+                                            PlantStatus.DEAD -> "Död"
+                                            null -> "Okänd"
+                                        },
                                         style = MaterialTheme.typography.bodyMedium
                                     )
                                 }
@@ -203,7 +224,7 @@ fun PlantsScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PlantItem(
-    plant: com.bps.plantseeds3.data.local.entity.Plant,
+    plant: com.bps.plantseeds3.domain.model.Plant,
     onDeleteClick: () -> Unit,
     onItemClick: () -> Unit
 ) {
@@ -224,20 +245,23 @@ private fun PlantItem(
                     style = MaterialTheme.typography.titleMedium
                 )
                 Text(
-                    text = plant.description,
+                    text = plant.description ?: "",
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
                     text = when (plant.status) {
                         PlantStatus.SEED -> "Frö"
-                        PlantStatus.SEEDLING -> "Groning"
-                        PlantStatus.GROWING -> "Växer"
-                        PlantStatus.FLOWERING -> "Blommar"
-                        PlantStatus.FRUITING -> "Sätter frukt"
+                        PlantStatus.SEEDLING -> "Grodd"
+                        PlantStatus.GROWING -> "Växande"
+                        PlantStatus.MATURE -> "Mogen"
+                        PlantStatus.FLOWERING -> "Blommande"
+                        PlantStatus.FRUITING -> "Fruktbärande"
                         PlantStatus.HARVESTED -> "Skördad"
+                        PlantStatus.DORMANT -> "Vilande"
                         PlantStatus.DEAD -> "Död"
+                        null -> "Okänd"
                     },
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
             IconButton(onClick = onDeleteClick) {

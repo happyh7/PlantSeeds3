@@ -16,5 +16,6 @@ data class Plant(
     val sunRequirement: String? = null,
     val waterRequirement: String? = null,
     val soilRequirement: String? = null,
-    val notes: String? = null
+    val notes: String? = null,
+    val gardenId: String
 ) 

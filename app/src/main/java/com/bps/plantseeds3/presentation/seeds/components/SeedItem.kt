@@ -20,7 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.bps.plantseeds3.data.local.entity.Seed
+import com.bps.plantseeds3.domain.model.Seed
 
 @Composable
 fun SeedItem(
@@ -50,37 +50,31 @@ fun SeedItem(
                     overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                seed.species?.let {
+                seed.scientificName?.let { scientificName ->
                     Text(
-                        text = it,
+                        text = scientificName,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
-                seed.description?.let {
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = it,
-                        style = MaterialTheme.typography.bodySmall,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = seed.category.displayName,
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
             Spacer(modifier = Modifier.width(8.dp))
             IconButton(onClick = onEditClick) {
                 Icon(
                     imageVector = Icons.Default.Edit,
-                    contentDescription = "Redigera frö",
-                    tint = MaterialTheme.colorScheme.primary
+                    contentDescription = "Redigera"
                 )
             }
             IconButton(onClick = onDeleteClick) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "Ta bort frö",
-                    tint = MaterialTheme.colorScheme.error
+                    contentDescription = "Ta bort"
                 )
             }
         }
