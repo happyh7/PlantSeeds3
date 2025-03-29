@@ -6,9 +6,9 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 val MIGRATION_7_8 = object : Migration(7, 8) {
-    override fun migrate(database: SupportSQLiteDatabase) {
+    override fun migrate(db: SupportSQLiteDatabase) {
         // Skapa plantings-tabellen
-        database.execSQL("""
+        db.execSQL("""
             CREATE TABLE IF NOT EXISTS plantings (
                 id TEXT PRIMARY KEY NOT NULL,
                 plantId TEXT NOT NULL,
@@ -37,6 +37,6 @@ val MIGRATION_7_8 = object : Migration(7, 8) {
                 FOREIGN KEY(plantId) REFERENCES plants(id) ON DELETE CASCADE,
                 FOREIGN KEY(gardenId) REFERENCES gardens(id) ON DELETE CASCADE
             )
-        """)
+        """.trimIndent())
     }
 } 

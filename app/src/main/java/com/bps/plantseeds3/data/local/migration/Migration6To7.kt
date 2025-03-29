@@ -6,9 +6,9 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 val MIGRATION_6_7 = object : Migration(6, 7) {
-    override fun migrate(database: SupportSQLiteDatabase) {
+    override fun migrate(db: SupportSQLiteDatabase) {
         // Skapa temporära tabeller med korrekt datumformat
-        database.execSQL("""
+        db.execSQL("""
             CREATE TABLE gardens_new (
                 id TEXT PRIMARY KEY NOT NULL,
                 name TEXT NOT NULL,
@@ -22,7 +22,7 @@ val MIGRATION_6_7 = object : Migration(6, 7) {
             )
         """)
 
-        database.execSQL("""
+        db.execSQL("""
             CREATE TABLE plants_new (
                 id TEXT PRIMARY KEY NOT NULL,
                 name TEXT NOT NULL,
@@ -67,7 +67,7 @@ val MIGRATION_6_7 = object : Migration(6, 7) {
         val formatter = DateTimeFormatter.ISO_LOCAL_DATE
         
         // Migrera gardens
-        database.query("SELECT * FROM gardens").use { cursor ->
+        db.query("SELECT * FROM gardens").use { cursor ->
             while (cursor.moveToNext()) {
                 val id = cursor.getString(cursor.getColumnIndexOrThrow("id"))
                 val name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
@@ -79,7 +79,7 @@ val MIGRATION_6_7 = object : Migration(6, 7) {
                 val createdAt = LocalDate.now().format(formatter)
                 val updatedAt = LocalDate.now().format(formatter)
 
-                database.execSQL("""
+                db.execSQL("""
                     INSERT INTO gardens_new (
                         id, name, location, description, size, soilType, sunExposure, createdAt, updatedAt
                     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -88,7 +88,7 @@ val MIGRATION_6_7 = object : Migration(6, 7) {
         }
 
         // Migrera plants
-        database.query("SELECT * FROM plants").use { cursor ->
+        db.query("SELECT * FROM plants").use { cursor ->
             while (cursor.moveToNext()) {
                 val id = cursor.getString(cursor.getColumnIndexOrThrow("id"))
                 val name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
@@ -126,7 +126,7 @@ val MIGRATION_6_7 = object : Migration(6, 7) {
                 val createdAt = LocalDate.now().format(formatter)
                 val updatedAt = LocalDate.now().format(formatter)
 
-                database.execSQL("""
+                db.execSQL("""
                     INSERT INTO plants_new (
                         id, name, scientificName, species, variety, category, description,
                         gardenId, status, plantingDate, harvestDate, sowingDepth, spacing,
@@ -149,11 +149,11 @@ val MIGRATION_6_7 = object : Migration(6, 7) {
         }
 
         // Ta bort gamla tabeller
-        database.execSQL("DROP TABLE plants")
-        database.execSQL("DROP TABLE gardens")
+        db.execSQL("DROP TABLE plants")
+        db.execSQL("DROP TABLE gardens")
 
         // Byt namn på nya tabeller
-        database.execSQL("ALTER TABLE gardens_new RENAME TO gardens")
-        database.execSQL("ALTER TABLE plants_new RENAME TO plants")
+        db.execSQL("ALTER TABLE gardens_new RENAME TO gardens")
+        db.execSQL("ALTER TABLE plants_new RENAME TO plants")
     }
 } 

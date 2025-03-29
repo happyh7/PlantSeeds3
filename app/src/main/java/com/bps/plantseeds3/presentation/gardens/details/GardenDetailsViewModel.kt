@@ -1,6 +1,5 @@
 package com.bps.plantseeds3.presentation.gardens.details
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bps.plantseeds3.domain.model.Garden
@@ -17,8 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class GardenDetailsViewModel @Inject constructor(
     private val gardenRepository: GardenRepository,
-    private val plantRepository: PlantRepository,
-    savedStateHandle: SavedStateHandle
+    private val plantRepository: PlantRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(GardenDetailsState())

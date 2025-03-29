@@ -4,9 +4,9 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 val MIGRATION_8_9 = object : Migration(8, 9) {
-    override fun migrate(database: SupportSQLiteDatabase) {
+    override fun migrate(db: SupportSQLiteDatabase) {
         // Skapa temporär tabell med nya fält
-        database.execSQL("""
+        db.execSQL("""
             CREATE TABLE gardens_new (
                 id TEXT PRIMARY KEY NOT NULL,
                 name TEXT NOT NULL,
@@ -25,10 +25,10 @@ val MIGRATION_8_9 = object : Migration(8, 9) {
                 createdAt TEXT NOT NULL,
                 updatedAt TEXT NOT NULL
             )
-        """)
+        """.trimIndent())
 
         // Kopiera data från gamla tabellen till nya
-        database.execSQL("""
+        db.execSQL("""
             INSERT INTO gardens_new (
                 id, name, location, description, size, soilType, sunExposure, createdAt, updatedAt
             )
@@ -37,9 +37,9 @@ val MIGRATION_8_9 = object : Migration(8, 9) {
         """)
 
         // Ta bort gamla tabellen
-        database.execSQL("DROP TABLE gardens")
+        db.execSQL("DROP TABLE gardens")
 
         // Byt namn på nya tabellen
-        database.execSQL("ALTER TABLE gardens_new RENAME TO gardens")
+        db.execSQL("ALTER TABLE gardens_new RENAME TO gardens")
     }
 } 

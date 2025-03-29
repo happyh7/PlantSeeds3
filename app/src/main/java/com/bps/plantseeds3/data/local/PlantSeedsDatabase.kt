@@ -45,9 +45,9 @@ abstract class PlantSeedsDatabase : RoomDatabase() {
         const val DATABASE_NAME = "plantseeds_v12.db"
 
         val MIGRATION_6_7 = object : Migration(6, 7) {
-            override fun migrate(database: SupportSQLiteDatabase) {
+            override fun migrate(db: SupportSQLiteDatabase) {
                 Log.d("PlantSeedsDatabase", "Utför migrering från version 6 till 7")
-                database.execSQL("""
+                db.execSQL("""
                     CREATE TABLE IF NOT EXISTS `seeds` (
                         `id` TEXT NOT NULL,
                         `name` TEXT NOT NULL,
@@ -96,47 +96,47 @@ abstract class PlantSeedsDatabase : RoomDatabase() {
         }
 
         val MIGRATION_7_8 = object : Migration(7, 8) {
-            override fun migrate(database: SupportSQLiteDatabase) {
+            override fun migrate(db: SupportSQLiteDatabase) {
                 Log.d("PlantSeedsDatabase", "Utför migrering från version 7 till 8")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `tags` TEXT")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `tags` TEXT")
             }
         }
 
         val MIGRATION_8_9 = object : Migration(8, 9) {
-            override fun migrate(database: SupportSQLiteDatabase) {
+            override fun migrate(db: SupportSQLiteDatabase) {
                 Log.d("PlantSeedsDatabase", "Utför migrering från version 8 till 9")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `notes` TEXT")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `notes` TEXT")
             }
         }
 
         val MIGRATION_9_10 = object : Migration(9, 10) {
-            override fun migrate(database: SupportSQLiteDatabase) {
+            override fun migrate(db: SupportSQLiteDatabase) {
                 Log.d("PlantSeedsDatabase", "Utför migrering från version 9 till 10")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `lastPlanted` INTEGER")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `lastPlanted` INTEGER")
             }
         }
 
         val MIGRATION_10_11 = object : Migration(10, 11) {
-            override fun migrate(database: SupportSQLiteDatabase) {
+            override fun migrate(db: SupportSQLiteDatabase) {
                 Log.d("PlantSeedsDatabase", "Utför migrering från version 10 till 11")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `lastHarvested` INTEGER")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `lastHarvested` INTEGER")
             }
         }
 
         val MIGRATION_11_12 = object : Migration(11, 12) {
-            override fun migrate(database: SupportSQLiteDatabase) {
+            override fun migrate(db: SupportSQLiteDatabase) {
                 Log.d("PlantSeedsDatabase", "Utför migrering från version 11 till 12")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `plantSpacing` REAL")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `rowSpacing` REAL")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `plantingDates` TEXT")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `maintenanceDates` TEXT")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `fertilizingSchedule` TEXT")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `pruningSchedule` TEXT")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `height` REAL")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `spread` REAL")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `yield` TEXT")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `culinaryUses` TEXT")
-                database.execSQL("ALTER TABLE seeds ADD COLUMN `medicinalUses` TEXT")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `plantSpacing` REAL")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `rowSpacing` REAL")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `plantingDates` TEXT")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `maintenanceDates` TEXT")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `fertilizingSchedule` TEXT")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `pruningSchedule` TEXT")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `height` REAL")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `spread` REAL")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `yield` TEXT")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `culinaryUses` TEXT")
+                db.execSQL("ALTER TABLE seeds ADD COLUMN `medicinalUses` TEXT")
             }
         }
 
