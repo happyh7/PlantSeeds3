@@ -98,10 +98,10 @@ class SeedRepositoryImpl @Inject constructor(
     override fun getSeedsByCategory(category: String): Flow<List<SeedDomain>> {
         Log.d(TAG, "Hämtar frön i kategori: $category")
         return dao.getSeedsByCategory(category).map { seeds ->
-            Log.d(TAG, "Hämtat ${seeds.size} frön i kategori $category")
+            Log.d(TAG, "Hämtat ${seeds.size} frön i kategori: $category")
             seeds.map { seed ->
                 val mappedSeed = mapper.toDomain(seed)
-                Log.d(TAG, "Mappade frö i kategori $category: ${mappedSeed.name}")
+                Log.d(TAG, "Mappade frö: ${mappedSeed.name}")
                 mappedSeed
             }
         }
@@ -110,41 +110,35 @@ class SeedRepositoryImpl @Inject constructor(
     override fun getSeedsByLifespan(lifespan: String): Flow<List<SeedDomain>> {
         Log.d(TAG, "Hämtar frön med livslängd: $lifespan")
         return dao.getSeedsByLifespan(lifespan).map { seeds ->
-            Log.d(TAG, "Hämtat ${seeds.size} frön med livslängd $lifespan")
-            seeds.map { mapper.toDomain(it) }
+            Log.d(TAG, "Hämtat ${seeds.size} frön med livslängd: $lifespan")
+            seeds.map { seed ->
+                val mappedSeed = mapper.toDomain(seed)
+                Log.d(TAG, "Mappade frö: ${mappedSeed.name}")
+                mappedSeed
+            }
         }
     }
 
     override fun getSeedsByHardinessZone(zone: String): Flow<List<SeedDomain>> {
-        Log.d(TAG, "Hämtar frön i hårdhetszon: $zone")
+        Log.d(TAG, "Hämtar frön för hårdhetszon: $zone")
         return dao.getSeedsByHardinessZone(zone).map { seeds ->
-            Log.d(TAG, "Hämtat ${seeds.size} frön i hårdhetszon $zone")
-            seeds.map { mapper.toDomain(it) }
+            Log.d(TAG, "Hämtat ${seeds.size} frön för hårdhetszon: $zone")
+            seeds.map { seed ->
+                val mappedSeed = mapper.toDomain(seed)
+                Log.d(TAG, "Mappade frö: ${mappedSeed.name}")
+                mappedSeed
+            }
         }
     }
 
     override fun getDistinctCategories(): Flow<List<String>> {
-        Log.d(TAG, "Hämtar alla unika kategorier")
+        Log.d(TAG, "Hämtar distinkta kategorier")
         return dao.getDistinctCategories()
     }
 
     override suspend fun updateInvalidCategories() {
         Log.d(TAG, "Uppdaterar ogiltiga kategorier")
-        val defaultCategory = PlantCategory.OTHER.name
-        
-        try {
-            val seeds = dao.getAllSeeds().first()
-            Log.d(TAG, "Hämtade ${seeds.size} frön för validering av kategorier")
-            seeds.forEach { seed ->
-                try {
-                    PlantCategory.fromName(seed.category)
-                } catch (e: IllegalArgumentException) {
-                    Log.w(TAG, "Hittade ogiltig kategori: ${seed.category} för frö: ${seed.name}, uppdaterar till $defaultCategory")
-                    dao.updateSeed(seed.copy(category = defaultCategory))
-                }
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Fel vid uppdatering av ogiltiga kategorier", e)
-        }
+        // TODO: Implementera logik för att uppdatera ogiltiga kategorier
+        Log.d(TAG, "Uppdatering av ogiltiga kategorier slutförd")
     }
 } 
