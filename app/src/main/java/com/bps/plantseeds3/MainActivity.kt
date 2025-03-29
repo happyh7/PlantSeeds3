@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.bps.plantseeds3.navigation.ComposeNavGraph
+import com.bps.plantseeds3.presentation.navigation.ComposeNavGraph
 import com.bps.plantseeds3.ui.theme.PlantSeedsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
