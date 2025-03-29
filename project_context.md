@@ -433,13 +433,11 @@ data class Plant(
    - Garden CRUD-operationer
 
 6. **Seeds** (Steg 6)
-   - ✓ SeedsScreen
-   - ✓ SeedDetailsScreen
-   - ✓ AddSeedScreen
-   - ✓ Seed CRUD-operationer
-   - ⚪ Sökfunktionalitet (grundläggande UI implementerad)
-   - ✓ Optimerad databashantering med Room och Coroutines
-   - ✓ Effektiv cachning och dataflödeshantering
+   - SeedsScreen
+   - SeedDetailsScreen
+   - AddSeedScreen
+   - Seed CRUD-operationer
+   - Sökfunktionalitet
 
 7. **Plants** (Steg 7)
    - PlantDetailsScreen
@@ -610,3 +608,24 @@ data class Plant(
 3. Buggfixar
 4. Release kandidat
 5. Final release 
+
+## Lokalisering och Språkhantering
+- Svenska är standardspråk för appen
+- Alla användargränssnittstexter ska vara på svenska
+- Enum-typer ska ha en `displayName` egenskap för lokalisering
+- Databasen lagrar tekniska värden, medan UI visar lokaliserede värden
+- Använd `stringResource` för alla hårdkodade strängar i UI
+
+## Enum-hantering
+- Använd separata enum-typer för domain och entity
+- Implementera mappning mellan domain och entity enums
+- Använd `displayName` för lokalisering av enum-värden
+- Håll enum-värden konsistenta mellan lager
+- Dokumentera mappningsregler mellan olika enum-typer
+
+## Felhantering och Återställning
+- Kör alltid Gradle-byggning efter kodändringar
+- Om byggningen misslyckas, återställ till senaste fungerande version
+- Använd Git för versionshantering och återställning
+- Dokumentera kända problem och lösningar
+- Håll en lista över vanliga fel och hur de åtgärdas 
