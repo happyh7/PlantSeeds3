@@ -1,46 +1,38 @@
 # PlantSeeds3 Dokumentation
 
-Detta är dokumentationen för PlantSeeds3-projektet. Här hittar du all information om projektets struktur, utveckling och deployment.
+Detta är dokumentationsmappen för PlantSeeds3-projektet. Här hittar du all information om projektets struktur, utveckling och planering.
 
 ## Dokumentationsstruktur
 
-- [API-dokumentation](api/API.md) - API-specifikationer och integration
-- [Arkitektur](architecture/)
-  - [Clean Architecture](architecture/CLEAN_ARCHITECTURE.md)
-  - [Databas](architecture/DATABASE.md)
-  - [Diagram](architecture/DIAGRAMS.md)
-- [Deployment](deployment/DEPLOYMENT.md) - Deployment-instruktioner och processer
-- [Utveckling](development/)
-  - [Kodningsstandarder](development/CODING_STANDARDS.md)
-  - [Git Workflow](development/GIT_WORKFLOW.md)
-  - [Testning](development/TESTING.md)
-  - [Prestanda](development/PERFORMANCE.md)
-  - [Felhantering](development/ERROR_HANDLING.md)
-  - [Lokalisering](development/LOCALIZATION.md)
-  - [API-integration](development/API_INTEGRATION.md)
-  - [Skript](development/SCRIPTS.md)
-  - [Stilguide](development/STYLE_GUIDE.md)
-- [Features](features/)
-  - [Roadmap](features/ROADMAP.md)
-  - [Frön](features/SEEDS.md)
-  - [Växter](features/PLANTS.md)
-  - [Trädgårdar](features/GARDENS.md)
-- [Projekt](project/CONTEXT.md) - Projektöversikt och kontext
-- [Säkerhet](security/SECURITY.md) - Säkerhetsriktlinjer och best practices
+### Projektöversikt
+- [Projektkontext](project/CONTEXT.md) - Översikt av projektet och dess syfte
+- [Ändringshistorik](project/CHANGELOG.md) - Historik över alla ändringar
 
-## Snabblänkar
+### Arkitektur
+- [Clean Architecture](architecture/CLEAN_ARCHITECTURE.md) - Arkitekturprinciper och implementation
+- [Databas](architecture/DATABASE.md) - Databasstruktur och Room-implementation
+- [Dependency Injection](architecture/DEPENDENCY_INJECTION.md) - Hilt och DI-struktur
 
-- [Bidra till projektet](CONTRIBUTING.md)
-- [Ändringshistorik](CHANGELOG.md)
-- [Säkerhetsriktlinjer](security/SECURITY.md)
+### Utveckling
+- [Kodstandarder](development/CODING_STANDARDS.md) - Riktlinjer för kodskrivning
+- [Git Workflow](development/GIT_WORKFLOW.md) - Git-strategi och arbetsflöde
+- [Testning](development/TESTING.md) - Teststrategi och riktlinjer
 
-## Utveckling
+### Funktioner
+- [Utvecklingsplan](features/ROADMAP.md) - Prioriteringar och planering
+- [Trädgårdar](features/GARDENS.md) - Trädgårdsfunktionalitet
+- [Frön](features/SEEDS.md) - Fröhantering
+- [Plantor](features/PLANTS.md) - Planthantering
 
-För att komma igång med utveckling, se:
-1. [Kodningsstandarder](development/CODING_STANDARDS.md)
-2. [Git Workflow](development/GIT_WORKFLOW.md)
-3. [Testning](development/TESTING.md)
+## Snabbstart för nya utvecklare
 
-## Deployment
+1. Läs [Projektkontext](project/CONTEXT.md) för att förstå projektets syfte och mål
+2. Gå igenom [Clean Architecture](architecture/CLEAN_ARCHITECTURE.md) för att förstå projektstrukturen
+3. Följ [Kodstandarder](development/CODING_STANDARDS.md) för att säkerställa konsekvent kod
+4. Kontrollera [Utvecklingsplan](features/ROADMAP.md) för att se vad som ska göras härnäst
 
-För information om deployment, se [Deployment-dokumentationen](deployment/DEPLOYMENT.md). 
+## Uppdatering av dokumentation
+
+- Uppdatera alltid relevant dokument när du gör ändringar
+- Följ [Git Workflow](development/GIT_WORKFLOW.md) för att dokumentera ändringar
+- Håll [Ändringshistorik](project/CHANGELOG.md) uppdaterad 

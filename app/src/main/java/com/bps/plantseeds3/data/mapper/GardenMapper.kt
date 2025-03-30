@@ -4,6 +4,7 @@ import android.util.Log
 import com.bps.plantseeds3.data.local.entity.Garden as GardenEntity
 import com.bps.plantseeds3.domain.model.Garden as GardenDomain
 import javax.inject.Inject
+import java.time.LocalDateTime
 
 class GardenMapper @Inject constructor() : BaseMapper<GardenEntity, GardenDomain>() {
     override val TAG = "GardenMapper"
@@ -12,8 +13,8 @@ class GardenMapper @Inject constructor() : BaseMapper<GardenEntity, GardenDomain
         return GardenDomain(
             id = id,
             name = name,
-            location = location,
             description = description,
+            location = location,
             size = size,
             width = width,
             length = length,
@@ -23,7 +24,9 @@ class GardenMapper @Inject constructor() : BaseMapper<GardenEntity, GardenDomain
             sunExposure = sunExposure,
             irrigation = irrigation,
             fence = fence,
-            notes = notes
+            notes = notes,
+            createdAt = createdAt,
+            updatedAt = updatedAt
         )
     }
 
@@ -31,8 +34,8 @@ class GardenMapper @Inject constructor() : BaseMapper<GardenEntity, GardenDomain
         return GardenEntity(
             id = id,
             name = name,
-            location = location,
             description = description,
+            location = location,
             size = size,
             width = width,
             length = length,
@@ -42,7 +45,9 @@ class GardenMapper @Inject constructor() : BaseMapper<GardenEntity, GardenDomain
             sunExposure = sunExposure,
             irrigation = irrigation,
             fence = fence,
-            notes = notes
+            notes = notes,
+            createdAt = createdAt,
+            updatedAt = updatedAt
         )
     }
 } 

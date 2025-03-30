@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Sort
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -38,11 +39,23 @@ fun SeedBankScreen(
     val state by viewModel.state.collectAsState()
     var showSortMenu by remember { mutableStateOf(false) }
     var showCategoryMenu by remember { mutableStateOf(false) }
+    var showLifespanMenu by remember { mutableStateOf(false) }
+    var showHardinessZoneMenu by remember { mutableStateOf(false) }
 
-    // Hämta unika kategorier från alla frön
+    // Hämta unika kategorier, livslängder och härdighetszoner från alla frön
     val categories = remember(state.seeds) {
         Log.d(TAG, "Uppdaterar kategorilista med ${state.seeds.size} frön")
         state.seeds.mapNotNull { it.category }.distinct().sorted()
+    }
+
+    val lifespans = remember(state.seeds) {
+        Log.d(TAG, "Uppdaterar livslängdslista")
+        state.seeds.mapNotNull { it.lifespan }.distinct().sorted()
+    }
+
+    val hardinessZones = remember(state.seeds) {
+        Log.d(TAG, "Uppdaterar härdighetszonslista")
+        state.seeds.mapNotNull { it.hardinessZone }.distinct().sorted()
     }
 
     LaunchedEffect(Unit) {
@@ -56,6 +69,23 @@ fun SeedBankScreen(
                 actions = {
                     IconButton(onClick = { /* TODO: Implementera sökfunktion */ }) {
                         Icon(Icons.Default.Search, contentDescription = "Sök")
+                    }
+                    IconButton(onClick = { showSortMenu = true }) {
+                        Icon(Icons.Default.Sort, contentDescription = "Sortera")
+                    }
+                    IconButton(onClick = { showCategoryMenu = true }) {
+                        Icon(Icons.Default.FilterList, contentDescription = "Filtrera")
+                    }
+                    IconButton(
+                        onClick = { 
+                            viewModel.onEvent(SeedBankEvent.ToggleShowFavorites(!state.showFavoritesOnly))
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Favorite,
+                            contentDescription = if (state.showFavoritesOnly) "Visa alla frön" else "Visa endast favoriter",
+                            tint = if (state.showFavoritesOnly) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                        )
                     }
                 }
             )
@@ -118,6 +148,10 @@ fun SeedBankScreen(
                             onDeleteClick = { 
                                 Log.d(TAG, "Tar bort frö: ${seed.name}")
                                 viewModel.onEvent(SeedBankEvent.DeleteSeed(seed)) 
+                            },
+                            onFavoriteClick = {
+                                Log.d(TAG, "Växlar favoritstatus för frö: ${seed.name}")
+                                viewModel.onEvent(SeedBankEvent.ToggleFavorite(seed))
                             }
                         )
                     }
@@ -198,9 +232,59 @@ fun SeedBankScreen(
             DropdownMenuItem(
                 text = { Text(category.displayName) },
                 onClick = {
-                    Log.d(TAG, "Filtrerar på kategori: ${category.displayName}")
+                    Log.d(TAG, "Filtrerar efter kategori: ${category.displayName}")
                     viewModel.onEvent(SeedBankEvent.FilterByCategory(category.displayName))
                     showCategoryMenu = false
+                }
+            )
+        }
+    }
+
+    // Livslängdsmeny
+    DropdownMenu(
+        expanded = showLifespanMenu,
+        onDismissRequest = { showLifespanMenu = false }
+    ) {
+        DropdownMenuItem(
+            text = { Text("Alla livslängder") },
+            onClick = {
+                Log.d(TAG, "Visar alla livslängder")
+                viewModel.onEvent(SeedBankEvent.FilterByLifespan(null))
+                showLifespanMenu = false
+            }
+        )
+        lifespans.forEach { lifespan ->
+            DropdownMenuItem(
+                text = { Text(lifespan) },
+                onClick = {
+                    Log.d(TAG, "Filtrerar efter livslängd: $lifespan")
+                    viewModel.onEvent(SeedBankEvent.FilterByLifespan(lifespan))
+                    showLifespanMenu = false
+                }
+            )
+        }
+    }
+
+    // Härdighetszonsmeny
+    DropdownMenu(
+        expanded = showHardinessZoneMenu,
+        onDismissRequest = { showHardinessZoneMenu = false }
+    ) {
+        DropdownMenuItem(
+            text = { Text("Alla härdighetszoner") },
+            onClick = {
+                Log.d(TAG, "Visar alla härdighetszoner")
+                viewModel.onEvent(SeedBankEvent.FilterByHardinessZone(null))
+                showHardinessZoneMenu = false
+            }
+        )
+        hardinessZones.forEach { zone ->
+            DropdownMenuItem(
+                text = { Text(zone) },
+                onClick = {
+                    Log.d(TAG, "Filtrerar efter härdighetszon: $zone")
+                    viewModel.onEvent(SeedBankEvent.FilterByHardinessZone(zone))
+                    showHardinessZoneMenu = false
                 }
             )
         }
@@ -212,7 +296,8 @@ fun SeedBankScreen(
 fun SeedItem(
     seed: Seed,
     onEditClick: () -> Unit,
-    onDeleteClick: () -> Unit
+    onDeleteClick: () -> Unit,
+    onFavoriteClick: () -> Unit
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -240,6 +325,13 @@ fun SeedItem(
                     }
                     IconButton(onClick = onDeleteClick) {
                         Icon(Icons.Default.Delete, contentDescription = "Ta bort")
+                    }
+                    IconButton(onClick = onFavoriteClick) {
+                        Icon(
+                            imageVector = Icons.Default.Favorite,
+                            contentDescription = if (seed.isFavorite) "Ta bort favorit" else "Lägg till favorit",
+                            tint = if (seed.isFavorite) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                        )
                     }
                 }
             }

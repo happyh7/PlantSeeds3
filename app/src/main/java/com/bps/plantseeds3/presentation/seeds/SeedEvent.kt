@@ -6,4 +6,5 @@ sealed class SeedEvent {
     data class SearchSeeds(val query: String) : SeedEvent()
     data class DeleteSeed(val seed: Seed) : SeedEvent()
     data class UpdateSeed(val seed: Seed) : SeedEvent()
+    data class ToggleFavorite(val seed: Seed) : SeedEvent()
 } 

@@ -14,52 +14,52 @@ class GardenRepositoryImpl @Inject constructor(
     private val mapper: GardenMapper
 ) : GardenRepository {
 
-    override suspend fun insertGarden(garden: Garden) {
+    override suspend fun insertGarden(garden: Garden): Result<Unit> {
         Log.d("GardenRepositoryImpl", "Försöker lägga till trädgård: ${garden.name}")
-        try {
+        return try {
             dao.insertGarden(mapper.toEntity(garden))
             Log.d("GardenRepositoryImpl", "Trädgård tillagd: ${garden.name}")
+            Result.success(Unit)
         } catch (e: Exception) {
             Log.e("GardenRepositoryImpl", "Fel vid tillägg av trädgård: ${garden.name}", e)
-            throw e
+            Result.failure(e)
         }
     }
 
-    override suspend fun updateGarden(garden: Garden) {
+    override suspend fun updateGarden(garden: Garden): Result<Unit> {
         Log.d("GardenRepositoryImpl", "Försöker uppdatera trädgård: ${garden.name}")
-        try {
+        return try {
             dao.updateGarden(mapper.toEntity(garden))
             Log.d("GardenRepositoryImpl", "Trädgård uppdaterad: ${garden.name}")
+            Result.success(Unit)
         } catch (e: Exception) {
             Log.e("GardenRepositoryImpl", "Fel vid uppdatering av trädgård: ${garden.name}", e)
-            throw e
+            Result.failure(e)
         }
     }
 
-    override suspend fun deleteGarden(garden: Garden) {
+    override suspend fun deleteGarden(garden: Garden): Result<Unit> {
         Log.d("GardenRepositoryImpl", "Försöker ta bort trädgård: ${garden.name}")
-        try {
+        return try {
             dao.deleteGarden(mapper.toEntity(garden))
             Log.d("GardenRepositoryImpl", "Trädgård borttagen: ${garden.name}")
+            Result.success(Unit)
         } catch (e: Exception) {
             Log.e("GardenRepositoryImpl", "Fel vid borttagning av trädgård: ${garden.name}", e)
-            throw e
+            Result.failure(e)
         }
     }
 
-    override suspend fun getGardenById(id: String): Garden? {
-        return try {
-            Log.d("GardenRepositoryImpl", "Fetching garden with id: $id")
-            val garden = dao.getGardenById(id)?.let { mapper.toDomain(it) }
-            if (garden != null) {
-                Log.d("GardenRepositoryImpl", "Garden found: ${garden.name}")
-            } else {
-                Log.d("GardenRepositoryImpl", "No garden found with id: $id")
+    override fun getGardenById(id: Long): Flow<Garden?> {
+        Log.d("GardenRepositoryImpl", "Hämtar trädgård med id: $id")
+        return dao.getGardenById(id).map { garden ->
+            garden?.let { 
+                mapper.toDomain(it).also { 
+                    Log.d("GardenRepositoryImpl", "Trädgård hittad: ${it.name}")
+                }
+            }.also { 
+                if (it == null) Log.d("GardenRepositoryImpl", "Ingen trädgård hittad med id: $id")
             }
-            garden
-        } catch (e: Exception) {
-            Log.e("GardenRepositoryImpl", "Error fetching garden: ${e.message}")
-            throw e
         }
     }
 
@@ -67,24 +67,21 @@ class GardenRepositoryImpl @Inject constructor(
         return dao.getAllGardens().map { gardens -> gardens.map { mapper.toDomain(it) } }
     }
 
-    override suspend fun getGardenByName(name: String): Garden? {
-        return try {
-            Log.d("GardenRepositoryImpl", "Fetching garden with name: $name")
-            val garden = dao.getGardenByName(name)?.let { mapper.toDomain(it) }
-            if (garden != null) {
-                Log.d("GardenRepositoryImpl", "Garden found: ${garden.name}")
-            } else {
-                Log.d("GardenRepositoryImpl", "No garden found with name: $name")
+    override fun getGardenByName(name: String): Flow<Garden?> {
+        Log.d("GardenRepositoryImpl", "Hämtar trädgård med namn: $name")
+        return dao.getGardenByName(name).map { garden ->
+            garden?.let { 
+                mapper.toDomain(it).also { 
+                    Log.d("GardenRepositoryImpl", "Trädgård hittad: ${it.name}")
+                }
+            }.also { 
+                if (it == null) Log.d("GardenRepositoryImpl", "Ingen trädgård hittad med namn: $name")
             }
-            garden
-        } catch (e: Exception) {
-            Log.e("GardenRepositoryImpl", "Error fetching garden by name: ${e.message}")
-            throw e
         }
     }
 
     override fun searchGardens(query: String): Flow<List<Garden>> {
-        Log.d("GardenRepositoryImpl", "Searching gardens with query: $query")
+        Log.d("GardenRepositoryImpl", "Söker trädgårdar med sökord: $query")
         return dao.searchGardens("%$query%").map { gardens -> gardens.map { mapper.toDomain(it) } }
     }
 } 

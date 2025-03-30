@@ -44,6 +44,24 @@ class SeedViewModel @Inject constructor(
                     loadSeeds()
                 }
             }
+            is SeedEvent.ToggleFavorite -> {
+                viewModelScope.launch {
+                    try {
+                        repository.toggleFavorite(event.seed)
+                        _state.value = _state.value.copy(
+                            seeds = _state.value.seeds.map { seed ->
+                                if (seed.id == event.seed.id) {
+                                    seed.copy(isFavorite = !seed.isFavorite)
+                                } else {
+                                    seed
+                                }
+                            }
+                        )
+                    } catch (e: Exception) {
+                        _state.value = _state.value.copy(error = e.message)
+                    }
+                }
+            }
         }
     }
 

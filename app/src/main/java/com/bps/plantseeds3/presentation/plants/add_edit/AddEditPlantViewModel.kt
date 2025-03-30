@@ -9,10 +9,13 @@ import com.bps.plantseeds3.domain.model.PlantCategory
 import com.bps.plantseeds3.domain.model.PlantStatus
 import com.bps.plantseeds3.domain.repository.GardenRepository
 import com.bps.plantseeds3.domain.repository.PlantRepository
+import com.bps.plantseeds3.domain.use_case.plant.AddPlantUseCase
+import com.bps.plantseeds3.domain.use_case.plant.GetPlantUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.inject.Inject
 import java.util.UUID
 
@@ -20,6 +23,8 @@ import java.util.UUID
 class AddEditPlantViewModel @Inject constructor(
     private val plantRepository: PlantRepository,
     private val gardenRepository: GardenRepository,
+    private val addPlantUseCase: AddPlantUseCase,
+    private val getPlantUseCase: GetPlantUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -28,263 +33,220 @@ class AddEditPlantViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<String>("plantId")?.let { plantId ->
-            if (plantId != "-1") {
+            if (plantId.isNotEmpty()) {
                 viewModelScope.launch {
-                    plantRepository.getPlantById(plantId)?.let { plant ->
-                        _state.value = AddEditPlantState(
-                            name = plant.name,
-                            scientificName = plant.scientificName ?: "",
-                            species = plant.species ?: "",
-                            variety = plant.variety ?: "",
-                            category = plant.category?.name ?: "",
-                            description = plant.description ?: "",
-                            selectedGardenId = plant.gardenId,
-                            status = plant.status ?: PlantStatus.SEED,
-                            plantingDate = plant.plantingDate?.let { LocalDate.parse(it) } ?: LocalDate.now(),
-                            harvestDate = plant.harvestDate?.let { LocalDate.parse(it) },
-                            sunRequirement = plant.sunRequirement,
-                            waterRequirement = plant.waterRequirement,
-                            soilRequirement = plant.soilRequirement,
-                            notes = plant.notes
-                        )
+                    getPlantUseCase(plantId).collect { plant ->
+                        plant?.let {
+                            _state.update { state ->
+                                state.copy(
+                                    name = it.name,
+                                    scientificName = it.scientificName,
+                                    species = it.species,
+                                    variety = it.variety,
+                                    description = it.description,
+                                    category = it.category,
+                                    status = it.status,
+                                    plantingDate = it.plantingDate,
+                                    expectedHarvestDate = it.expectedHarvestDate,
+                                    actualHarvestDate = it.actualHarvestDate,
+                                    sowingDepth = it.sowingDepth,
+                                    spacing = it.spacing,
+                                    daysToGermination = it.daysToGermination,
+                                    daysToMaturity = it.daysToMaturity,
+                                    sunRequirement = it.sunRequirement,
+                                    waterRequirement = it.waterRequirement,
+                                    soilRequirement = it.soilRequirement,
+                                    soilPh = it.soilPh,
+                                    hardiness = it.hardiness,
+                                    sowingInstructions = it.sowingInstructions,
+                                    growingInstructions = it.growingInstructions,
+                                    harvestInstructions = it.harvestInstructions,
+                                    storageInstructions = it.storageInstructions,
+                                    companionPlants = it.companionPlants,
+                                    avoidPlants = it.avoidPlants,
+                                    height = it.height,
+                                    spread = it.spread,
+                                    yield = it.yield,
+                                    culinaryUses = it.culinaryUses,
+                                    medicinalUses = it.medicinalUses,
+                                    tags = it.tags,
+                                    notes = it.notes,
+                                    gardenId = it.gardenId
+                                )
+                            }
+                        }
                     }
                 }
             }
         }
+    }
 
-        savedStateHandle.get<String>("gardenId")?.let { gardenId ->
-            if (gardenId != "-1") {
-                _state.value = _state.value.copy(selectedGardenId = gardenId)
+    fun onEvent(event: AddEditPlantEvent) {
+        when (event) {
+            is AddEditPlantEvent.OnNameChange -> {
+                _state.update { it.copy(name = event.name) }
             }
-        }
-    }
-
-    fun onNameChange(name: String) {
-        _state.value = _state.value.copy(name = name)
-    }
-
-    fun onScientificNameChange(scientificName: String) {
-        _state.value = _state.value.copy(scientificName = scientificName)
-    }
-
-    fun onSpeciesChange(species: String) {
-        _state.value = _state.value.copy(species = species)
-    }
-
-    fun onVarietyChange(variety: String) {
-        _state.value = _state.value.copy(variety = variety)
-    }
-
-    fun onCategoryChange(category: String) {
-        _state.value = _state.value.copy(category = category)
-    }
-
-    fun onDescriptionChange(description: String) {
-        _state.value = _state.value.copy(description = description)
-    }
-
-    fun onStatusChange(status: PlantStatus) {
-        _state.value = _state.value.copy(status = status)
-    }
-
-    fun onPlantingDateChange(date: LocalDate) {
-        _state.value = _state.value.copy(plantingDate = date)
-    }
-
-    fun onHarvestDateChange(date: LocalDate?) {
-        _state.value = _state.value.copy(harvestDate = date)
-    }
-
-    fun onSunRequirementChange(requirement: String) {
-        _state.value = _state.value.copy(sunRequirement = requirement)
-    }
-
-    fun onWaterRequirementChange(requirement: String) {
-        _state.value = _state.value.copy(waterRequirement = requirement)
-    }
-
-    fun onSoilRequirementChange(requirement: String) {
-        _state.value = _state.value.copy(soilRequirement = requirement)
-    }
-
-    fun onNotesChange(notes: String) {
-        _state.value = _state.value.copy(notes = notes)
-    }
-
-    fun onSowingDepthChange(depth: String) {
-        _state.value = _state.value.copy(sowingDepth = depth)
-    }
-
-    fun onSpacingChange(spacing: String) {
-        _state.value = _state.value.copy(spacing = spacing)
-    }
-
-    fun onDaysToGerminationChange(days: String) {
-        _state.value = _state.value.copy(daysToGermination = days)
-    }
-
-    fun onDaysToMaturityChange(days: String) {
-        _state.value = _state.value.copy(daysToMaturity = days)
-    }
-
-    fun onSoilPhChange(ph: String) {
-        _state.value = _state.value.copy(soilPh = ph)
-    }
-
-    fun onHardinessChange(hardiness: String) {
-        _state.value = _state.value.copy(hardiness = hardiness)
-    }
-
-    fun onSowingInstructionsChange(instructions: String) {
-        _state.value = _state.value.copy(sowingInstructions = instructions)
-    }
-
-    fun onGrowingInstructionsChange(instructions: String) {
-        _state.value = _state.value.copy(growingInstructions = instructions)
-    }
-
-    fun onHarvestInstructionsChange(instructions: String) {
-        _state.value = _state.value.copy(harvestInstructions = instructions)
-    }
-
-    fun onStorageInstructionsChange(instructions: String) {
-        _state.value = _state.value.copy(storageInstructions = instructions)
-    }
-
-    fun onCompanionPlantsChange(plants: String) {
-        _state.value = _state.value.copy(companionPlants = plants)
-    }
-
-    fun onAvoidPlantsChange(plants: String) {
-        _state.value = _state.value.copy(avoidPlants = plants)
-    }
-
-    fun onHeightChange(height: String) {
-        _state.value = _state.value.copy(height = height)
-    }
-
-    fun onSpreadChange(spread: String) {
-        _state.value = _state.value.copy(spread = spread)
-    }
-
-    fun onYieldChange(yield: String) {
-        _state.value = _state.value.copy(yield = yield)
-    }
-
-    fun onCulinaryUsesChange(uses: String) {
-        _state.value = _state.value.copy(culinaryUses = uses)
-    }
-
-    fun onMedicinalUsesChange(uses: String) {
-        _state.value = _state.value.copy(medicinalUses = uses)
-    }
-
-    fun onTagsChange(tags: String) {
-        _state.value = _state.value.copy(tags = tags)
-    }
-
-    fun setGardenId(gardenId: String) {
-        _state.value = _state.value.copy(selectedGardenId = gardenId)
-    }
-
-    fun loadPlant(plantId: String) {
-        viewModelScope.launch {
-            plantRepository.getPlantById(plantId)?.let { plant ->
-                _state.value = AddEditPlantState(
-                    name = plant.name,
-                    scientificName = plant.scientificName ?: "",
-                    species = plant.species ?: "",
-                    variety = plant.variety ?: "",
-                    category = plant.category?.name ?: "",
-                    description = plant.description ?: "",
-                    selectedGardenId = plant.gardenId,
-                    status = plant.status ?: PlantStatus.SEED,
-                    plantingDate = plant.plantingDate?.let { LocalDate.parse(it) } ?: LocalDate.now(),
-                    harvestDate = plant.harvestDate?.let { LocalDate.parse(it) },
-                    sowingDepth = plant.sowingDepth,
-                    spacing = plant.spacing,
-                    daysToGermination = plant.daysToGermination,
-                    daysToMaturity = plant.daysToMaturity,
-                    sunRequirement = plant.sunRequirement,
-                    waterRequirement = plant.waterRequirement,
-                    soilRequirement = plant.soilRequirement,
-                    soilPh = plant.soilPh,
-                    hardiness = plant.hardiness,
-                    sowingInstructions = plant.sowingInstructions,
-                    growingInstructions = plant.growingInstructions,
-                    harvestInstructions = plant.harvestInstructions,
-                    storageInstructions = plant.storageInstructions,
-                    companionPlants = plant.companionPlants,
-                    avoidPlants = plant.avoidPlants,
-                    height = plant.height,
-                    spread = plant.spread,
-                    yield = plant.yield,
-                    culinaryUses = plant.culinaryUses,
-                    medicinalUses = plant.medicinalUses,
-                    tags = plant.tags,
-                    notes = plant.notes
-                )
+            is AddEditPlantEvent.OnScientificNameChange -> {
+                _state.update { it.copy(scientificName = event.name) }
             }
-        }
-    }
+            is AddEditPlantEvent.OnSpeciesChange -> {
+                _state.update { it.copy(species = event.species) }
+            }
+            is AddEditPlantEvent.OnVarietyChange -> {
+                _state.update { it.copy(variety = event.variety) }
+            }
+            is AddEditPlantEvent.OnDescriptionChange -> {
+                _state.update { it.copy(description = event.description) }
+            }
+            is AddEditPlantEvent.OnCategoryChange -> {
+                _state.update { it.copy(category = event.category) }
+            }
+            is AddEditPlantEvent.OnStatusChange -> {
+                _state.update { it.copy(status = event.status) }
+            }
+            is AddEditPlantEvent.OnPlantingDateChange -> {
+                _state.update { it.copy(plantingDate = event.date) }
+            }
+            is AddEditPlantEvent.OnExpectedHarvestDateChange -> {
+                _state.update { it.copy(expectedHarvestDate = event.date) }
+            }
+            is AddEditPlantEvent.OnActualHarvestDateChange -> {
+                _state.update { it.copy(actualHarvestDate = event.date) }
+            }
+            is AddEditPlantEvent.OnSowingDepthChange -> {
+                _state.update { it.copy(sowingDepth = event.depth?.toFloatOrNull()) }
+            }
+            is AddEditPlantEvent.OnSpacingChange -> {
+                _state.update { it.copy(spacing = event.spacing?.toFloatOrNull()) }
+            }
+            is AddEditPlantEvent.OnDaysToGerminationChange -> {
+                _state.update { it.copy(daysToGermination = event.days?.toIntOrNull()) }
+            }
+            is AddEditPlantEvent.OnDaysToMaturityChange -> {
+                _state.update { it.copy(daysToMaturity = event.days?.toIntOrNull()) }
+            }
+            is AddEditPlantEvent.OnSunRequirementChange -> {
+                _state.update { it.copy(sunRequirement = event.requirement) }
+            }
+            is AddEditPlantEvent.OnWaterRequirementChange -> {
+                _state.update { it.copy(waterRequirement = event.requirement) }
+            }
+            is AddEditPlantEvent.OnSoilRequirementChange -> {
+                _state.update { it.copy(soilRequirement = event.requirement) }
+            }
+            is AddEditPlantEvent.OnSoilPhChange -> {
+                _state.update { it.copy(soilPh = event.ph?.toFloatOrNull()) }
+            }
+            is AddEditPlantEvent.OnHardinessChange -> {
+                _state.update { it.copy(hardiness = event.hardiness) }
+            }
+            is AddEditPlantEvent.OnSowingInstructionsChange -> {
+                _state.update { it.copy(sowingInstructions = event.instructions) }
+            }
+            is AddEditPlantEvent.OnGrowingInstructionsChange -> {
+                _state.update { it.copy(growingInstructions = event.instructions) }
+            }
+            is AddEditPlantEvent.OnHarvestInstructionsChange -> {
+                _state.update { it.copy(harvestInstructions = event.instructions) }
+            }
+            is AddEditPlantEvent.OnStorageInstructionsChange -> {
+                _state.update { it.copy(storageInstructions = event.instructions) }
+            }
+            is AddEditPlantEvent.OnCompanionPlantsChange -> {
+                _state.update { it.copy(companionPlants = event.plants.split(",").map { it.trim() }) }
+            }
+            is AddEditPlantEvent.OnAvoidPlantsChange -> {
+                _state.update { it.copy(avoidPlants = event.plants.split(",").map { it.trim() }) }
+            }
+            is AddEditPlantEvent.OnHeightChange -> {
+                _state.update { it.copy(height = event.height?.toFloatOrNull()) }
+            }
+            is AddEditPlantEvent.OnSpreadChange -> {
+                _state.update { it.copy(spread = event.spread?.toFloatOrNull()) }
+            }
+            is AddEditPlantEvent.OnYieldChange -> {
+                _state.update { it.copy(yield = event.yield) }
+            }
+            is AddEditPlantEvent.OnCulinaryUsesChange -> {
+                _state.update { it.copy(culinaryUses = event.uses.split(",").map { it.trim() }) }
+            }
+            is AddEditPlantEvent.OnMedicinalUsesChange -> {
+                _state.update { it.copy(medicinalUses = event.uses.split(",").map { it.trim() }) }
+            }
+            is AddEditPlantEvent.OnTagsChange -> {
+                _state.update { it.copy(tags = event.tags.split(",").map { it.trim() }) }
+            }
+            is AddEditPlantEvent.OnNotesChange -> {
+                _state.update { it.copy(notes = event.notes.split(",").map { it.trim() }) }
+            }
+            is AddEditPlantEvent.OnGardenIdChange -> {
+                _state.update { it.copy(gardenId = event.id) }
+            }
+            is AddEditPlantEvent.OnShowCategoryDialog -> {
+                _state.update { it.copy(showCategoryDialog = true) }
+            }
+            is AddEditPlantEvent.OnHideCategoryDialog -> {
+                _state.update { it.copy(showCategoryDialog = false) }
+            }
+            is AddEditPlantEvent.OnShowStatusDialog -> {
+                _state.update { it.copy(showStatusDialog = true) }
+            }
+            is AddEditPlantEvent.OnHideStatusDialog -> {
+                _state.update { it.copy(showStatusDialog = false) }
+            }
+            is AddEditPlantEvent.OnSaveClick -> {
+                viewModelScope.launch {
+                    try {
+                        val currentState = state.value
+                        if (currentState.gardenId == null) {
+                            _state.update { it.copy(error = "Garden ID is required") }
+                            return@launch
+                        }
 
-    fun savePlant() {
-        val currentState = _state.value
-        
-        // Validera obligatoriska fält
-        if (currentState.name.isBlank()) {
-            _state.value = currentState.copy(error = "Namn är obligatoriskt")
-            return
-        }
+                        val plant = Plant(
+                            name = currentState.name,
+                            scientificName = currentState.scientificName,
+                            species = currentState.species,
+                            variety = currentState.variety,
+                            description = currentState.description,
+                            category = currentState.category,
+                            status = currentState.status,
+                            plantingDate = currentState.plantingDate,
+                            expectedHarvestDate = currentState.expectedHarvestDate,
+                            actualHarvestDate = currentState.actualHarvestDate,
+                            sowingDepth = currentState.sowingDepth,
+                            spacing = currentState.spacing,
+                            daysToGermination = currentState.daysToGermination,
+                            daysToMaturity = currentState.daysToMaturity,
+                            sunRequirement = currentState.sunRequirement,
+                            waterRequirement = currentState.waterRequirement,
+                            soilRequirement = currentState.soilRequirement,
+                            soilPh = currentState.soilPh,
+                            hardiness = currentState.hardiness,
+                            sowingInstructions = currentState.sowingInstructions,
+                            growingInstructions = currentState.growingInstructions,
+                            harvestInstructions = currentState.harvestInstructions,
+                            storageInstructions = currentState.storageInstructions,
+                            companionPlants = currentState.companionPlants,
+                            avoidPlants = currentState.avoidPlants,
+                            height = currentState.height,
+                            spread = currentState.spread,
+                            yield = currentState.yield,
+                            culinaryUses = currentState.culinaryUses,
+                            medicinalUses = currentState.medicinalUses,
+                            tags = currentState.tags,
+                            notes = currentState.notes,
+                            gardenId = currentState.gardenId,
+                            createdAt = LocalDateTime.now(),
+                            updatedAt = LocalDateTime.now()
+                        )
 
-        if (currentState.selectedGardenId == null) {
-            _state.value = currentState.copy(error = "Välj en trädgård")
-            return
-        }
-
-        viewModelScope.launch {
-            try {
-                val plant = Plant(
-                    id = UUID.randomUUID().toString(),
-                    name = currentState.name,
-                    scientificName = currentState.scientificName.takeIf { it.isNotBlank() },
-                    species = currentState.species.takeIf { it.isNotBlank() },
-                    variety = currentState.variety.takeIf { it.isNotBlank() },
-                    category = currentState.category.takeIf { it.isNotBlank() }?.let { PlantCategory.valueOf(it) },
-                    description = currentState.description.takeIf { it.isNotBlank() },
-                    status = currentState.status,
-                    plantingDate = currentState.plantingDate.toString(),
-                    harvestDate = currentState.harvestDate?.toString(),
-                    sowingDepth = currentState.sowingDepth?.takeIf { it.isNotBlank() },
-                    spacing = currentState.spacing?.takeIf { it.isNotBlank() },
-                    daysToGermination = currentState.daysToGermination?.takeIf { it.isNotBlank() },
-                    daysToMaturity = currentState.daysToMaturity?.takeIf { it.isNotBlank() },
-                    sunRequirement = currentState.sunRequirement?.takeIf { it.isNotBlank() },
-                    waterRequirement = currentState.waterRequirement?.takeIf { it.isNotBlank() },
-                    soilRequirement = currentState.soilRequirement?.takeIf { it.isNotBlank() },
-                    soilPh = currentState.soilPh?.takeIf { it.isNotBlank() },
-                    hardiness = currentState.hardiness?.takeIf { it.isNotBlank() },
-                    sowingInstructions = currentState.sowingInstructions?.takeIf { it.isNotBlank() },
-                    growingInstructions = currentState.growingInstructions?.takeIf { it.isNotBlank() },
-                    harvestInstructions = currentState.harvestInstructions?.takeIf { it.isNotBlank() },
-                    storageInstructions = currentState.storageInstructions?.takeIf { it.isNotBlank() },
-                    companionPlants = currentState.companionPlants?.takeIf { it.isNotBlank() },
-                    avoidPlants = currentState.avoidPlants?.takeIf { it.isNotBlank() },
-                    height = currentState.height?.takeIf { it.isNotBlank() },
-                    spread = currentState.spread?.takeIf { it.isNotBlank() },
-                    yield = currentState.yield?.takeIf { it.isNotBlank() },
-                    culinaryUses = currentState.culinaryUses?.takeIf { it.isNotBlank() },
-                    medicinalUses = currentState.medicinalUses?.takeIf { it.isNotBlank() },
-                    tags = currentState.tags?.takeIf { it.isNotBlank() },
-                    notes = currentState.notes?.takeIf { it.isNotBlank() },
-                    gardenId = currentState.selectedGardenId
-                )
-                
-                plantRepository.insertPlant(plant)
-                _state.value = currentState.copy(isSaved = true)
-            } catch (e: Exception) {
-                Log.e("AddEditPlantViewModel", "Fel vid sparande av växt", e)
-                _state.value = currentState.copy(error = "Kunde inte spara växten: ${e.message}")
+                        addPlantUseCase(plant)
+                        _state.update { it.copy(isSaved = true) }
+                    } catch (e: Exception) {
+                        _state.update { it.copy(error = e.message) }
+                    }
+                }
             }
         }
     }

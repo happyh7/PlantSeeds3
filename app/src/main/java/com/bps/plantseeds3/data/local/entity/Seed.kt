@@ -3,118 +3,166 @@ package com.bps.plantseeds3.data.local.entity
 import android.util.Log
 import androidx.room.*
 import com.bps.plantseeds3.data.local.converter.Converters
-import java.util.*
+import com.bps.plantseeds3.domain.model.PlantCategory
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.UUID
 
 @Entity(tableName = "seeds")
 @TypeConverters(Converters::class)
 data class Seed(
     @PrimaryKey
-    @ColumnInfo(name = "id")
-    val id: String,
+    val id: String = UUID.randomUUID().toString(),
     
-    // Grundläggande information
     @ColumnInfo(name = "name")
     val name: String,
-    @ColumnInfo(name = "scientificName")
-    val scientificName: String? = null,
+    
+    @ColumnInfo(name = "scientific_name")
+    val scientificName: String?,
+    
     @ColumnInfo(name = "species")
-    val species: String? = null,
+    val species: String?,
+    
     @ColumnInfo(name = "variety")
-    val variety: String? = null,
+    val variety: String?,
+    
     @ColumnInfo(name = "category")
-    val category: String,
+    val category: PlantCategory = PlantCategory.VEGETABLE,
+    
     @ColumnInfo(name = "description")
-    val description: String? = null,
-    @ColumnInfo(name = "isFavorite")
+    val description: String?,
+    
+    @ColumnInfo(name = "quantity")
+    val quantity: Int = 0,
+    
+    @ColumnInfo(name = "unit")
+    val unit: String = "st",
+    
+    @ColumnInfo(name = "purchase_date")
+    val purchaseDate: LocalDate?,
+    
+    @ColumnInfo(name = "expiry_date")
+    val expiryDate: LocalDate?,
+    
+    @ColumnInfo(name = "supplier")
+    val supplier: String?,
+    
+    @ColumnInfo(name = "price")
+    val price: Float?,
+    
+    @ColumnInfo(name = "currency")
+    val currency: String = "SEK",
+    
+    @ColumnInfo(name = "is_favorite")
     val isFavorite: Boolean = false,
     
-    // Planteringsinformation
-    @ColumnInfo(name = "plantingDepth")
-    val plantingDepth: Double? = null,        // i centimeter
-    @ColumnInfo(name = "plantingDistance")
-    val plantingDistance: Double? = null,      // i centimeter
-    @ColumnInfo(name = "plantSpacing")
-    val plantSpacing: Float? = null,          // i centimeter
-    @ColumnInfo(name = "rowSpacing")
-    val rowSpacing: Float? = null,            // i centimeter
-    @ColumnInfo(name = "plantingDates")
-    val plantingDates: String? = null,        // JSON-array med rekommenderade planteringsdatum
+    @ColumnInfo(name = "planting_depth")
+    val plantingDepth: Float?,
     
-    // Växtförhållanden
-    @ColumnInfo(name = "sunRequirement")
-    val sunRequirement: String? = null,       // t.ex. "full_sun", "partial_shade", "shade"
-    @ColumnInfo(name = "waterRequirement")
-    val waterRequirement: String? = null,     // t.ex. "low", "medium", "high"
-    @ColumnInfo(name = "soilType")
-    val soilType: String? = null,            // t.ex. "well_drained", "clay", "sandy"
-    @ColumnInfo(name = "soilPh")
-    val soilPh: Double? = null,              // t.ex. "acidic", "neutral", "alkaline"
-    @ColumnInfo(name = "hardinessZone")
-    val hardinessZone: String? = null,       // växtzon
+    @ColumnInfo(name = "planting_distance")
+    val plantingDistance: String?,
     
-    // Instruktioner
-    @ColumnInfo(name = "sowingInstructions")
-    val sowingInstructions: String? = null,
-    @ColumnInfo(name = "growingInstructions")
-    val growingInstructions: String? = null,
-    @ColumnInfo(name = "harvestingInstructions")
-    val harvestingInstructions: String? = null,
-    @ColumnInfo(name = "storageInstructions")
-    val storageInstructions: String? = null,
+    @ColumnInfo(name = "plant_spacing")
+    val plantSpacing: String?,
     
-    // Tidsinformation
-    @ColumnInfo(name = "daysToGermination")
-    val daysToGermination: Int? = null,
-    @ColumnInfo(name = "daysToMaturity")
-    val daysToMaturity: Int? = null,
-    @ColumnInfo(name = "harvestPeriod")
-    val harvestPeriod: String? = null,        // t.ex. "june_august"
+    @ColumnInfo(name = "row_spacing")
+    val rowSpacing: String?,
+    
+    @ColumnInfo(name = "planting_dates")
+    val plantingDates: List<String> = emptyList(),
+    
+    @ColumnInfo(name = "sun_requirement")
+    val sunRequirement: String?,
+    
+    @ColumnInfo(name = "water_requirement")
+    val waterRequirement: String?,
+    
+    @ColumnInfo(name = "soil_type")
+    val soilType: String?,
+    
+    @ColumnInfo(name = "soil_ph")
+    val soilPh: Float?,
+    
+    @ColumnInfo(name = "hardiness_zone")
+    val hardinessZone: String?,
+    
+    @ColumnInfo(name = "sowing_instructions")
+    val sowingInstructions: String?,
+    
+    @ColumnInfo(name = "growing_instructions")
+    val growingInstructions: String?,
+    
+    @ColumnInfo(name = "harvesting_instructions")
+    val harvestingInstructions: String?,
+    
+    @ColumnInfo(name = "storage_instructions")
+    val storageInstructions: String?,
+    
+    @ColumnInfo(name = "days_to_germination")
+    val daysToGermination: Int?,
+    
+    @ColumnInfo(name = "days_to_maturity")
+    val daysToMaturity: Int?,
+    
+    @ColumnInfo(name = "harvest_period")
+    val harvestPeriod: String?,
+    
     @ColumnInfo(name = "lifespan")
-    val lifespan: String? = null,             // t.ex. "annual", "perennial", "biennial"
+    val lifespan: String?,
     
-    // Underhåll och skötsel
-    @ColumnInfo(name = "maintenanceDates")
-    val maintenanceDates: String? = null,     // JSON-array med underhållsdatum och åtgärder
-    @ColumnInfo(name = "fertilizingSchedule")
-    val fertilizingSchedule: String? = null,   // JSON-objekt med gödslingsschema
-    @ColumnInfo(name = "pruningSchedule")
-    val pruningSchedule: String? = null,       // JSON-objekt med beskärningsschema
+    @ColumnInfo(name = "maintenance_dates")
+    val maintenanceDates: List<String> = emptyList(),
     
-    // Växtsamspel
-    @ColumnInfo(name = "companionPlants")
-    val companionPlants: String? = null,      // JSON-array med gynnsamma följeväxter
-    @ColumnInfo(name = "avoidPlants")
-    val avoidPlants: String? = null,          // JSON-array med olämpliga följeväxter
+    @ColumnInfo(name = "fertilizing_schedule")
+    val fertilizingSchedule: String?,
     
-    // Extra information
+    @ColumnInfo(name = "pruning_schedule")
+    val pruningSchedule: String?,
+    
+    @ColumnInfo(name = "companion_plants")
+    val companionPlants: List<String> = emptyList(),
+    
+    @ColumnInfo(name = "avoid_plants")
+    val avoidPlants: List<String> = emptyList(),
+    
     @ColumnInfo(name = "height")
-    val height: Float? = null,                // förväntad höjd i centimeter
-    @ColumnInfo(name = "spread")
-    val spread: Float? = null,                // förväntad bredd i centimeter
-    @ColumnInfo(name = "yield")
-    val yield: String? = null,                // förväntad skörd
-    @ColumnInfo(name = "culinaryUses")
-    val culinaryUses: String? = null,         // JSON-array med kulinariska användningsområden
-    @ColumnInfo(name = "medicinalUses")
-    val medicinalUses: String? = null,        // JSON-array med medicinska användningsområden
-    @ColumnInfo(name = "tags")
-    val tags: String? = null,                 // JSON-array med taggar för kategorisering
-    @ColumnInfo(name = "notes")
-    val notes: String? = null,                // allmänna anteckningar
+    val height: Float?,
     
-    // Metadata
-    @ColumnInfo(name = "imageUrl")
-    val imageUrl: String? = null,             // URL till bild på växten
+    @ColumnInfo(name = "spread")
+    val spread: Float?,
+    
+    @ColumnInfo(name = "yield")
+    val yield: String?,
+    
+    @ColumnInfo(name = "culinary_uses")
+    val culinaryUses: List<String> = emptyList(),
+    
+    @ColumnInfo(name = "medicinal_uses")
+    val medicinalUses: List<String> = emptyList(),
+    
+    @ColumnInfo(name = "tags")
+    val tags: List<String> = emptyList(),
+    
+    @ColumnInfo(name = "notes")
+    val notes: List<String> = emptyList(),
+    
+    @ColumnInfo(name = "image_url")
+    val imageUrl: String?,
+    
     @ColumnInfo(name = "source")
-    val source: String? = null,               // varifrån fröet kommer
-    @ColumnInfo(name = "lastPlanted")
-    val lastPlanted: Date? = null,            // senaste planteringsdatum
-    @ColumnInfo(name = "lastHarvested")
-    val lastHarvested: Date? = null,          // senaste skördedatum
-    @ColumnInfo(name = "createdAt")
-    val createdAt: Date = Date(),
-    @ColumnInfo(name = "updatedAt")
-    val updatedAt: Date = Date()
+    val source: String?,
+    
+    @ColumnInfo(name = "last_planted")
+    val lastPlanted: LocalDate?,
+    
+    @ColumnInfo(name = "last_harvested")
+    val lastHarvested: LocalDate?,
+    
+    @ColumnInfo(name = "created_at")
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    
+    @ColumnInfo(name = "updated_at")
+    val updatedAt: LocalDateTime = LocalDateTime.now()
 ) {
     companion object {
         private const val TAG = "SeedEntity"
@@ -125,27 +173,52 @@ data class Seed(
                 id = UUID.randomUUID().toString(),
                 name = "",
                 scientificName = null,
+                species = null,
+                variety = null,
+                category = PlantCategory.VEGETABLE,
                 description = null,
-                category = "OTHER",
+                quantity = 0,
+                unit = "st",
+                purchaseDate = null,
+                expiryDate = null,
+                supplier = null,
+                price = null,
+                currency = "SEK",
+                isFavorite = false,
                 plantingDepth = null,
                 plantingDistance = null,
-                daysToGermination = null,
-                daysToMaturity = null,
-                lifespan = null,
-                hardinessZone = null,
+                plantSpacing = null,
+                rowSpacing = null,
+                plantingDates = emptyList(),
                 sunRequirement = null,
                 waterRequirement = null,
                 soilType = null,
                 soilPh = null,
+                hardinessZone = null,
                 sowingInstructions = null,
                 growingInstructions = null,
                 harvestingInstructions = null,
                 storageInstructions = null,
+                daysToGermination = null,
+                daysToMaturity = null,
+                harvestPeriod = null,
+                lifespan = null,
+                maintenanceDates = emptyList(),
+                fertilizingSchedule = null,
+                pruningSchedule = null,
+                companionPlants = emptyList(),
+                avoidPlants = emptyList(),
+                height = null,
+                spread = null,
+                yield = null,
+                culinaryUses = emptyList(),
+                medicinalUses = emptyList(),
+                tags = emptyList(),
+                notes = emptyList(),
                 imageUrl = null,
                 source = null,
-                isFavorite = false,
-                createdAt = Date(),
-                updatedAt = Date()
+                lastPlanted = null,
+                lastHarvested = null
             )
         }
     }

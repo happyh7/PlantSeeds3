@@ -2,35 +2,32 @@ package com.bps.plantseeds3.domain.model
 
 import android.util.Log
 
-enum class PlantCategory {
-    VEGETABLE,
-    FRUIT,
-    HERB,
-    FLOWER,
-    TREE,
-    SHRUB,
-    OTHER;
-
-    val displayName: String
-        get() = when (this) {
-            VEGETABLE -> "Grönsak"
-            FRUIT -> "Frukt"
-            HERB -> "Ört"
-            FLOWER -> "Blomma"
-            TREE -> "Träd"
-            SHRUB -> "Buske"
-            OTHER -> "Övrigt"
-        }
+enum class PlantCategory(val displayName: String) {
+    VEGETABLE("Grönsak"),
+    FRUIT("Frukt"),
+    HERB("Krydda"),
+    FLOWER("Blomma"),
+    TREE("Träd"),
+    BUSH("Buske"),
+    OTHER("Övrigt");
 
     companion object {
+        fun fromString(value: String?): PlantCategory {
+            return try {
+                value?.let { valueOf(it) } ?: VEGETABLE
+            } catch (e: IllegalArgumentException) {
+                VEGETABLE
+            }
+        }
+
         fun fromDisplayName(displayName: String): PlantCategory {
             return when (displayName) {
                 "Grönsak" -> VEGETABLE
                 "Frukt" -> FRUIT
-                "Ört" -> HERB
+                "Krydda" -> HERB
                 "Blomma" -> FLOWER
                 "Träd" -> TREE
-                "Buske" -> SHRUB
+                "Buske" -> BUSH
                 else -> OTHER
             }
         }

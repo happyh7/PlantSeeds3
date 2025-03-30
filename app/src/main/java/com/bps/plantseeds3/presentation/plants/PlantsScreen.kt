@@ -149,18 +149,7 @@ fun PlantsScreen(
                                         style = MaterialTheme.typography.bodyMedium
                                     )
                                     Text(
-                                        text = when (plant.status) {
-                                            PlantStatus.SEED -> "Frö"
-                                            PlantStatus.SEEDLING -> "Grodd"
-                                            PlantStatus.GROWING -> "Växande"
-                                            PlantStatus.MATURE -> "Mogen"
-                                            PlantStatus.FLOWERING -> "Blommande"
-                                            PlantStatus.FRUITING -> "Fruktbärande"
-                                            PlantStatus.HARVESTED -> "Skördad"
-                                            PlantStatus.DORMANT -> "Vilande"
-                                            PlantStatus.DEAD -> "Död"
-                                            null -> "Okänd"
-                                        },
+                                        text = plant.status.displayName,
                                         style = MaterialTheme.typography.bodyMedium
                                     )
                                 }
@@ -249,18 +238,7 @@ private fun PlantItem(
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
-                    text = when (plant.status) {
-                        PlantStatus.SEED -> "Frö"
-                        PlantStatus.SEEDLING -> "Grodd"
-                        PlantStatus.GROWING -> "Växande"
-                        PlantStatus.MATURE -> "Mogen"
-                        PlantStatus.FLOWERING -> "Blommande"
-                        PlantStatus.FRUITING -> "Fruktbärande"
-                        PlantStatus.HARVESTED -> "Skördad"
-                        PlantStatus.DORMANT -> "Vilande"
-                        PlantStatus.DEAD -> "Död"
-                        null -> "Okänd"
-                    },
+                    text = plant.status.displayName,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

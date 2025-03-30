@@ -125,6 +125,67 @@ class SeedBankViewModel @Inject constructor(
                 Log.d(TAG, "Uppdaterar frölistan")
                 loadSeeds()
             }
+            is SeedBankEvent.FilterByLifespan -> {
+                Log.d(TAG, "Filtrerar frön efter livslängd: ${event.lifespan}")
+                _state.update { currentState ->
+                    currentState.copy(
+                        filteredSeeds = if (event.lifespan == null) {
+                            currentState.seeds
+                        } else {
+                            currentState.seeds.filter { it.lifespan == event.lifespan }
+                        }
+                    )
+                }
+            }
+            is SeedBankEvent.FilterByHardinessZone -> {
+                Log.d(TAG, "Filtrerar frön efter härdighetszon: ${event.zone}")
+                _state.update { currentState ->
+                    currentState.copy(
+                        filteredSeeds = if (event.zone == null) {
+                            currentState.seeds
+                        } else {
+                            currentState.seeds.filter { it.hardinessZone == event.zone }
+                        }
+                    )
+                }
+            }
+            is SeedBankEvent.ToggleFavorite -> {
+                Log.d(TAG, "Växlar favoritstatus för frö: ${event.seed.name}")
+                viewModelScope.launch {
+                    try {
+                        repository.toggleFavorite(event.seed)
+                        _state.update { currentState ->
+                            currentState.copy(
+                                seeds = currentState.seeds.map {
+                                    if (it.id == event.seed.id) {
+                                        it.copy(isFavorite = !it.isFavorite)
+                                    } else {
+                                        it
+                                    }
+                                },
+                                filteredSeeds = currentState.filteredSeeds.map {
+                                    if (it.id == event.seed.id) {
+                                        it.copy(isFavorite = !it.isFavorite)
+                                    } else {
+                                        it
+                                    }
+                                }
+                            )
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Fel vid växling av favoritstatus", e)
+                        _state.update { it.copy(error = "Kunde inte växla favoritstatus: ${e.message}") }
+                    }
+                }
+            }
+            is SeedBankEvent.ToggleShowFavorites -> {
+                Log.d(TAG, "Växlar visning av favoriterön: ${event.show}")
+                _state.update { currentState ->
+                    currentState.copy(
+                        showFavoritesOnly = event.show
+                    )
+                }
+            }
         }
     }
 
@@ -145,6 +206,25 @@ class SeedBankViewModel @Inject constructor(
             filteredSeeds = filteredSeeds.filter { seed ->
                 seed.category.displayName == _state.value.selectedCategory
             }
+        }
+
+        // Filtrera efter livslängd
+        if (_state.value.selectedLifespan != null) {
+            filteredSeeds = filteredSeeds.filter { seed ->
+                seed.lifespan == _state.value.selectedLifespan
+            }
+        }
+
+        // Filtrera efter härdighetszon
+        if (_state.value.selectedHardinessZone != null) {
+            filteredSeeds = filteredSeeds.filter { seed ->
+                seed.hardinessZone == _state.value.selectedHardinessZone
+            }
+        }
+
+        // Filtrera efter favoriterön
+        if (_state.value.showFavoritesOnly) {
+            filteredSeeds = filteredSeeds.filter { it.isFavorite }
         }
 
         // Sortera
@@ -172,6 +252,21 @@ class SeedBankViewModel @Inject constructor(
             }
         }
     }
+
+    fun toggleFavorite(seed: Seed) {
+        viewModelScope.launch {
+            try {
+                val updatedSeed = seed.copy(isFavorite = !seed.isFavorite)
+                repository.updateSeed(updatedSeed)
+            } catch (e: Exception) {
+                _state.update { currentState ->
+                    currentState.copy(
+                        error = e.message ?: "Kunde inte uppdatera favoritstatus"
+                    )
+                }
+            }
+        }
+    }
 }
 
 data class SeedBankState(
@@ -181,7 +276,10 @@ data class SeedBankState(
     val error: String? = null,
     val searchQuery: String = "",
     val sortOrder: SortOrder = SortOrder.NAME_ASC,
-    val selectedCategory: String? = null
+    val selectedCategory: String? = null,
+    val selectedLifespan: String? = null,
+    val selectedHardinessZone: String? = null,
+    val showFavoritesOnly: Boolean = false
 )
 
 sealed class SeedBankEvent {
@@ -189,5 +287,9 @@ sealed class SeedBankEvent {
     data class SearchSeeds(val query: String) : SeedBankEvent()
     data class SortSeeds(val order: SortOrder) : SeedBankEvent()
     data class FilterByCategory(val category: String?) : SeedBankEvent()
+    data class FilterByLifespan(val lifespan: String?) : SeedBankEvent()
+    data class FilterByHardinessZone(val zone: String?) : SeedBankEvent()
+    data class ToggleFavorite(val seed: Seed) : SeedBankEvent()
+    data class ToggleShowFavorites(val show: Boolean) : SeedBankEvent()
     object RefreshSeeds : SeedBankEvent()
 } 

@@ -1,26 +1,21 @@
 package com.bps.plantseeds3.domain.model
 
-enum class PlantStatus {
-    SEED,
-    SEEDLING,
-    GROWING,
-    MATURE,
-    FLOWERING,
-    FRUITING,
-    HARVESTED,
-    DORMANT,
-    DEAD;
+enum class PlantStatus(val displayName: String) {
+    PLANNED("Planerad"),
+    SEEDED("Sådd"),
+    GERMINATED("Grott"),
+    TRANSPLANTED("Omplantering"),
+    ACTIVE("Aktiv"),
+    INACTIVE("Inaktiv"),
+    FAILED("Misslyckad");
 
-    val displayName: String
-        get() = when (this) {
-            SEED -> "Frö"
-            SEEDLING -> "Grodd"
-            GROWING -> "Växande"
-            MATURE -> "Mogen"
-            FLOWERING -> "Blommande"
-            FRUITING -> "Fruktbärande"
-            HARVESTED -> "Skördad"
-            DORMANT -> "Vilande"
-            DEAD -> "Död"
+    companion object {
+        fun fromString(value: String?): PlantStatus {
+            return try {
+                value?.let { valueOf(it) } ?: PLANNED
+            } catch (e: IllegalArgumentException) {
+                PLANNED
+            }
         }
+    }
 } 

@@ -3,33 +3,38 @@ package com.bps.plantseeds3.data.local.converter
 import android.util.Log
 import androidx.room.TypeConverter
 import com.bps.plantseeds3.domain.model.PlantCategory
-import java.util.*
+import com.bps.plantseeds3.domain.model.PlantStatus
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 class Converters {
     private val TAG = "Converters"
+    private val gson = Gson()
+    private val listType = object : TypeToken<List<String>>() {}.type
 
     @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
+    fun fromTimestamp(value: Long?): LocalDate? {
         Log.d(TAG, "Konverterar timestamp till Date: $value")
-        return value?.let { Date(it) }
+        return value?.let { LocalDate.ofEpochDay(it) }
     }
 
     @TypeConverter
-    fun dateToTimestamp(date: Date?): Long? {
+    fun dateToTimestamp(date: LocalDate?): Long? {
         Log.d(TAG, "Konverterar Date till timestamp: $date")
-        return date?.time
+        return date?.toEpochDay()
     }
 
     @TypeConverter
-    fun fromString(value: String?): List<String> {
-        Log.d(TAG, "Konverterar String till List<String>: $value")
-        return value?.split(",")?.map { it.trim() } ?: emptyList()
+    fun fromDateTime(value: Long?): LocalDateTime? {
+        return value?.let { LocalDateTime.ofEpochSecond(it, 0, ZoneOffset.UTC) }
     }
 
     @TypeConverter
-    fun toString(list: List<String>?): String? {
-        Log.d(TAG, "Konverterar List<String> till String: $list")
-        return list?.joinToString(",")
+    fun dateTimeToTimestamp(dateTime: LocalDateTime?): Long? {
+        return dateTime?.toEpochSecond(ZoneOffset.UTC)
     }
 
     @TypeConverter
@@ -79,19 +84,14 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromPlantCategory(category: PlantCategory?): String? {
-        Log.d(TAG, "Konverterar PlantCategory till String: $category")
-        return category?.name
+    fun fromStringList(value: String?): List<String> {
+        Log.d(TAG, "Konverterar List<String> till JSON: $value")
+        return value?.let { gson.fromJson(it, listType) } ?: emptyList()
     }
 
     @TypeConverter
-    fun toPlantCategory(value: String?): PlantCategory? {
-        Log.d(TAG, "Konverterar String till PlantCategory: $value")
-        return try {
-            value?.let { PlantCategory.valueOf(it) }
-        } catch (e: IllegalArgumentException) {
-            Log.e(TAG, "Fel vid konvertering av String till PlantCategory: $value", e)
-            null
-        }
+    fun toStringList(list: List<String>?): String? {
+        Log.d(TAG, "Konverterar List<String> till JSON: $list")
+        return list?.let { gson.toJson(it) }
     }
 } 

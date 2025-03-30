@@ -19,30 +19,53 @@ class PlantRepositoryImpl @Inject constructor(
     override val dao = plantDao
     override val mapper = plantMapper
 
-    override suspend fun insertPlant(plant: PlantDomain) {
-        insert(plant, dao::insertPlant)
+    override suspend fun insertPlant(plant: PlantDomain): Result<Unit> {
+        return try {
+            dao.insertPlant(mapper.toEntity(plant))
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
-    override suspend fun updatePlant(plant: PlantDomain) {
-        update(plant, dao::updatePlant)
+    override suspend fun updatePlant(plant: PlantDomain): Result<Unit> {
+        return try {
+            dao.updatePlant(mapper.toEntity(plant))
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
-    override suspend fun deletePlant(plant: PlantDomain) {
-        delete(plant, dao::deletePlant)
+    override suspend fun deletePlant(plant: PlantDomain): Result<Unit> {
+        return try {
+            dao.deletePlant(mapper.toEntity(plant))
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
-    override suspend fun getPlantById(id: String): PlantDomain? {
-        return getById(id, dao::getPlantById)
+    override suspend fun getPlantById(id: Long): Flow<PlantDomain?> {
+        return dao.getPlantById(id).map { plant ->
+            plant?.let { mapper.toDomain(it) }
+        }
     }
 
     override fun getAllPlants(): Flow<List<PlantDomain>> {
         return getAll(dao::getAllPlants) { mapper.toDomain(it) }
     }
 
-    override fun getPlantsByGardenId(gardenId: String): Flow<List<PlantDomain>> {
+    override fun getPlantsByGardenId(gardenId: Long): Flow<List<PlantDomain>> {
         Log.d(TAG, "Hämtar växter för trädgård: $gardenId")
         return dao.getPlantsByGardenId(gardenId).map { plants ->
             Log.d(TAG, "Hämtat ${plants.size} växter för trädgård $gardenId")
+            plants.map { mapper.toDomain(it) }
+        }
+    }
+
+    override fun searchPlants(query: String): Flow<List<PlantDomain>> {
+        return dao.searchPlants("%$query%").map { plants ->
             plants.map { mapper.toDomain(it) }
         }
     }

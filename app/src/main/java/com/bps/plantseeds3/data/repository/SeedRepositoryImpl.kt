@@ -25,35 +25,59 @@ class SeedRepositoryImpl @Inject constructor(
     override val dao = seedDao
     override val mapper = seedMapper
 
-    override suspend fun insertSeed(seed: SeedDomain) {
+    override suspend fun insertSeed(seed: SeedDomain): Result<Unit> {
         Log.d(TAG, "Infogar frö: ${seed.name}")
-        insert(seed, dao::insertSeed)
-        Log.d(TAG, "Frö infogat: ${seed.name}")
+        return try {
+            dao.insertSeed(mapper.toEntity(seed))
+            Log.d(TAG, "Frö infogat: ${seed.name}")
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Log.e(TAG, "Fel vid infogning av frö: ${seed.name}", e)
+            Result.failure(e)
+        }
     }
 
-    override suspend fun updateSeed(seed: SeedDomain) {
+    override suspend fun updateSeed(seed: SeedDomain): Result<Unit> {
         Log.d(TAG, "Uppdaterar frö: ${seed.name}")
-        update(seed, dao::updateSeed)
-        Log.d(TAG, "Frö uppdaterat: ${seed.name}")
+        return try {
+            dao.updateSeed(mapper.toEntity(seed))
+            Log.d(TAG, "Frö uppdaterat: ${seed.name}")
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Log.e(TAG, "Fel vid uppdatering av frö: ${seed.name}", e)
+            Result.failure(e)
+        }
     }
 
-    override suspend fun deleteSeed(seed: SeedDomain) {
+    override suspend fun deleteSeed(seed: SeedDomain): Result<Unit> {
         Log.d(TAG, "Tar bort frö: ${seed.name}")
-        delete(seed, dao::deleteSeed)
-        Log.d(TAG, "Frö borttaget: ${seed.name}")
+        return try {
+            dao.deleteSeed(mapper.toEntity(seed))
+            Log.d(TAG, "Frö borttaget: ${seed.name}")
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Log.e(TAG, "Fel vid borttagning av frö: ${seed.name}", e)
+            Result.failure(e)
+        }
     }
 
     override suspend fun deleteAllSeeds() {
         Log.d(TAG, "Tar bort alla frön")
-        deleteAll(dao::deleteAllSeeds)
+        dao.deleteAllSeeds()
         Log.d(TAG, "Alla frön borttagna")
     }
 
-    override suspend fun getSeedById(id: String): SeedDomain? {
+    override fun getSeedById(id: Long): Flow<SeedDomain?> {
         Log.d(TAG, "Hämtar frö med ID: $id")
-        val seed = getById(id, dao::getSeedById)
-        Log.d(TAG, if (seed != null) "Hämtat frö: ${seed.name}" else "Inget frö hittat med ID: $id")
-        return seed
+        return dao.getSeedById(id).map { seed ->
+            seed?.let { 
+                mapper.toDomain(it).also {
+                    Log.d(TAG, "Hämtat frö: ${it.name}")
+                }
+            }.also {
+                if (it == null) Log.d(TAG, "Inget frö hittat med ID: $id")
+            }
+        }
     }
 
     override fun getAllSeeds(): Flow<List<SeedDomain>> {
@@ -95,10 +119,10 @@ class SeedRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getSeedsByCategory(category: String): Flow<List<SeedDomain>> {
-        Log.d(TAG, "Hämtar frön i kategori: $category")
-        return dao.getSeedsByCategory(category).map { seeds ->
-            Log.d(TAG, "Hämtat ${seeds.size} frön i kategori: $category")
+    override fun getSeedsByCategory(category: PlantCategory): Flow<List<SeedDomain>> {
+        Log.d(TAG, "Hämtar frön i kategori: ${category.name}")
+        return dao.getSeedsByCategory(category.name).map { seeds ->
+            Log.d(TAG, "Hämtat ${seeds.size} frön i kategori: ${category.name}")
             seeds.map { seed ->
                 val mappedSeed = mapper.toDomain(seed)
                 Log.d(TAG, "Mappade frö: ${mappedSeed.name}")
@@ -140,5 +164,19 @@ class SeedRepositoryImpl @Inject constructor(
         Log.d(TAG, "Uppdaterar ogiltiga kategorier")
         // TODO: Implementera logik för att uppdatera ogiltiga kategorier
         Log.d(TAG, "Uppdatering av ogiltiga kategorier slutförd")
+    }
+
+    override suspend fun toggleFavorite(id: Long): Result<Unit> {
+        Log.d(TAG, "Växlar favoritstatus för frö med ID: $id")
+        return try {
+            val seed = getSeedById(id).first() ?: return Result.failure(Exception("Frö hittades inte"))
+            val updatedSeed = seed.copy(isFavorite = !seed.isFavorite)
+            updateSeed(updatedSeed)
+            Log.d(TAG, "Favoritstatus växlad för frö: ${seed.name}")
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Log.e(TAG, "Fel vid växling av favoritstatus för frö med ID: $id", e)
+            Result.failure(e)
+        }
     }
 } 

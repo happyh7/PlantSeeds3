@@ -93,6 +93,9 @@ fun SeedScreen(
                                 },
                                 onEditClick = {
                                     navController.navigate(Screen.AddEditSeed.createRoute(seed.id))
+                                },
+                                onFavoriteClick = {
+                                    viewModel.onEvent(SeedEvent.ToggleFavorite(seed))
                                 }
                             )
                         }

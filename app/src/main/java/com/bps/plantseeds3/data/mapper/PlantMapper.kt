@@ -2,11 +2,11 @@ package com.bps.plantseeds3.data.mapper
 
 import android.util.Log
 import com.bps.plantseeds3.data.local.entity.Plant as PlantEntity
-import com.bps.plantseeds3.data.local.entity.PlantStatus as PlantStatusEntity
 import com.bps.plantseeds3.domain.model.Plant as PlantDomain
 import com.bps.plantseeds3.domain.model.PlantCategory
-import com.bps.plantseeds3.domain.model.PlantStatus as PlantStatusDomain
+import com.bps.plantseeds3.domain.model.PlantStatus
 import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 class PlantMapper @Inject constructor() : BaseMapper<PlantEntity, PlantDomain>() {
@@ -20,15 +20,36 @@ class PlantMapper @Inject constructor() : BaseMapper<PlantEntity, PlantDomain>()
             species = species,
             variety = variety,
             description = description,
-            category = safeConvertEnum(category, PlantCategory::fromName, PlantCategory.OTHER),
-            status = safeConvertEnum(status.name, PlantStatusDomain::valueOf, PlantStatusDomain.SEED),
-            plantingDate = plantingDate.toString(),
-            harvestDate = harvestDate?.toString(),
+            category = category,
+            status = status,
+            plantingDate = plantingDate,
+            expectedHarvestDate = expectedHarvestDate,
+            actualHarvestDate = actualHarvestDate,
+            sowingDepth = sowingDepth,
+            spacing = spacing,
+            daysToGermination = daysToGermination,
+            daysToMaturity = daysToMaturity,
             sunRequirement = sunRequirement,
             waterRequirement = waterRequirement,
             soilRequirement = soilRequirement,
+            soilPh = soilPh,
+            hardiness = hardiness,
+            sowingInstructions = sowingInstructions,
+            growingInstructions = growingInstructions,
+            harvestInstructions = harvestInstructions,
+            storageInstructions = storageInstructions,
+            companionPlants = companionPlants,
+            avoidPlants = avoidPlants,
+            height = height,
+            spread = spread,
+            yield = yield,
+            culinaryUses = culinaryUses,
+            medicinalUses = medicinalUses,
+            tags = tags,
             notes = notes,
-            gardenId = gardenId
+            gardenId = gardenId,
+            createdAt = createdAt,
+            updatedAt = updatedAt
         )
     }
 
@@ -36,39 +57,40 @@ class PlantMapper @Inject constructor() : BaseMapper<PlantEntity, PlantDomain>()
         return PlantEntity(
             id = id,
             name = name,
-            scientificName = scientificName ?: "",
-            species = species ?: "",
-            variety = variety ?: "",
-            description = description ?: "",
-            category = category?.name ?: PlantCategory.OTHER.name,
-            gardenId = gardenId,
-            status = safeConvertEnum(status?.name, PlantStatusEntity::valueOf, PlantStatusEntity.SEED),
-            plantingDate = LocalDate.now(),
-            harvestDate = null,
-            sowingDepth = null,
-            spacing = null,
-            daysToGermination = null,
-            daysToMaturity = null,
+            scientificName = scientificName,
+            species = species,
+            variety = variety,
+            description = description,
+            category = category,
+            status = status,
+            plantingDate = plantingDate,
+            expectedHarvestDate = expectedHarvestDate,
+            actualHarvestDate = actualHarvestDate,
+            sowingDepth = sowingDepth,
+            spacing = spacing,
+            daysToGermination = daysToGermination,
+            daysToMaturity = daysToMaturity,
             sunRequirement = sunRequirement,
             waterRequirement = waterRequirement,
             soilRequirement = soilRequirement,
-            soilPh = null,
-            hardiness = null,
-            sowingInstructions = null,
-            growingInstructions = null,
-            harvestInstructions = null,
-            storageInstructions = null,
-            companionPlants = null,
-            avoidPlants = null,
-            height = null,
-            spread = null,
-            yield = null,
-            culinaryUses = null,
-            medicinalUses = null,
-            tags = null,
+            soilPh = soilPh,
+            hardiness = hardiness,
+            sowingInstructions = sowingInstructions,
+            growingInstructions = growingInstructions,
+            harvestInstructions = harvestInstructions,
+            storageInstructions = storageInstructions,
+            companionPlants = companionPlants,
+            avoidPlants = avoidPlants,
+            height = height,
+            spread = spread,
+            yield = yield,
+            culinaryUses = culinaryUses,
+            medicinalUses = medicinalUses,
+            tags = tags,
             notes = notes,
-            createdAt = LocalDate.now(),
-            updatedAt = LocalDate.now()
+            gardenId = gardenId,
+            createdAt = createdAt,
+            updatedAt = updatedAt
         )
     }
 } 
