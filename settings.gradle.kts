@@ -19,5 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Plantseeds3"
+rootProject.name = "PlantSeeds3"
 include(":app")
+include(":common")
