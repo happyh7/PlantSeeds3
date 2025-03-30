@@ -183,50 +183,107 @@ class AddEditPlantViewModel @Inject constructor(
         _state.value = _state.value.copy(tags = tags)
     }
 
-    fun savePlant() {
-        viewModelScope.launch {
-            val currentState = _state.value
-            try {
-                // Validera obligatoriska fält
-                val validationErrors = mutableListOf<String>()
-                
-                if (currentState.name.isBlank()) {
-                    validationErrors.add("Namn är obligatoriskt")
-                }
-                
-                if (currentState.selectedGardenId == null) {
-                    validationErrors.add("Ingen trädgård vald")
-                }
-                
-                if (validationErrors.isNotEmpty()) {
-                    _state.value = currentState.copy(error = validationErrors.joinToString("\n"))
-                    return@launch
-                }
+    fun setGardenId(gardenId: String) {
+        _state.value = _state.value.copy(selectedGardenId = gardenId)
+    }
 
+    fun loadPlant(plantId: String) {
+        viewModelScope.launch {
+            plantRepository.getPlantById(plantId)?.let { plant ->
+                _state.value = AddEditPlantState(
+                    name = plant.name,
+                    scientificName = plant.scientificName ?: "",
+                    species = plant.species ?: "",
+                    variety = plant.variety ?: "",
+                    category = plant.category?.name ?: "",
+                    description = plant.description ?: "",
+                    selectedGardenId = plant.gardenId,
+                    status = plant.status ?: PlantStatus.SEED,
+                    plantingDate = plant.plantingDate?.let { LocalDate.parse(it) } ?: LocalDate.now(),
+                    harvestDate = plant.harvestDate?.let { LocalDate.parse(it) },
+                    sowingDepth = plant.sowingDepth,
+                    spacing = plant.spacing,
+                    daysToGermination = plant.daysToGermination,
+                    daysToMaturity = plant.daysToMaturity,
+                    sunRequirement = plant.sunRequirement,
+                    waterRequirement = plant.waterRequirement,
+                    soilRequirement = plant.soilRequirement,
+                    soilPh = plant.soilPh,
+                    hardiness = plant.hardiness,
+                    sowingInstructions = plant.sowingInstructions,
+                    growingInstructions = plant.growingInstructions,
+                    harvestInstructions = plant.harvestInstructions,
+                    storageInstructions = plant.storageInstructions,
+                    companionPlants = plant.companionPlants,
+                    avoidPlants = plant.avoidPlants,
+                    height = plant.height,
+                    spread = plant.spread,
+                    yield = plant.yield,
+                    culinaryUses = plant.culinaryUses,
+                    medicinalUses = plant.medicinalUses,
+                    tags = plant.tags,
+                    notes = plant.notes
+                )
+            }
+        }
+    }
+
+    fun savePlant() {
+        val currentState = _state.value
+        
+        // Validera obligatoriska fält
+        if (currentState.name.isBlank()) {
+            _state.value = currentState.copy(error = "Namn är obligatoriskt")
+            return
+        }
+
+        if (currentState.selectedGardenId == null) {
+            _state.value = currentState.copy(error = "Välj en trädgård")
+            return
+        }
+
+        viewModelScope.launch {
+            try {
                 val plant = Plant(
                     id = UUID.randomUUID().toString(),
-                    name = currentState.name.trim(),
-                    scientificName = currentState.scientificName.trim(),
-                    species = currentState.species.trim(),
-                    variety = currentState.variety.trim(),
-                    description = currentState.description.trim(),
-                    category = currentState.category.let { PlantCategory.fromName(it) },
+                    name = currentState.name,
+                    scientificName = currentState.scientificName.takeIf { it.isNotBlank() },
+                    species = currentState.species.takeIf { it.isNotBlank() },
+                    variety = currentState.variety.takeIf { it.isNotBlank() },
+                    category = currentState.category.takeIf { it.isNotBlank() }?.let { PlantCategory.valueOf(it) },
+                    description = currentState.description.takeIf { it.isNotBlank() },
                     status = currentState.status,
                     plantingDate = currentState.plantingDate.toString(),
-                    harvestDate = currentState.harvestDate?.toString() ?: "",
-                    sunRequirement = currentState.sunRequirement?.trim() ?: "",
-                    waterRequirement = currentState.waterRequirement?.trim() ?: "",
-                    soilRequirement = currentState.soilRequirement?.trim() ?: "",
-                    notes = currentState.notes?.trim() ?: "",
-                    gardenId = currentState.selectedGardenId!!
+                    harvestDate = currentState.harvestDate?.toString(),
+                    sowingDepth = currentState.sowingDepth?.takeIf { it.isNotBlank() },
+                    spacing = currentState.spacing?.takeIf { it.isNotBlank() },
+                    daysToGermination = currentState.daysToGermination?.takeIf { it.isNotBlank() },
+                    daysToMaturity = currentState.daysToMaturity?.takeIf { it.isNotBlank() },
+                    sunRequirement = currentState.sunRequirement?.takeIf { it.isNotBlank() },
+                    waterRequirement = currentState.waterRequirement?.takeIf { it.isNotBlank() },
+                    soilRequirement = currentState.soilRequirement?.takeIf { it.isNotBlank() },
+                    soilPh = currentState.soilPh?.takeIf { it.isNotBlank() },
+                    hardiness = currentState.hardiness?.takeIf { it.isNotBlank() },
+                    sowingInstructions = currentState.sowingInstructions?.takeIf { it.isNotBlank() },
+                    growingInstructions = currentState.growingInstructions?.takeIf { it.isNotBlank() },
+                    harvestInstructions = currentState.harvestInstructions?.takeIf { it.isNotBlank() },
+                    storageInstructions = currentState.storageInstructions?.takeIf { it.isNotBlank() },
+                    companionPlants = currentState.companionPlants?.takeIf { it.isNotBlank() },
+                    avoidPlants = currentState.avoidPlants?.takeIf { it.isNotBlank() },
+                    height = currentState.height?.takeIf { it.isNotBlank() },
+                    spread = currentState.spread?.takeIf { it.isNotBlank() },
+                    yield = currentState.yield?.takeIf { it.isNotBlank() },
+                    culinaryUses = currentState.culinaryUses?.takeIf { it.isNotBlank() },
+                    medicinalUses = currentState.medicinalUses?.takeIf { it.isNotBlank() },
+                    tags = currentState.tags?.takeIf { it.isNotBlank() },
+                    notes = currentState.notes?.takeIf { it.isNotBlank() },
+                    gardenId = currentState.selectedGardenId
                 )
-
-                Log.d("AddEditPlantViewModel", "Sparar växt: ${plant.name}")
+                
                 plantRepository.insertPlant(plant)
-                Log.d("AddEditPlantViewModel", "Växt sparad framgångsrikt")
                 _state.value = currentState.copy(isSaved = true)
             } catch (e: Exception) {
-                Log.e("AddEditPlantViewModel", "Fel vid sparning av växt: ${e.message}")
+                Log.e("AddEditPlantViewModel", "Fel vid sparande av växt", e)
                 _state.value = currentState.copy(error = "Kunde inte spara växten: ${e.message}")
             }
         }

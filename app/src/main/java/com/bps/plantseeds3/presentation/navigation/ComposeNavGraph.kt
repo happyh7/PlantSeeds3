@@ -75,7 +75,11 @@ fun ComposeNavGraph(navController: NavHostController) {
         ) { entry ->
             val plantId = entry.arguments?.getString("plantId")
             val gardenId = entry.arguments?.getString("gardenId")
-            AddEditPlantScreen(navController = navController)
+            AddEditPlantScreen(
+                plantId = plantId,
+                gardenId = gardenId,
+                navController = navController
+            )
         }
 
         composable("plant/{plantId}") { backStackEntry ->

@@ -74,11 +74,14 @@ fun GardensScreen(
     viewModel: GardenViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(state.error) {
         state.error?.let { error ->
-            // Visa felmeddelande
-            // TODO: Implementera felhantering
+            snackbarHostState.showSnackbar(
+                message = error,
+                duration = SnackbarDuration.Short
+            )
         }
     }
 
@@ -124,7 +127,8 @@ fun GardensScreen(
                     }
                 }
             )
-        }
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
         if (state.gardens.isEmpty()) {
             Box(

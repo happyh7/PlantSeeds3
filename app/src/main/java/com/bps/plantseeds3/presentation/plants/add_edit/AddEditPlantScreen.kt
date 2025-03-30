@@ -22,6 +22,8 @@ import androidx.compose.foundation.clickable
 @Composable
 fun AddEditPlantScreen(
     navController: NavController,
+    plantId: String? = null,
+    gardenId: String? = null,
     viewModel: AddEditPlantViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -29,6 +31,15 @@ fun AddEditPlantScreen(
     var showStatusDialog by remember { mutableStateOf(false) }
     var selectedStatus by remember { mutableStateOf(PlantStatus.SEED) }
     val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(plantId, gardenId) {
+        if (plantId != null) {
+            viewModel.loadPlant(plantId)
+        }
+        if (gardenId != null) {
+            viewModel.setGardenId(gardenId)
+        }
+    }
 
     LaunchedEffect(state.isSaved) {
         if (state.isSaved) {
@@ -38,7 +49,6 @@ fun AddEditPlantScreen(
 
     LaunchedEffect(state.error) {
         state.error?.let { error ->
-            // Visa felmeddelande med Snackbar
             snackbarHostState.showSnackbar(
                 message = error,
                 duration = SnackbarDuration.Short

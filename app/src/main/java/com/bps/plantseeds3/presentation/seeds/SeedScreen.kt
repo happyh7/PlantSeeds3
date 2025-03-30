@@ -20,7 +20,6 @@ import androidx.navigation.NavController
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SeedScreen(
-    onNavigate: (String) -> Unit,
     onNavigateBack: () -> Unit,
     viewModel: SeedViewModel = hiltViewModel(),
     navController: NavController
