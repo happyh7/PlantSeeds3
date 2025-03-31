@@ -1,9 +1,9 @@
 <libraries>
   <library
       name="androidx.compose.material3:material3-android:1.2.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\35bba4f1171ea8c4e83c0319f0d4d4e8\transformed\material3-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\1ad530d608e93de70eb3151545658271\transformed\material3-release\jars\classes.jar"
       resolved="androidx.compose.material3:material3-android:1.2.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\35bba4f1171ea8c4e83c0319f0d4d4e8\transformed\material3-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\1ad530d608e93de70eb3151545658271\transformed\material3-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -14,9 +14,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.ui:ui-util-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\34c0b6c40ff0c466927229d0b0e5ba33\transformed\ui-util-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\eb5a0c574bf10ebefc05aa2bb4276552\transformed\ui-util-release\jars\classes.jar"
       resolved="androidx.compose.ui:ui-util-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\34c0b6c40ff0c466927229d0b0e5ba33\transformed\ui-util-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\eb5a0c574bf10ebefc05aa2bb4276552\transformed\ui-util-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -27,9 +27,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.ui:ui-unit-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\ef3cbd4da34d12963cf9398546f355f7\transformed\ui-unit-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\749405b579b23c732e4d5115e2c47661\transformed\ui-unit-release\jars\classes.jar"
       resolved="androidx.compose.ui:ui-unit-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\ef3cbd4da34d12963cf9398546f355f7\transformed\ui-unit-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\749405b579b23c732e4d5115e2c47661\transformed\ui-unit-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -40,9 +40,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.ui:ui-text-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\aadedf3c4f02c90aaf98102313e9a0bf\transformed\ui-text-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\9931f1f8f5b3ec41d30a6e4bdcd448fc\transformed\ui-text-release\jars\classes.jar"
       resolved="androidx.compose.ui:ui-text-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\aadedf3c4f02c90aaf98102313e9a0bf\transformed\ui-text-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\9931f1f8f5b3ec41d30a6e4bdcd448fc\transformed\ui-text-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -53,9 +53,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.foundation:foundation-layout-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\331db3846ce939da6942aaf13b30c6cb\transformed\foundation-layout-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\7e65e0b8adf16555ca38f267910d2c2a\transformed\foundation-layout-release\jars\classes.jar"
       resolved="androidx.compose.foundation:foundation-layout-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\331db3846ce939da6942aaf13b30c6cb\transformed\foundation-layout-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\7e65e0b8adf16555ca38f267910d2c2a\transformed\foundation-layout-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -66,9 +66,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.material:material-icons-core-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\9b95cd6bf9795fd96f21edb9b853c541\transformed\material-icons-core-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\9ace4616f65eb2c739d4bcd67948aa3d\transformed\material-icons-core-release\jars\classes.jar"
       resolved="androidx.compose.material:material-icons-core-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\9b95cd6bf9795fd96f21edb9b853c541\transformed\material-icons-core-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\9ace4616f65eb2c739d4bcd67948aa3d\transformed\material-icons-core-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -79,9 +79,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.material:material-icons-extended-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\71a117e97a6647e077a04aba9254addf\transformed\material-icons-extended-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\516417b5b42e7cec40d95ee346ae6c5b\transformed\material-icons-extended-release\jars\classes.jar"
       resolved="androidx.compose.material:material-icons-extended-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\71a117e97a6647e077a04aba9254addf\transformed\material-icons-extended-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\516417b5b42e7cec40d95ee346ae6c5b\transformed\material-icons-extended-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -92,9 +92,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.material:material-ripple-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\e85b0ffb2e1e55de84d92557d7e07f09\transformed\material-ripple-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\6d9ac3e274f3d42d45c3e24eb96d7bd8\transformed\material-ripple-release\jars\classes.jar"
       resolved="androidx.compose.material:material-ripple-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\e85b0ffb2e1e55de84d92557d7e07f09\transformed\material-ripple-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\6d9ac3e274f3d42d45c3e24eb96d7bd8\transformed\material-ripple-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -105,9 +105,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.foundation:foundation-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\f74cd8c3e349210482cf64b977c44160\transformed\foundation-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\0260dfe541863a8015c45b5f411780b1\transformed\foundation-release\jars\classes.jar"
       resolved="androidx.compose.foundation:foundation-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\f74cd8c3e349210482cf64b977c44160\transformed\foundation-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\0260dfe541863a8015c45b5f411780b1\transformed\foundation-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -118,9 +118,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.animation:animation-core-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\6578dd64174a99f1aef3f4c1acfaf90e\transformed\animation-core-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\7e7a780b3e5bdcc996273cfc0ec42f79\transformed\animation-core-release\jars\classes.jar"
       resolved="androidx.compose.animation:animation-core-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\6578dd64174a99f1aef3f4c1acfaf90e\transformed\animation-core-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\7e7a780b3e5bdcc996273cfc0ec42f79\transformed\animation-core-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -131,9 +131,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.animation:animation-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\184af218b54dd950cab84847bdcce2be\transformed\animation-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\6cab1e3552ee88553199d8b8bb96d632\transformed\animation-release\jars\classes.jar"
       resolved="androidx.compose.animation:animation-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\184af218b54dd950cab84847bdcce2be\transformed\animation-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\6cab1e3552ee88553199d8b8bb96d632\transformed\animation-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -144,9 +144,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.ui:ui-geometry-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\2db84a05a3a07c15e5d7ba1626c1bfb9\transformed\ui-geometry-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\8d99c0cf049642675599504890e2fe02\transformed\ui-geometry-release\jars\classes.jar"
       resolved="androidx.compose.ui:ui-geometry-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\2db84a05a3a07c15e5d7ba1626c1bfb9\transformed\ui-geometry-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\8d99c0cf049642675599504890e2fe02\transformed\ui-geometry-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -157,9 +157,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.ui:ui-tooling-data-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\b5e88ab9457ba433ddda94aa21df51bc\transformed\ui-tooling-data-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\4ba904e08e81f0d73fbca8a1e586363c\transformed\ui-tooling-data-release\jars\classes.jar"
       resolved="androidx.compose.ui:ui-tooling-data-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\b5e88ab9457ba433ddda94aa21df51bc\transformed\ui-tooling-data-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\4ba904e08e81f0d73fbca8a1e586363c\transformed\ui-tooling-data-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -170,9 +170,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.ui:ui-tooling-preview-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\46cb74da11b2b7e57a2520ac5408786a\transformed\ui-tooling-preview-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\c4f1afc56f2814eb7ab36c7e28756246\transformed\ui-tooling-preview-release\jars\classes.jar"
       resolved="androidx.compose.ui:ui-tooling-preview-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\46cb74da11b2b7e57a2520ac5408786a\transformed\ui-tooling-preview-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\c4f1afc56f2814eb7ab36c7e28756246\transformed\ui-tooling-preview-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -183,9 +183,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.ui:ui-graphics-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\d5366ec1472c9e421d21abd66522ad36\transformed\ui-graphics-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\7def72e2d8860c393b5eda7968c6d0e6\transformed\ui-graphics-release\jars\classes.jar"
       resolved="androidx.compose.ui:ui-graphics-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\d5366ec1472c9e421d21abd66522ad36\transformed\ui-graphics-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\7def72e2d8860c393b5eda7968c6d0e6\transformed\ui-graphics-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -196,9 +196,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.ui:ui-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\21e0c88fcc087749e511449655da75a7\transformed\ui-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\080c8ac83903ce7939fec242144f70db\transformed\ui-release\jars\classes.jar"
       resolved="androidx.compose.ui:ui-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\21e0c88fcc087749e511449655da75a7\transformed\ui-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\080c8ac83903ce7939fec242144f70db\transformed\ui-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -209,9 +209,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.ui:ui-tooling-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\562323967ace1ba642f8e94d7461af6d\transformed\ui-tooling-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\9d26b78bd7a45f398b451da5809d699f\transformed\ui-tooling-release\jars\classes.jar"
       resolved="androidx.compose.ui:ui-tooling-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\562323967ace1ba642f8e94d7461af6d\transformed\ui-tooling-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\9d26b78bd7a45f398b451da5809d699f\transformed\ui-tooling-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -222,9 +222,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.ui:ui-test-manifest:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\187e86cd6d7d446c96839b17b9ca9290\transformed\ui-test-manifest-1.6.1\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\b3a29202e437e266587cf83f321aac5b\transformed\ui-test-manifest-1.6.1\jars\classes.jar"
       resolved="androidx.compose.ui:ui-test-manifest:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\187e86cd6d7d446c96839b17b9ca9290\transformed\ui-test-manifest-1.6.1"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\b3a29202e437e266587cf83f321aac5b\transformed\ui-test-manifest-1.6.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -235,9 +235,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="com.google.dagger:hilt-android:2.50@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\d0b80b46208c5552e465a1c080b9faee\transformed\hilt-android-2.50\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\98a7062a4c3edcf11474ad3d044a78c9\transformed\hilt-android-2.50\jars\classes.jar"
       resolved="com.google.dagger:hilt-android:2.50"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\d0b80b46208c5552e465a1c080b9faee\transformed\hilt-android-2.50"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\98a7062a4c3edcf11474ad3d044a78c9\transformed\hilt-android-2.50"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -248,9 +248,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.fragment:fragment:1.5.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\be08c85a8075002972ce436d843b8514\transformed\fragment-1.5.1\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\ef3a78550a76a2cdf534599a58e30d61\transformed\fragment-1.5.1\jars\classes.jar"
       resolved="androidx.fragment:fragment:1.5.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\be08c85a8075002972ce436d843b8514\transformed\fragment-1.5.1"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\ef3a78550a76a2cdf534599a58e30d61\transformed\fragment-1.5.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -261,9 +261,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.activity:activity:1.8.2@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\fbf7ebf16001a8c5918679d1cd3867df\transformed\activity-1.8.2\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\1379dc6fb29804db9f2e28e6ca330f48\transformed\activity-1.8.2\jars\classes.jar"
       resolved="androidx.activity:activity:1.8.2"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\fbf7ebf16001a8c5918679d1cd3867df\transformed\activity-1.8.2"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\1379dc6fb29804db9f2e28e6ca330f48\transformed\activity-1.8.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -274,9 +274,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.activity:activity-compose:1.8.2@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\fb5ddbc038717ce4e24d6ad2077967d1\transformed\activity-compose-1.8.2\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\d2651ce81d6ec88ea76468a853b24c13\transformed\activity-compose-1.8.2\jars\classes.jar"
       resolved="androidx.activity:activity-compose:1.8.2"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\fb5ddbc038717ce4e24d6ad2077967d1\transformed\activity-compose-1.8.2"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\d2651ce81d6ec88ea76468a853b24c13\transformed\activity-compose-1.8.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -287,9 +287,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.activity:activity-ktx:1.8.2@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\165504185f51431f4914e308a320c7c8\transformed\activity-ktx-1.8.2\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\838ab2261eda126f234d217cf043c6aa\transformed\activity-ktx-1.8.2\jars\classes.jar"
       resolved="androidx.activity:activity-ktx:1.8.2"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\165504185f51431f4914e308a320c7c8\transformed\activity-ktx-1.8.2"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\838ab2261eda126f234d217cf043c6aa\transformed\activity-ktx-1.8.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -300,9 +300,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.loader:loader:1.0.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\6804de81db67e6f7d595a102326e2efe\transformed\loader-1.0.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\7033442617280287655383867b92baa6\transformed\loader-1.0.0\jars\classes.jar"
       resolved="androidx.loader:loader:1.0.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\6804de81db67e6f7d595a102326e2efe\transformed\loader-1.0.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\7033442617280287655383867b92baa6\transformed\loader-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -313,9 +313,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.viewpager:viewpager:1.0.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\48a5a8728556f85e170604ef1c3f9e71\transformed\viewpager-1.0.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\9e2f22c60e55abb2efb60504fa9b0e3e\transformed\viewpager-1.0.0\jars\classes.jar"
       resolved="androidx.viewpager:viewpager:1.0.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\48a5a8728556f85e170604ef1c3f9e71\transformed\viewpager-1.0.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\9e2f22c60e55abb2efb60504fa9b0e3e\transformed\viewpager-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -326,9 +326,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.customview:customview:1.0.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\67461f28bd7e11b23213e74d3982ac3c\transformed\customview-1.0.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\19aac6dd060a12103a9206267970b959\transformed\customview-1.0.0\jars\classes.jar"
       resolved="androidx.customview:customview:1.0.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\67461f28bd7e11b23213e74d3982ac3c\transformed\customview-1.0.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\19aac6dd060a12103a9206267970b959\transformed\customview-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -339,9 +339,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.core:core:1.12.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\1bfded123d46e7eda0ec2d15384a7f5c\transformed\core-1.12.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\cfd66f2b88161f5221d83d4a59dd3013\transformed\core-1.12.0\jars\classes.jar"
       resolved="androidx.core:core:1.12.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\1bfded123d46e7eda0ec2d15384a7f5c\transformed\core-1.12.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\cfd66f2b88161f5221d83d4a59dd3013\transformed\core-1.12.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -352,9 +352,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\6b7918cc944b7615f8aeddda56c1d240\transformed\lifecycle-livedata-core-ktx-2.7.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\8426a93c9c11ddb6ca84f0da89eb02a7\transformed\lifecycle-livedata-core-ktx-2.7.0\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\6b7918cc944b7615f8aeddda56c1d240\transformed\lifecycle-livedata-core-ktx-2.7.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\8426a93c9c11ddb6ca84f0da89eb02a7\transformed\lifecycle-livedata-core-ktx-2.7.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -365,9 +365,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-livedata:2.7.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\38971113bea72a9a12c59a53de1dd609\transformed\lifecycle-livedata-2.7.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\aecd4c7ee0083058d1deb9932e6892a0\transformed\lifecycle-livedata-2.7.0\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-livedata:2.7.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\38971113bea72a9a12c59a53de1dd609\transformed\lifecycle-livedata-2.7.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\aecd4c7ee0083058d1deb9932e6892a0\transformed\lifecycle-livedata-2.7.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -378,9 +378,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-livedata-core:2.7.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\bdff3721ef8a529c4d5c3eee86c09040\transformed\lifecycle-livedata-core-2.7.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\c833b1c67f75e7cbc9658bcdfcc36cc5\transformed\lifecycle-livedata-core-2.7.0\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-livedata-core:2.7.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\bdff3721ef8a529c4d5c3eee86c09040\transformed\lifecycle-livedata-core-2.7.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\c833b1c67f75e7cbc9658bcdfcc36cc5\transformed\lifecycle-livedata-core-2.7.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -391,9 +391,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\8ff2acc8d5fe04736ec1a8e1acbce54d\transformed\lifecycle-viewmodel-ktx-2.7.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\4c9a519abd3b90cda45dc98086a012da\transformed\lifecycle-viewmodel-ktx-2.7.0\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\8ff2acc8d5fe04736ec1a8e1acbce54d\transformed\lifecycle-viewmodel-ktx-2.7.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\4c9a519abd3b90cda45dc98086a012da\transformed\lifecycle-viewmodel-ktx-2.7.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -408,9 +408,9 @@
       resolved="androidx.lifecycle:lifecycle-common:2.7.0"/>
   <library
       name="androidx.lifecycle:lifecycle-viewmodel:2.7.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\0b50f0d51204a4c8784d121507d4043c\transformed\lifecycle-viewmodel-2.7.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\2e2451cf70a43343fc6725673c4da41e\transformed\lifecycle-viewmodel-2.7.0\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-viewmodel:2.7.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\0b50f0d51204a4c8784d121507d4043c\transformed\lifecycle-viewmodel-2.7.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\2e2451cf70a43343fc6725673c4da41e\transformed\lifecycle-viewmodel-2.7.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -421,9 +421,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-runtime:2.7.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\97b3fff26f634b40032cdd0b31e86dca\transformed\lifecycle-runtime-2.7.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\850a244d7743ba3b510b75a36c38206c\transformed\lifecycle-runtime-2.7.0\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-runtime:2.7.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\97b3fff26f634b40032cdd0b31e86dca\transformed\lifecycle-runtime-2.7.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\850a244d7743ba3b510b75a36c38206c\transformed\lifecycle-runtime-2.7.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -434,9 +434,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-runtime-ktx:2.7.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\20f81c10f847ce4e7a7836afa02c6720\transformed\lifecycle-runtime-ktx-2.7.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\bbed1a444b8ce61e60dd4d2952046aa2\transformed\lifecycle-runtime-ktx-2.7.0\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-runtime-ktx:2.7.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\20f81c10f847ce4e7a7836afa02c6720\transformed\lifecycle-runtime-ktx-2.7.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\bbed1a444b8ce61e60dd4d2952046aa2\transformed\lifecycle-runtime-ktx-2.7.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -447,9 +447,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\3b3074ea2588174507d857f4d0db9501\transformed\lifecycle-viewmodel-savedstate-2.7.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\cd61bbd6b8d1a41ce49d51411d106855\transformed\lifecycle-viewmodel-savedstate-2.7.0\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\3b3074ea2588174507d857f4d0db9501\transformed\lifecycle-viewmodel-savedstate-2.7.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\cd61bbd6b8d1a41ce49d51411d106855\transformed\lifecycle-viewmodel-savedstate-2.7.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -460,9 +460,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.core:core-ktx:1.12.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\1254b1e604516e57768b8bfc55be9ab2\transformed\core-ktx-1.12.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\5b143cfc843d516f9de1ed3327c55168\transformed\core-ktx-1.12.0\jars\classes.jar"
       resolved="androidx.core:core-ktx:1.12.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\1254b1e604516e57768b8bfc55be9ab2\transformed\core-ktx-1.12.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\5b143cfc843d516f9de1ed3327c55168\transformed\core-ktx-1.12.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -477,9 +477,9 @@
       resolved="androidx.room:room-common:2.6.1"/>
   <library
       name="androidx.room:room-runtime:2.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\0bcee380f71fd92ab6a711340d7d4095\transformed\room-runtime-2.6.1\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\2d19b6e151f529ced8944bd11e87c2a5\transformed\room-runtime-2.6.1\jars\classes.jar"
       resolved="androidx.room:room-runtime:2.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\0bcee380f71fd92ab6a711340d7d4095\transformed\room-runtime-2.6.1"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\2d19b6e151f529ced8944bd11e87c2a5\transformed\room-runtime-2.6.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -490,9 +490,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.room:room-ktx:2.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\43db0f3dd7da0aa7ef43b84cd1bc3df2\transformed\room-ktx-2.6.1\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\8fabe018fc208971faf9ce79121d4bcf\transformed\room-ktx-2.6.1\jars\classes.jar"
       resolved="androidx.room:room-ktx:2.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\43db0f3dd7da0aa7ef43b84cd1bc3df2\transformed\room-ktx-2.6.1"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\8fabe018fc208971faf9ce79121d4bcf\transformed\room-ktx-2.6.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -503,9 +503,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.datastore:datastore-preferences:1.0.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\57d0c633dca035766dda4620f62acb68\transformed\datastore-preferences-1.0.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\a68329fa54420e3bc61ae393b23527e3\transformed\datastore-preferences-1.0.0\jars\classes.jar"
       resolved="androidx.datastore:datastore-preferences:1.0.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\57d0c633dca035766dda4620f62acb68\transformed\datastore-preferences-1.0.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\a68329fa54420e3bc61ae393b23527e3\transformed\datastore-preferences-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -516,9 +516,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.annotation:annotation-experimental:1.4.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\1fba51ca06249b1c5f6a18249ee59c7a\transformed\annotation-experimental-1.4.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\7404ad3488cae858448fdcd5a34492da\transformed\annotation-experimental-1.4.0\jars\classes.jar"
       resolved="androidx.annotation:annotation-experimental:1.4.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\1fba51ca06249b1c5f6a18249ee59c7a\transformed\annotation-experimental-1.4.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\7404ad3488cae858448fdcd5a34492da\transformed\annotation-experimental-1.4.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -529,9 +529,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.savedstate:savedstate-ktx:1.2.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\be446fa6783a6d6817fc3a370bae2db2\transformed\savedstate-ktx-1.2.1\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\0e26ef8098de8937ac15c903760cf17c\transformed\savedstate-ktx-1.2.1\jars\classes.jar"
       resolved="androidx.savedstate:savedstate-ktx:1.2.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\be446fa6783a6d6817fc3a370bae2db2\transformed\savedstate-ktx-1.2.1"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\0e26ef8098de8937ac15c903760cf17c\transformed\savedstate-ktx-1.2.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -542,9 +542,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.savedstate:savedstate:1.2.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\635e66d3c6618ea5c03391991fab0050\transformed\savedstate-1.2.1\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\e259538cf76631691e324fb0737736be\transformed\savedstate-1.2.1\jars\classes.jar"
       resolved="androidx.savedstate:savedstate:1.2.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\635e66d3c6618ea5c03391991fab0050\transformed\savedstate-1.2.1"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\e259538cf76631691e324fb0737736be\transformed\savedstate-1.2.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -555,9 +555,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.datastore:datastore:1.0.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\0788f38026b264c5ec089fb52b97c1f6\transformed\datastore-1.0.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\b2db8ef40b34629eda81ae94e28b81fe\transformed\datastore-1.0.0\jars\classes.jar"
       resolved="androidx.datastore:datastore:1.0.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\0788f38026b264c5ec089fb52b97c1f6\transformed\datastore-1.0.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\b2db8ef40b34629eda81ae94e28b81fe\transformed\datastore-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -568,9 +568,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.runtime:runtime-saveable-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\7e3e6d3612dda738a7069f2c70a77f30\transformed\runtime-saveable-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\0f579ace44c1e726d0d0c533e2f20734\transformed\runtime-saveable-release\jars\classes.jar"
       resolved="androidx.compose.runtime:runtime-saveable-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\7e3e6d3612dda738a7069f2c70a77f30\transformed\runtime-saveable-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\0f579ace44c1e726d0d0c533e2f20734\transformed\runtime-saveable-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -581,9 +581,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.compose.runtime:runtime-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\3d2469a5493d199a6f04bf6718645309\transformed\runtime-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\783c3aac133154d7fa8e6c4f79b72d4e\transformed\runtime-release\jars\classes.jar"
       resolved="androidx.compose.runtime:runtime-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\3d2469a5493d199a6f04bf6718645309\transformed\runtime-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\783c3aac133154d7fa8e6c4f79b72d4e\transformed\runtime-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -614,9 +614,9 @@
       resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22"/>
   <library
       name="androidx.sqlite:sqlite-framework:2.4.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\c662cbefae2b2821fa1e6ac8583f62bb\transformed\sqlite-framework-2.4.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\4faabf0d8d2a909e50202ead1b00574f\transformed\sqlite-framework-2.4.0\jars\classes.jar"
       resolved="androidx.sqlite:sqlite-framework:2.4.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\c662cbefae2b2821fa1e6ac8583f62bb\transformed\sqlite-framework-2.4.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\4faabf0d8d2a909e50202ead1b00574f\transformed\sqlite-framework-2.4.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -627,9 +627,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.sqlite:sqlite:2.4.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\3698f507e7be9e6a4d0b9ef42391ac5c\transformed\sqlite-2.4.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\c2ec1422b834cec0f698ab93256ab639\transformed\sqlite-2.4.0\jars\classes.jar"
       resolved="androidx.sqlite:sqlite:2.4.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\3698f507e7be9e6a4d0b9ef42391ac5c\transformed\sqlite-2.4.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\c2ec1422b834cec0f698ab93256ab639\transformed\sqlite-2.4.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -640,9 +640,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.versionedparcelable:versionedparcelable:1.1.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\1770958c7a5551fa9c1d45d703b64fc9\transformed\versionedparcelable-1.1.1\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\a1790c6fdc554fb7f8414c1e751de2e2\transformed\versionedparcelable-1.1.1\jars\classes.jar"
       resolved="androidx.versionedparcelable:versionedparcelable:1.1.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\1770958c7a5551fa9c1d45d703b64fc9\transformed\versionedparcelable-1.1.1"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\a1790c6fdc554fb7f8414c1e751de2e2\transformed\versionedparcelable-1.1.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -653,9 +653,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.arch.core:core-runtime:2.2.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\397ded452d65523894cad659ca940417\transformed\core-runtime-2.2.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\e547abf695994ca7db945e062c399752\transformed\core-runtime-2.2.0\jars\classes.jar"
       resolved="androidx.arch.core:core-runtime:2.2.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\397ded452d65523894cad659ca940417\transformed\core-runtime-2.2.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\e547abf695994ca7db945e062c399752\transformed\core-runtime-2.2.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -702,9 +702,9 @@
       resolved="javax.inject:javax.inject:1"/>
   <library
       name="com.google.dagger:dagger-lint-aar:2.50@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\dea6df199f3a5400a39f1394d4013158\transformed\dagger-lint-aar-2.50\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\4d3b2be964b84f2c8690fc01383f899f\transformed\dagger-lint-aar-2.50\jars\classes.jar"
       resolved="com.google.dagger:dagger-lint-aar:2.50"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\dea6df199f3a5400a39f1394d4013158\transformed\dagger-lint-aar-2.50"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\4d3b2be964b84f2c8690fc01383f899f\transformed\dagger-lint-aar-2.50"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -719,9 +719,9 @@
       resolved="com.google.code.findbugs:jsr305:3.0.2"/>
   <library
       name="androidx.compose.material:material-android:1.6.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\ac52b850d1cd98ca6c117433584c9812\transformed\material-release\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\e8feb8614d999e40406dfffd254f5a6d\transformed\material-release\jars\classes.jar"
       resolved="androidx.compose.material:material-android:1.6.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\ac52b850d1cd98ca6c117433584c9812\transformed\material-release"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\e8feb8614d999e40406dfffd254f5a6d\transformed\material-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -732,9 +732,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.autofill:autofill:1.0.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\a82a09ab84d1e5fc159f76df91b5f483\transformed\autofill-1.0.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\a1628e5372ed08e059f8590dde1d683b\transformed\autofill-1.0.0\jars\classes.jar"
       resolved="androidx.autofill:autofill:1.0.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\a82a09ab84d1e5fc159f76df91b5f483\transformed\autofill-1.0.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\a1628e5372ed08e059f8590dde1d683b\transformed\autofill-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -745,9 +745,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.emoji2:emoji2:1.3.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\a10d82b8d97344e80085dce126fce16d\transformed\emoji2-1.3.0\jars\classes.jar;C:\Users\Metal\.gradle\caches\8.11.1\transforms\a10d82b8d97344e80085dce126fce16d\transformed\emoji2-1.3.0\jars\libs\repackaged.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\bbb481d4d76a4db39bd46f30aba2004d\transformed\emoji2-1.3.0\jars\classes.jar;C:\Users\Metal\.gradle\caches\8.11.1\transforms\bbb481d4d76a4db39bd46f30aba2004d\transformed\emoji2-1.3.0\jars\libs\repackaged.jar"
       resolved="androidx.emoji2:emoji2:1.3.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\a10d82b8d97344e80085dce126fce16d\transformed\emoji2-1.3.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\bbb481d4d76a4db39bd46f30aba2004d\transformed\emoji2-1.3.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -758,9 +758,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-process:2.7.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\7e96e950326da5445dbad8b0e9d21fa3\transformed\lifecycle-process-2.7.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\5901651d0b17968495d35b17654ef4dc\transformed\lifecycle-process-2.7.0\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-process:2.7.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\7e96e950326da5445dbad8b0e9d21fa3\transformed\lifecycle-process-2.7.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\5901651d0b17968495d35b17654ef4dc\transformed\lifecycle-process-2.7.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -775,9 +775,9 @@
       resolved="androidx.lifecycle:lifecycle-common-java8:2.7.0"/>
   <library
       name="androidx.customview:customview-poolingcontainer:1.0.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\1b1fc3a78bce6fad2f28b3de3df78728\transformed\customview-poolingcontainer-1.0.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\15b8df45ddf45a88d578e486e287fa81\transformed\customview-poolingcontainer-1.0.0\jars\classes.jar"
       resolved="androidx.customview:customview-poolingcontainer:1.0.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\1b1fc3a78bce6fad2f28b3de3df78728\transformed\customview-poolingcontainer-1.0.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\15b8df45ddf45a88d578e486e287fa81\transformed\customview-poolingcontainer-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -792,9 +792,9 @@
       resolved="androidx.collection:collection-ktx:1.4.0"/>
   <library
       name="androidx.interpolator:interpolator:1.0.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\4f0fc764fd9f080f7c3b98d5f4651355\transformed\interpolator-1.0.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\830b4ae9966f220966a4ced568b89bf5\transformed\interpolator-1.0.0\jars\classes.jar"
       resolved="androidx.interpolator:interpolator:1.0.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\4f0fc764fd9f080f7c3b98d5f4651355\transformed\interpolator-1.0.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\830b4ae9966f220966a4ced568b89bf5\transformed\interpolator-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -805,9 +805,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.profileinstaller:profileinstaller:1.3.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\9a1b11cf957953b6f7f59a4c7020d199\transformed\profileinstaller-1.3.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\8c5d3c4871dba9a4014e287e863b0145\transformed\profileinstaller-1.3.0\jars\classes.jar"
       resolved="androidx.profileinstaller:profileinstaller:1.3.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\9a1b11cf957953b6f7f59a4c7020d199\transformed\profileinstaller-1.3.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\8c5d3c4871dba9a4014e287e863b0145\transformed\profileinstaller-1.3.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -818,9 +818,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.startup:startup-runtime:1.1.1@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\f15c2d304f63a0d7ddf5ff2126c32adc\transformed\startup-runtime-1.1.1\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\2fb5fde2daeeea9ee50ef42b06a614b8\transformed\startup-runtime-1.1.1\jars\classes.jar"
       resolved="androidx.startup:startup-runtime:1.1.1"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\f15c2d304f63a0d7ddf5ff2126c32adc\transformed\startup-runtime-1.1.1"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\2fb5fde2daeeea9ee50ef42b06a614b8\transformed\startup-runtime-1.1.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -831,9 +831,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.tracing:tracing:1.0.0@aar"
-      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\4423869996f99c2ff81a858b7b6dab72\transformed\tracing-1.0.0\jars\classes.jar"
+      jars="C:\Users\Metal\.gradle\caches\8.11.1\transforms\6c1f1c6b42e7fdb2ed48fa4dd691496e\transformed\tracing-1.0.0\jars\classes.jar"
       resolved="androidx.tracing:tracing:1.0.0"
-      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\4423869996f99c2ff81a858b7b6dab72\transformed\tracing-1.0.0"
+      folder="C:\Users\Metal\.gradle\caches\8.11.1\transforms\6c1f1c6b42e7fdb2ed48fa4dd691496e\transformed\tracing-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"

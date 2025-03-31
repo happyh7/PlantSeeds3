@@ -177,17 +177,20 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 1 warning</span>
+      <span class="mdl-layout-title">Lint Report: 6 warnings</span>
       <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Sun Mar 30 21:37:07 CEST 2025 by AGP (8.2.2)</nav>
+      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Mon Mar 31 11:28:22 CEST 2025 by AGP (8.9.0)</nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Issue Types</span>
     <nav class="mdl-navigation">
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
-      <a class="mdl-navigation__link" href="#LintBaseline"><i class="material-icons warning-icon">warning</i>Baseline Issues (2)</a>
+      <a class="mdl-navigation__link" href="#LintBaseline"><i class="material-icons warning-icon">warning</i>Baseline Applied (1)</a>
+      <a class="mdl-navigation__link" href="#LintBaselineFixed"><i class="material-icons warning-icon">warning</i>Baselined Issues Fixed (1)</a>
+      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (3)</a>
       <a class="mdl-navigation__link" href="#ObsoleteSdkInt"><i class="material-icons warning-icon">warning</i>Obsolete SDK_INT Version Check (1)</a>
+      <a class="mdl-navigation__link" href="#UseTomlInstead"><i class="material-icons warning-icon">warning</i>Use TOML Version Catalog Instead (2)</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -203,16 +206,29 @@ document.getElementById(id).style.display = 'none';
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Lint">Lint</a>
 </td></tr>
 <tr>
-<td class="countColumn">2</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
-<a href="#LintBaseline">LintBaseline</a>: Baseline Issues</td></tr>
+<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#LintBaseline">LintBaseline</a>: Baseline Applied</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#LintBaselineFixed">LintBaselineFixed</a>: Baselined Issues Fixed</td></tr>
+<tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
+</td></tr>
+<tr>
+<td class="countColumn">3</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#GradleDependency">GradleDependency</a>: Obsolete Gradle Dependency</td></tr>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Performance">Performance</a>
 </td></tr>
 <tr>
 <td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#ObsoleteSdkInt">ObsoleteSdkInt</a>: Obsolete SDK_INT Version Check</td></tr>
-<tr><td></td><td class="categoryColumn"><a href="#ExtraIssues">Included Additional Checks (50)</a>
+<tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Productivity">Productivity</a>
 </td></tr>
-<tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (39)</a>
+<tr>
+<td class="countColumn">2</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#UseTomlInstead">UseTomlInstead</a>: Use TOML Version Catalog Instead</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#ExtraIssues">Included Additional Checks (62)</a>
+</td></tr>
+<tr><td></td><td class="categoryColumn"><a href="#MissingIssues">Disabled Checks (41)</a>
 </td></tr>
 </table>
 <br/>              </div>
@@ -226,21 +242,19 @@ Dismiss</button>            </div>
 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="LintBaselineCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Baseline Issues</h2>
+    <h2 class="mdl-card__title-text">Baseline Applied</h2>
   </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../lint-baseline.xml">../../lint-baseline.xml</a></span>: <span class="message">16 errors/warnings were listed in the baseline file (lint-baseline.xml) but not found in the project; perhaps they have been fixed? Another possible explanation is that lint recently stopped analyzing (and including results from) dependent projects by default. You can turn this back on with <code>android.lintOptions.checkDependencies=true</code>. Unmatched issue types: NewApi (15), ObsoleteSdkInt</span><br />
-<span class="location"><a href="../../lint-baseline.xml">../../lint-baseline.xml</a></span>: <span class="message">31 warnings were filtered out because they are listed in the baseline file, lint-baseline.xml<br/>
-</span><br />
+<span class="location"><a href="../../lint-baseline.xml">../../lint-baseline.xml</a></span>: <span class="message">30 warnings were filtered out because they are listed in the baseline file, lint-baseline.xml</span><br />
 </div>
 <div class="metadata"><div class="explanation" id="explanationLintBaseline" style="display: none;">
 Lint can be configured with a "baseline"; a set of current issues found in a codebase, which future runs of lint will silently ignore. Only new issues not found in the baseline are reported.<br/>
 <br/>
 Note that while opening files in the IDE, baseline issues are not filtered out; the purpose of baselines is to allow you to get started using lint and break the build on all newly introduced errors, without having to go back and fix the entire codebase up front. However, when you open up existing files you still want to be aware of and fix issues as you come across them.<br/>
 <br/>
-This issue type is used to emit two types of informational messages in reports: first, whether any issues were filtered out so you don't have a false sense of security if you forgot that you've checked in a baseline file, and second, whether any issues in the baseline file appear to have been fixed such that you can stop filtering them out and get warned if the issues are re-introduced.<br/>To suppress this error, use the issue id "LintBaseline" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+This issue type is used to emit an informational-only warning if any issues were filtered out due to baseline matching. That way, you don't have a false sense of security if you forgot that you've checked in a baseline file.<br/>To suppress this error, use the issue id "LintBaseline" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
 <br/></div>
 </div>
 </div>
@@ -261,6 +275,107 @@ This issue type is used to emit two types of informational messages in reports: 
 Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="LintBaselineCardLink" onclick="hideid('LintBaselineCard');">
 Dismiss</button>            </div>
             </div>
+          </section><a name="LintBaselineFixed"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="LintBaselineFixedCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Baselined Issues Fixed</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../lint-baseline.xml">../../lint-baseline.xml</a></span>: <span class="message">17 errors/warnings were listed in the baseline file (lint-baseline.xml) but not found in the project; perhaps they have been fixed? Another possible explanation is that lint recently stopped analyzing (and including results from) dependent projects by default. You can turn this back on with <code>android.lintOptions.checkDependencies=true</code>. Unmatched issue types: NewApi (15), ObsoleteLintCustomCheck, ObsoleteSdkInt</span><br />
+</div>
+<div class="metadata"><div class="explanation" id="explanationLintBaselineFixed" style="display: none;">
+If a lint baseline describes a problem which is no longer reported, then the problem has either been fixed, or perhaps the issue type has been disabled. In any case, the entry can be removed from the baseline (such that if the issue is reintroduced at some point, lint will complain rather than just silently starting to match the old baseline entry again.)<br/>To suppress this error, use the issue id "LintBaselineFixed" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">LintBaselineFixed</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Information</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 10/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationLintBaselineFixedLink" onclick="reveal('explanationLintBaselineFixed');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="LintBaselineFixedCardLink" onclick="hideid('LintBaselineFixedCard');">
+Dismiss</button>            </div>
+            </div>
+          </section>
+<a name="Correctness"></a>
+<a name="GradleDependency"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="GradleDependencyCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Obsolete Gradle Dependency</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:10</span>: <span class="message">A newer version of <code>compileSdkVersion</code> than 34 is available: 35</span><br /><pre class="errorlines">
+<span class="lineno">  7 </span>
+<span class="lineno">  8 </span>android {
+<span class="lineno">  9 </span>    namespace = "com.bps.plantseeds3.common"
+<span class="caretline"><span class="lineno"> 10 </span>    <span class="warning">compileSdk = 34</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 11 </span>
+<span class="lineno"> 12 </span>    defaultConfig {
+<span class="lineno"> 13 </span>        minSdk = 26
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:52</span>: <span class="message">A newer version of androidx.compose:compose-bom than 2024.02.00 is available: 2025.03.01</span><br /><pre class="errorlines">
+<span class="lineno"> 49 </span>    implementation("androidx.core:core-ktx:1.12.0")
+<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+<span class="lineno"> 51 </span>    implementation("androidx.activity:activity-compose:1.8.2")
+<span class="caretline"><span class="lineno"> 52 </span>    implementation(<span class="warning">platform("androidx.compose:compose-bom:2024.02.00")</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 53 </span>    implementation("androidx.compose.ui:ui")
+<span class="lineno"> 54 </span>    implementation("androidx.compose.ui:ui-graphics")
+<span class="lineno"> 55 </span>    implementation("androidx.compose.ui:ui-tooling-preview")
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:78</span>: <span class="message">A newer version of androidx.compose:compose-bom than 2024.02.00 is available: 2025.03.01</span><br /><pre class="errorlines">
+<span class="lineno"> 75 </span>    testImplementation("junit:junit:4.13.2")
+<span class="lineno"> 76 </span>    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+<span class="lineno"> 77 </span>    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+<span class="caretline"><span class="lineno"> 78 </span>    androidTestImplementation(<span class="warning">platform("androidx.compose:compose-bom:2024.02.00")</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 79 </span>    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+<span class="lineno"> 80 </span>    debugImplementation("androidx.compose.ui:ui-tooling")
+<span class="lineno"> 81 </span>    debugImplementation("androidx.compose.ui:ui-test-manifest")
+</pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationGradleDependency" style="display: none;">
+This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
+To suppress this error, use the issue id "GradleDependency" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">GradleDependency</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Correctness</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 4/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationGradleDependencyLink" onclick="reveal('explanationGradleDependency');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="GradleDependencyCardLink" onclick="hideid('GradleDependencyCard');">
+Dismiss</button>            </div>
+            </div>
           </section>
 <a name="Performance"></a>
 <a name="ObsoleteSdkInt"></a>
@@ -272,7 +387,7 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/bps/plantseeds3/common/util/NetworkUtils.kt">../../src/main/java/com/bps/plantseeds3/common/util/NetworkUtils.kt</a>:15</span>: <span class="message">Unnecessary; SDK_INT is always >= 26</span><br /><pre class="errorlines">
+<span class="location"><a href="../../src/main/java/com/bps/plantseeds3/common/util/NetworkUtils.kt">../../src/main/java/com/bps/plantseeds3/common/util/NetworkUtils.kt</a>:15</span>: <span class="message">Unnecessary; <code>SDK_INT</code> is always >= 26</span><br /><pre class="errorlines">
 <span class="lineno"> 12 </span>    <span class="keyword">val</span> capabilities = connectivityManager.getNetworkCapabilities(network) ?: <span class="keyword">return</span> <span class="keyword">false</span>
 <span class="lineno"> 13 </span>
 <span class="lineno"> 14 </span>    <span class="keyword">return</span> <span class="keyword">when</span> {
@@ -312,6 +427,58 @@ Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id
 Dismiss</button>            </div>
             </div>
           </section>
+<a name="Productivity"></a>
+<a name="UseTomlInstead"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="UseTomlInsteadCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Use TOML Version Catalog Instead</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:80</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 77 </span>    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+<span class="lineno"> 78 </span>    androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.00"))
+<span class="lineno"> 79 </span>    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+<span class="caretline"><span class="lineno"> 80 </span>    debugImplementation(<span class="warning">"androidx.compose.ui:ui-tooling"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 81 </span>    debugImplementation("androidx.compose.ui:ui-test-manifest")
+<span class="lineno"> 82 </span>} </pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:81</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 78 </span>    androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.00"))
+<span class="lineno"> 79 </span>    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+<span class="lineno"> 80 </span>    debugImplementation("androidx.compose.ui:ui-tooling")
+<span class="caretline"><span class="lineno"> 81 </span>    debugImplementation(<span class="warning">"androidx.compose.ui:ui-test-manifest"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 82 </span>} </pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationUseTomlInstead" style="display: none;">
+If your project is using a <code>libs.versions.toml</code> file, you should place all Gradle dependencies in the TOML file. This lint check looks for version declarations outside of the TOML file and suggests moving them (and in the IDE, provides a quickfix to performing the operation automatically).<br/>To suppress this error, use the issue id "UseTomlInstead" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">UseTomlInstead</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Productivity</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 4/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationUseTomlInsteadLink" onclick="reveal('explanationUseTomlInstead');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="UseTomlInsteadCardLink" onclick="hideid('UseTomlInsteadCard');">
+Dismiss</button>            </div>
+            </div>
+          </section>
 <a name="ExtraIssues"></a>
 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="ExtraIssuesCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
@@ -325,12 +492,77 @@ whether a particular check is included in analysis when configuring builds.
 (Note that the list does not include the hundreds of built-in checks into lint,
 only additional ones.)
 <div id="IncludedIssues" style="display: none;"><br/><br/><div class="issue">
+<div class="id">AutoboxingStateCreation<div class="issueSeparator"></div>
+</div>
+<div class="metadata"><div class="explanation">
+Calling <code>mutableStateOf&lt;T>()</code> when <code>T</code> is either backed by a primitive type on the JVM or is a value class results in a state implementation that requires all state values to be boxed. This usually causes an additional allocation for each state write, and adds some additional work to auto-unbox values when reading the value of the state. Instead, prefer to use a specialized primitive state implementation for <code>Int</code>, <code>Long</code>, <code>Float</code>, and <code>Double</code> when the state does not need to track null values and does not override the default <code>SnapshotMutationPolicy</code>. See <code>mutableIntStateOf()</code>, <code>mutableLongStateOf()</code>, <code>mutableFloatStateOf()</code>, and <code>mutableDoubleStateOf()</code> for more information.<br/><div class="vendor">
+Vendor: Jetpack Compose<br/>
+Identifier: androidx.compose.runtime<br/>
+Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
+</div>
+<br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
+<div class="id">AutoboxingStateValueProperty<div class="issueSeparator"></div>
+</div>
+<div class="metadata"><div class="explanation">
+Avoid using the generic <code>value</code> property when using a specialized State type. Reading or writing to the state's generic <code>value</code> property will result in an unnecessary autoboxing operation. Prefer the specialized value property (e.g. <code>intValue</code> for <code>MutableIntState</code>), or use property delegation to avoid unnecessary allocations.<br/><div class="vendor">
+Vendor: Jetpack Compose<br/>
+Identifier: androidx.compose.runtime<br/>
+Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
+</div>
+<br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
+<div class="id">ComposableNaming<div class="issueSeparator"></div>
+</div>
+<div class="metadata"><div class="explanation">
+@Composable functions without a return type should use similar naming to classes, starting with an uppercase letter and ending with a noun. @Composable functions with a return type should be treated as normal Kotlin functions, starting with a lowercase letter.<br/><div class="vendor">
+Vendor: Jetpack Compose<br/>
+Identifier: androidx.compose.runtime<br/>
+Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
+</div>
+<br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
+<div class="id">CompositionLocalNaming<div class="issueSeparator"></div>
+</div>
+<div class="metadata"><div class="explanation">
+CompositionLocal properties should be prefixed with <code>Local</code>. This helps make it clear at their use site that these values are local to the current composition. Typically the full name will be <code>Local</code> + the type of the CompositionLocal, for example val LocalFoo = compositionLocalOf { Foo() }.<br/><div class="vendor">
+Vendor: Jetpack Compose<br/>
+Identifier: androidx.compose.runtime<br/>
+Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
+</div>
+<br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
 <div class="id">ConflictingOnColor<div class="issueSeparator"></div>
 </div>
 <div class="metadata"><div class="explanation">
 In the Material color system background colors have a corresponding 'on' color which is used for the content color inside a component. For example, a button colored <code>primary</code> will have <code>onPrimary</code> text. Because of this, it is important that there is only one possible <code>onColor</code> for a given color value, otherwise there is no way to know which 'on' color should be used inside a component. To fix this either use the same 'on' color for identical background colors, or use a different background color for each 'on' color.<br/><div class="vendor">
 Vendor: Jetpack Compose<br/>
 Identifier: androidx.compose.material<br/>
+Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
+</div>
+<br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
+<div class="id">CoroutineCreationDuringComposition<div class="issueSeparator"></div>
+</div>
+<div class="metadata"><div class="explanation">
+Creating a coroutine with <code>async</code> or <code>launch</code> during composition is often incorrect - this means that a coroutine will be created even if the composition fails / is rolled back, and it also means that multiple coroutines could end up mutating the same state, causing inconsistent results. Instead, use <code>LaunchedEffect</code> and create coroutines inside the suspending block. The block will only run after a successful composition, and will cancel existing coroutines when <code>key</code> changes, allowing correct cleanup.<br/><div class="vendor">
+Vendor: Jetpack Compose<br/>
+Identifier: androidx.compose.runtime<br/>
 Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
 </div>
 <br/>
@@ -411,6 +643,19 @@ Vendor: Google<br/>
 Identifier: com.google.dagger:dagger-lint<br/>
 Contact: <a href="https://github.com/google/dagger">https://github.com/google/dagger</a><br/>
 Feedback: <a href="https://github.com/google/dagger/issues">https://github.com/google/dagger/issues</a><br/>
+</div>
+<br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
+<div class="id">FlowOperatorInvokedInComposition<div class="issueSeparator"></div>
+</div>
+<div class="metadata"><div class="explanation">
+Calling a Flow operator function within composition will result in a new Flow being created every recomposition, which will reset collectAsState() and cause other related problems. Instead Flow operators should be called inside <code>remember</code>, or a side effect such as LaunchedEffect.<br/><div class="vendor">
+Vendor: Jetpack Compose<br/>
+Identifier: androidx.compose.runtime<br/>
+Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
 </div>
 <br/>
 <br/></div>
@@ -663,6 +908,19 @@ Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">
 </div>
 </div>
 <div class="issue">
+<div class="id">MutableCollectionMutableState<div class="issueSeparator"></div>
+</div>
+<div class="metadata"><div class="explanation">
+Writes to mutable collections inside a MutableState will not cause a recomposition - only writes to the MutableState itself will. In most cases you should either use a read-only collection (such as List or Map) and assign a new instance to the MutableState when your data changes, or you can use an snapshot-backed collection such as SnapshotStateList or SnapshotStateMap which will correctly cause a recomposition when their contents are modified.<br/><div class="vendor">
+Vendor: Jetpack Compose<br/>
+Identifier: androidx.compose.runtime<br/>
+Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
+</div>
+<br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
 <div class="id">NoCollectCallFound<div class="issueSeparator"></div>
 </div>
 <div class="metadata"><div class="explanation">
@@ -685,6 +943,45 @@ This check ensures that LiveData values are not null when explicitly            
 Vendor: Android Open Source Project<br/>
 Identifier: androidx.lifecycle<br/>
 Feedback: <a href="https://issuetracker.google.com/issues/new?component=413132">https://issuetracker.google.com/issues/new?component=413132</a><br/>
+</div>
+<br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
+<div class="id">OpaqueUnitKey<div class="issueSeparator"></div>
+</div>
+<div class="metadata"><div class="explanation">
+Certain Compose functions including <code>remember</code>, <code>LaunchedEffect</code>, and <code>DisposableEffect</code> declare (and sometimes require) one or more key parameters. When a key parameter changes, it is a signal that the previous invocation is now invalid. In certain cases, it may be required to pass <code>Unit</code> as a key to one of these functions, indicating that the invocation never becomes invalid. Using <code>Unit</code> as a key should be done infrequently, and should always be done explicitly by passing the <code>Unit</code> literal. This inspection checks for invocations where <code>Unit</code> is being passed as a key argument in any form other than the <code>Unit</code> literal. This is usually done by mistake, and can harm readability. If a Unit expression is being passed as a key, it is always equivalent to move the expression before the function invocation and pass the <code>Unit</code> literal instead.<br/><div class="vendor">
+Vendor: Jetpack Compose<br/>
+Identifier: androidx.compose.runtime<br/>
+Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
+</div>
+<br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
+<div class="id">ProduceStateDoesNotAssignValue<div class="issueSeparator"></div>
+</div>
+<div class="metadata"><div class="explanation">
+produceState returns an observable State using values assigned inside the producer lambda. If the lambda never assigns (i.e <code>value = foo</code>), then the State will never change. Make sure to assign a value when the source you are producing values from changes / emits a new value. For sample usage see the produceState documentation.<br/><div class="vendor">
+Vendor: Jetpack Compose<br/>
+Identifier: androidx.compose.runtime<br/>
+Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
+</div>
+<br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
+<div class="id">RememberReturnType<div class="issueSeparator"></div>
+</div>
+<div class="metadata"><div class="explanation">
+A call to <code>remember</code> that returns <code>Unit</code> is always an error. This typically happens when using <code>remember</code> to mutate variables on an object. <code>remember</code> is executed during the composition, which means that if the composition fails or is happening on a separate thread, the mutated variables may not reflect the true state of the composition. Instead, use <code>SideEffect</code> to make deferred changes once the composition succeeds, or mutate <code>MutableState</code> backed variables directly, as these will handle composition failure for you.<br/><div class="vendor">
+Vendor: Jetpack Compose<br/>
+Identifier: androidx.compose.runtime<br/>
+Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
 </div>
 <br/>
 <br/></div>
@@ -723,6 +1020,19 @@ Feedback: <a href="https://issuetracker.google.com/issues/new?component=413132">
 Pointer Input events are queued inside awaitPointerEventScope. By using the return value of awaitPointerEventScope one might unexpectedly lose events. If another awaitPointerEventScope is restarted there is no guarantee that the events will persist between those calls. In this case you should keep all events inside the awaitPointerEventScope block<br/><div class="vendor">
 Vendor: Jetpack Compose<br/>
 Identifier: androidx.compose.ui<br/>
+Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
+</div>
+<br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
+<div class="id">StateFlowValueCalledInComposition<div class="issueSeparator"></div>
+</div>
+<div class="metadata"><div class="explanation">
+Calling StateFlow.value within composition will not observe changes to the StateFlow, so changes might not be reflected within the composition. Instead you should use stateFlow.collectAsState() to observe changes to the StateFlow, and recompose when it changes.<br/><div class="vendor">
+Vendor: Jetpack Compose<br/>
+Identifier: androidx.compose.runtime<br/>
 Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
 </div>
 <br/>
@@ -789,6 +1099,19 @@ Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">
 MutableInteractionSource instances created during composition need to be `remember`ed, otherwise they will be recreated during recomposition, and lose their state. Either hoist the MutableInteractionSource to an object that is not created during composition, or wrap the MutableInteractionSource in a call to <code>remember</code>.<br/><div class="vendor">
 Vendor: Jetpack Compose<br/>
 Identifier: androidx.compose.foundation<br/>
+Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
+</div>
+<br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
+<div class="id">UnrememberedMutableState<div class="issueSeparator"></div>
+</div>
+<div class="metadata"><div class="explanation">
+State objects created during composition need to be `remember`ed, otherwise they will be recreated during recomposition, and lose their state. Either hoist the state to an object that is not created during composition, or wrap the state in a call to <code>remember</code>.<br/><div class="vendor">
+Vendor: Jetpack Compose<br/>
+Identifier: androidx.compose.runtime<br/>
 Feedback: <a href="https://issuetracker.google.com/issues/new?component=612128">https://issuetracker.google.com/issues/new?component=612128</a><br/>
 </div>
 <br/>
@@ -1083,6 +1406,24 @@ This check is not very sophisticated (it just looks for buttons with the label "
 </div>
 </div>
 <div class="issue">
+<div class="id">ComposableLambdaParameterNaming<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+<div class="explanation">
+Composable functions with only one composable lambda parameter should use the name <code>content</code> for the parameter.<br/><br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
+<div class="id">ComposableLambdaParameterPosition<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+<div class="explanation">
+Composable functions with only one composable lambda parameter should place the parameter at the end of the parameter list, so it can be used as a trailing lambda.<br/><br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
 <div class="id">ConvertToWebp<div class="issueSeparator"></div>
 </div>
 <div class="metadata">Disabled By: Default<br/>
@@ -1192,16 +1533,6 @@ There are predefined sizes (for each density) for launcher icons. You should fol
 </div>
 </div>
 <div class="issue">
-<div class="id">ImplicitSamInstance<div class="issueSeparator"></div>
-</div>
-<div class="metadata">Disabled By: Default<br/>
-<div class="explanation">
-Kotlin's support for SAM (single accessor method) interfaces lets you pass a lambda to the interface. This will create a new instance on the fly even though there is no explicit constructor call. If you pass one of these lambdas or method references into a method which (for example) stores or compares the object identity, unexpected results may happen.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
-<br/>
-<br/></div>
-</div>
-</div>
-<div class="issue">
 <div class="id">InvalidPackage<div class="issueSeparator"></div>
 </div>
 <div class="metadata">Disabled By: Default<br/>
@@ -1261,7 +1592,7 @@ To designate a unit test as the documentation example for an issue, name the tes
 </div>
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
-You should never compare two PSI elements for equality with <code>equals</code>; use <code>isEquivalentTo(PsiElement)</code> instead.<br/><br/>
+You should never compare two PSI elements for equality with <code>equals</code>; use <code>PsiEquivalenceUtil.areElementsEquivalent(PsiElement, PsiElement)</code> instead.<br/><br/>
 <br/></div>
 </div>
 </div>
@@ -1379,6 +1710,21 @@ Following this recommendation avoids naming collisions, and helps clearly identi
 </div>
 </div>
 <div class="issue">
+<div class="id">PrivacySandboxBlockedCall<div class="issueSeparator"></div>
+</div>
+<div class="metadata">Disabled By: Default<br/>
+<div class="explanation">
+Many APIs are unavailable in the Privacy Sandbox, depending on the <code>targetSdk</code>.<br/>
+<br/>
+If your code is designed to run in the sandbox (and never outside the sandbox) then you should remove the blocked calls to avoid exceptions at runtime.<br/>
+<br/>
+If your code is part of a library that can be executed both inside and outside the sandbox, surround the code with <code>if (!Process.isSdkSandbox()) { ... }</code> (or use your own field or method annotated with <code>@ChecksRestrictedEnvironment</code>) to avoid executing blocked calls when in the sandbox. Or, add the <code>@RestrictedForEnvironment</code> annotation to the containing method if the entire method should not be called when in the sandbox.<br/>
+<br/>
+This check is disabled by default, and should only be enabled in modules that may execute in the Privacy Sandbox.<br/><br/>
+<br/></div>
+</div>
+</div>
+<div class="issue">
 <div class="id">Registered<div class="issueSeparator"></div>
 </div>
 <div class="metadata">Disabled By: Default<br/>
@@ -1449,7 +1795,7 @@ A private inner class which is accessed from the outer class will force the comp
 </div>
 <div class="metadata">Disabled By: Default<br/>
 <div class="explanation">
-Straight single quotes and double quotes, when used as a pair, can be replaced by "curvy quotes" (or directional quotes). This can make the text more readable. Note that you should never use grave accents and apostrophes to quote, `like this'. (Also note that you should not use curvy quotes for code fragments.)<br/><div class="moreinfo">More info: <a href="https://en.wikipedia.org/wiki/Quotation_mark">https://en.wikipedia.org/wiki/Quotation_mark</a>
+Straight single quotes and double quotes, when used as a pair, can be replaced by "curvy quotes" (or directional quotes). Use the right single quotation mark for apostrophes. Never use generic quotes ", ' or free-standing accents `, ´ for quotation marks, apostrophes, or primes. This can make the text more readable.<br/><div class="moreinfo">More info: <a href="https://en.wikipedia.org/wiki/Quotation_mark">https://en.wikipedia.org/wiki/Quotation_mark</a>
 </div>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
 <br/>
 <br/></div>

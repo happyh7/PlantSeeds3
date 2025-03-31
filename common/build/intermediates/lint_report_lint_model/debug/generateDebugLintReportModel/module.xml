@@ -1,12 +1,12 @@
 <lint-module
     format="1"
-    dir="E:\Plantseeds3\common"
+    dir="E:\Plantseeds 3\common"
     name=":common"
     type="LIBRARY"
-    maven="PlantSeeds3:common:"
-    agpVersion="8.2.2"
+    maven="PlantSeeds3:common:unspecified"
+    agpVersion="8.9.0"
     buildFolder="build"
-    bootClassPath="C:\Users\Metal\AppData\Local\Android\Sdk\platforms\android-34\android.jar;C:\Users\Metal\AppData\Local\Android\Sdk\build-tools\34.0.0\core-lambda-stubs.jar"
+    bootClassPath="C:\Users\Metal\AppData\Local\Android\Sdk\platforms\android-34\android.jar;C:\Users\Metal\AppData\Local\Android\Sdk\build-tools\35.0.0\core-lambda-stubs.jar"
     javaSourceLevel="17"
     compileTarget="android-34"
     neverShrinking="true">
