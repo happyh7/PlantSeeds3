@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -34,7 +34,6 @@ fun AddEditSeedScreen(
 ) {
     val TAG = "AddEditSeedScreen"
     val state by viewModel.state.collectAsState()
-    var expanded by remember { mutableStateOf(false) }
     var snackbarMessage by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(key1 = true) {
@@ -49,7 +48,6 @@ fun AddEditSeedScreen(
                     snackbarMessage = "Frö sparat!"
                     navController.navigateUp()
                 }
-                else -> Unit
             }
         }
     }
@@ -67,7 +65,7 @@ fun AddEditSeedScreen(
                         Log.d(TAG, "Navigerar tillbaka")
                         navController.navigateUp() 
                     }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Tillbaka")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Tillbaka")
                     }
                 },
                 actions = {

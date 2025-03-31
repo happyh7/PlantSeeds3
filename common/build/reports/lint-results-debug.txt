@@ -25,19 +25,6 @@ E:\Plantseeds 3\common\build.gradle.kts:78: Warning: A newer version of androidx
    However, you may simply not be aware that a more recent version is
    available, and that is what this lint check helps find.
 
-E:\Plantseeds 3\common\src\main\java\com\bps\plantseeds3\common\util\NetworkUtils.kt:15: Warning: Unnecessary; SDK_INT is always >= 26 [ObsoleteSdkInt]
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-   Explanation for issues of type "ObsoleteSdkInt":
-   This check flags version checks that are not necessary, because the
-   minSdkVersion (or surrounding known API level) is already at least as high
-   as the version checked for.
-
-   Similarly, it also looks for resources in -vNN folders, such as values-v14
-   where the version qualifier is less than or equal to the minSdkVersion,
-   where the contents should be merged into the best folder.
-
 E:\Plantseeds 3\common\build.gradle.kts:80: Warning: Use version catalog instead [UseTomlInstead]
     debugImplementation("androidx.compose.ui:ui-tooling")
                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,4 +38,4 @@ E:\Plantseeds 3\common\build.gradle.kts:81: Warning: Use version catalog instead
    declarations outside of the TOML file and suggests moving them (and in the
    IDE, provides a quickfix to performing the operation automatically).
 
-0 errors, 6 warnings (30 warnings filtered by baseline lint-baseline.xml)
+0 errors, 5 warnings (30 warnings filtered by baseline lint-baseline.xml)

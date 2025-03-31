@@ -74,22 +74,6 @@
     </issue>
 
     <issue
-        id="ObsoleteSdkInt"
-        severity="Warning"
-        message="Unnecessary; `SDK_INT` is always >= 26"
-        category="Performance"
-        priority="6"
-        summary="Obsolete SDK_INT Version Check"
-        explanation="This check flags version checks that are not necessary, because the `minSdkVersion` (or surrounding known API level) is already at least as high as the version checked for.&#xA;&#xA;Similarly, it also looks for resources in `-vNN` folders, such as `values-v14` where the version qualifier is less than or equal to the `minSdkVersion`, where the contents should be merged into the best folder."
-        errorLine1="            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="E:\Plantseeds 3\common\src\main\java\com\bps\plantseeds3\common\util\NetworkUtils.kt"
-            line="15"
-            column="13"/>
-    </issue>
-
-    <issue
         id="UseTomlInstead"
         severity="Warning"
         message="Use version catalog instead"

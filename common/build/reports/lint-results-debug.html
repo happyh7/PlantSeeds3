@@ -177,9 +177,9 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 6 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 5 warnings</span>
       <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Mon Mar 31 11:28:22 CEST 2025 by AGP (8.9.0)</nav>
+      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Mon Mar 31 11:45:31 CEST 2025 by AGP (8.9.0)</nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -189,7 +189,6 @@ document.getElementById(id).style.display = 'none';
       <a class="mdl-navigation__link" href="#LintBaseline"><i class="material-icons warning-icon">warning</i>Baseline Applied (1)</a>
       <a class="mdl-navigation__link" href="#LintBaselineFixed"><i class="material-icons warning-icon">warning</i>Baselined Issues Fixed (1)</a>
       <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (3)</a>
-      <a class="mdl-navigation__link" href="#ObsoleteSdkInt"><i class="material-icons warning-icon">warning</i>Obsolete SDK_INT Version Check (1)</a>
       <a class="mdl-navigation__link" href="#UseTomlInstead"><i class="material-icons warning-icon">warning</i>Use TOML Version Catalog Instead (2)</a>
     </nav>
   </div>
@@ -216,11 +215,6 @@ document.getElementById(id).style.display = 'none';
 <tr>
 <td class="countColumn">3</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#GradleDependency">GradleDependency</a>: Obsolete Gradle Dependency</td></tr>
-<tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Performance">Performance</a>
-</td></tr>
-<tr>
-<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
-<a href="#ObsoleteSdkInt">ObsoleteSdkInt</a>: Obsolete SDK_INT Version Check</td></tr>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Productivity">Productivity</a>
 </td></tr>
 <tr>
@@ -374,56 +368,6 @@ To suppress this error, use the issue id "GradleDependency" as explained in the 
               <div class="mdl-card__actions mdl-card--border">
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationGradleDependencyLink" onclick="reveal('explanationGradleDependency');">
 Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="GradleDependencyCardLink" onclick="hideid('GradleDependencyCard');">
-Dismiss</button>            </div>
-            </div>
-          </section>
-<a name="Performance"></a>
-<a name="ObsoleteSdkInt"></a>
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="ObsoleteSdkIntCard" style="display: block;">
-            <div class="mdl-card mdl-cell mdl-cell--12-col">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Obsolete SDK_INT Version Check</h2>
-  </div>
-              <div class="mdl-card__supporting-text">
-<div class="issue">
-<div class="warningslist">
-<span class="location"><a href="../../src/main/java/com/bps/plantseeds3/common/util/NetworkUtils.kt">../../src/main/java/com/bps/plantseeds3/common/util/NetworkUtils.kt</a>:15</span>: <span class="message">Unnecessary; <code>SDK_INT</code> is always >= 26</span><br /><pre class="errorlines">
-<span class="lineno"> 12 </span>    <span class="keyword">val</span> capabilities = connectivityManager.getNetworkCapabilities(network) ?: <span class="keyword">return</span> <span class="keyword">false</span>
-<span class="lineno"> 13 </span>
-<span class="lineno"> 14 </span>    <span class="keyword">return</span> <span class="keyword">when</span> {
-<span class="caretline"><span class="lineno"> 15 </span>        <span class="warning">Build.VERSION.SDK_INT >= Build.VERSION_CODES.M</span> -> {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 16 </span>            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-<span class="lineno"> 17 </span>        }
-<span class="lineno"> 18 </span>        <span class="keyword">else</span> -> {
-</pre>
-
-</div>
-<div class="metadata"><div class="explanation" id="explanationObsoleteSdkInt" style="display: none;">
-This check flags version checks that are not necessary, because the <code>minSdkVersion</code> (or surrounding known API level) is already at least as high as the version checked for.<br/>
-<br/>
-Similarly, it also looks for resources in <code>-vNN</code> folders, such as <code>values-v14</code> where the version qualifier is less than or equal to the <code>minSdkVersion</code>, where the contents should be merged into the best folder.<br/>Note: This issue has an associated quickfix operation in Android Studio and IntelliJ IDEA.<br>
-To suppress this error, use the issue id "ObsoleteSdkInt" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
-<br/></div>
-</div>
-</div>
-<div class="chips">
-<span class="mdl-chip">
-    <span class="mdl-chip__text">ObsoleteSdkInt</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Performance</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Warning</span>
-</span>
-<span class="mdl-chip">
-    <span class="mdl-chip__text">Priority 6/10</span>
-</span>
-</div>
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationObsoleteSdkIntLink" onclick="reveal('explanationObsoleteSdkInt');">
-Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="ObsoleteSdkIntCardLink" onclick="hideid('ObsoleteSdkIntCard');">
 Dismiss</button>            </div>
             </div>
           </section>
