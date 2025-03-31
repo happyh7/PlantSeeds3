@@ -18,3 +18,5 @@ rootProject.name = "Plantseeds 3"
 include(":app")
 include(":common")
 include(":domain")
+include(":data")
+include(":presentation")

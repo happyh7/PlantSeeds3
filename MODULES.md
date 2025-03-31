@@ -107,11 +107,14 @@ Detta dokument beskriver hur modulerna ska implementeras i PlantSeeds3-projektet
 6. Integrera med andra moduler
 
 ## Cursor Integration
-- Varje modul kan delas separat i Cursor
+- Varje modul kan delas separat i Cursor för fokuserad utveckling
 - Hela projektet måste finnas för korrekt byggning
 - Använd `git checkout feature/modular-restructure` för att byta till rätt branch
 - Uppdatera settings.gradle.kts innan byggning
 - Kör `./gradlew build` för att verifiera byggningen
+- **Viktigt**: Fokusera först på att få rätt filstruktur och moduluppdelning på plats innan funktionalitet implementeras
+- **Viktigt**: Varje modul ska ha sin egen tydliga ansvarsdomän enligt dokumentationen ovan
+- **Viktigt**: Undvik att implementera funktionalitet tills modulstrukturen är helt på plats
 
 ## Testning
 - Varje modul ska ha sina egna tester
