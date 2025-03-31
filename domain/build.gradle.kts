@@ -56,9 +56,4 @@ dependencies {
 // Konfigurera Hilt-processorn
 kapt {
     correctErrorTypes = true
-    arguments {
-        arg("dagger.hilt.android.internal.disableAndroidSuperclassValidation", "true")
-        arg("dagger.hilt.android.internal.projectType", "library")
-        arg("dagger.hilt.internal.useAggregatingRootProcessor", "true")
-    }
 } 
