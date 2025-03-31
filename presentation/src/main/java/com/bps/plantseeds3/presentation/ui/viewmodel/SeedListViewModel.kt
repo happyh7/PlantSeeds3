@@ -25,14 +25,40 @@ class SeedListViewModel @Inject constructor(
         loadSeeds()
     }
 
+    fun onSearchQueryChange(query: String) {
+        val currentSeeds = _uiState.value.seeds
+        val filteredSeeds = if (query.isBlank()) {
+            currentSeeds
+        } else {
+            currentSeeds.filter { seed ->
+                seed.name.contains(query, ignoreCase = true) ||
+                seed.description.contains(query, ignoreCase = true)
+            }
+        }
+        _uiState.value = _uiState.value.copy(
+            searchQuery = query,
+            filteredSeeds = filteredSeeds
+        )
+    }
+
     private fun loadSeeds() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
             getSeedsUseCase().collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
+                        val seeds = resource.data ?: emptyList()
+                        val filteredSeeds = if (_uiState.value.searchQuery.isBlank()) {
+                            seeds
+                        } else {
+                            seeds.filter { seed ->
+                                seed.name.contains(_uiState.value.searchQuery, ignoreCase = true) ||
+                                seed.description.contains(_uiState.value.searchQuery, ignoreCase = true)
+                            }
+                        }
                         _uiState.value = _uiState.value.copy(
-                            seeds = resource.data ?: emptyList(),
+                            seeds = seeds,
+                            filteredSeeds = filteredSeeds,
                             isLoading = false
                         )
                     }

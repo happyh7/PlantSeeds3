@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -24,12 +25,36 @@ fun SeedListScreen(
     viewModel: SeedListViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    var showSearch by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Mina frön") }
-            )
+            if (showSearch) {
+                SearchBar(
+                    query = uiState.searchQuery,
+                    onQueryChange = viewModel::onSearchQueryChange,
+                    onSearch = { showSearch = false },
+                    active = true,
+                    onActiveChange = { showSearch = it },
+                    placeholder = { Text("Sök frön...") },
+                    leadingIcon = {
+                        IconButton(onClick = { showSearch = false }) {
+                            Icon(Icons.Default.Search, contentDescription = "Sök")
+                        }
+                    }
+                ) {
+                    // Sökresultat kan visas här om det behövs
+                }
+            } else {
+                TopAppBar(
+                    title = { Text("Mina frön") },
+                    actions = {
+                        IconButton(onClick = { showSearch = true }) {
+                            Icon(Icons.Default.Search, contentDescription = "Sök")
+                        }
+                    }
+                )
+            }
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -60,7 +85,7 @@ fun SeedListScreen(
                             .padding(16.dp)
                     )
                 }
-                uiState.seeds.isEmpty() -> {
+                uiState.filteredSeeds.isEmpty() -> {
                     Column(
                         modifier = Modifier
                             .align(Alignment.Center)
@@ -68,13 +93,16 @@ fun SeedListScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = "Inga frön än",
+                            text = if (uiState.searchQuery.isBlank()) "Inga frön än" else "Inga resultat",
                             style = MaterialTheme.typography.headlineMedium,
                             textAlign = TextAlign.Center
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "Tryck på + för att lägga till ditt första frö",
+                            text = if (uiState.searchQuery.isBlank()) 
+                                "Tryck på + för att lägga till ditt första frö"
+                            else 
+                                "Inga frön matchar din sökning",
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center
                         )
@@ -82,7 +110,7 @@ fun SeedListScreen(
                 }
                 else -> {
                     SeedList(
-                        seeds = uiState.seeds,
+                        seeds = uiState.filteredSeeds,
                         onSeedClick = onSeedClick
                     )
                 }
