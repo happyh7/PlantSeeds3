@@ -1,7 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     extra.apply {
+<<<<<<< HEAD
         set("compose_version", "1.5.4")
+=======
+        set("compose_version", "1.5.8")
+>>>>>>> ffb9e15 (Lägger till dokumentation för modulstruktur och uppdaterar Gradle-filer)
         set("hilt_version", "2.50")
         set("firebase_version", "32.7.2")
         set("work_version", "2.9.0")

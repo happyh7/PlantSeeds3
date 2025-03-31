@@ -6,6 +6,11 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+val compose_version = rootProject.extra["compose_version"] as String
+val hilt_version = rootProject.extra["hilt_version"] as String
+val firebase_version = rootProject.extra["firebase_version"] as String
+val work_version = rootProject.extra["work_version"] as String
+
 android {
     namespace = "com.bps.plantseeds3"
     compileSdk = 34
@@ -66,9 +71,13 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.8.2")
 
     // Compose
+<<<<<<< HEAD
     val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)
+=======
+    implementation(platform("androidx.compose:compose-bom:2024.02.00"))
+>>>>>>> ffb9e15 (Lägger till dokumentation för modulstruktur och uppdaterar Gradle-filer)
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
