@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.bps.plantseeds3.presentation.screens.gardens.GardensScreen
+import com.bps.plantseeds3.presentation.screens.plants.AddPlantScreen
 import com.bps.plantseeds3.presentation.screens.plants.PlantsScreen
 import com.bps.plantseeds3.presentation.screens.seeds.SeedsScreen
 
@@ -24,7 +25,9 @@ fun ComposeNavGraph(navController: NavHostController) {
             )
         }
         composable(Screen.AddPlant.route) {
-            // TODO: Implementera AddPlantScreen
+            AddPlantScreen(
+                onNavigateBack = { navController.popBackStack() }
+            )
         }
         composable(
             route = Screen.PlantDetails.route,
