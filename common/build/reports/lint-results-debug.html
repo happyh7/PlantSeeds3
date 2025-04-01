@@ -177,9 +177,9 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 5 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 4 warnings</span>
       <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Mon Mar 31 23:12:55 CEST 2025 by AGP (8.9.0)</nav>
+      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Tue Apr 01 08:26:21 CEST 2025 by AGP (8.9.0)</nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -188,8 +188,8 @@ document.getElementById(id).style.display = 'none';
       <a class="mdl-navigation__link" href="#overview"><i class="material-icons">dashboard</i>Overview</a>
       <a class="mdl-navigation__link" href="#LintBaseline"><i class="material-icons warning-icon">warning</i>Baseline Applied (1)</a>
       <a class="mdl-navigation__link" href="#LintBaselineFixed"><i class="material-icons warning-icon">warning</i>Baselined Issues Fixed (1)</a>
-      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (3)</a>
-      <a class="mdl-navigation__link" href="#UseTomlInstead"><i class="material-icons warning-icon">warning</i>Use TOML Version Catalog Instead (2)</a>
+      <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (1)</a>
+      <a class="mdl-navigation__link" href="#UseTomlInstead"><i class="material-icons warning-icon">warning</i>Use TOML Version Catalog Instead (3)</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -213,12 +213,12 @@ document.getElementById(id).style.display = 'none';
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Correctness">Correctness</a>
 </td></tr>
 <tr>
-<td class="countColumn">3</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#GradleDependency">GradleDependency</a>: Obsolete Gradle Dependency</td></tr>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Productivity">Productivity</a>
 </td></tr>
 <tr>
-<td class="countColumn">2</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">3</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#UseTomlInstead">UseTomlInstead</a>: Use TOML Version Catalog Instead</td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#ExtraIssues">Included Additional Checks (62)</a>
 </td></tr>
@@ -241,7 +241,7 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../lint-baseline.xml">../../lint-baseline.xml</a></span>: <span class="message">30 warnings were filtered out because they are listed in the baseline file, lint-baseline.xml</span><br />
+<span class="location"><a href="../../lint-baseline.xml">../../lint-baseline.xml</a></span>: <span class="message">14 errors and 16 warnings were filtered out because they are listed in the baseline file, lint-baseline.xml</span><br />
 </div>
 <div class="metadata"><div class="explanation" id="explanationLintBaseline" style="display: none;">
 Lint can be configured with a "baseline"; a set of current issues found in a codebase, which future runs of lint will silently ignore. Only new issues not found in the baseline are reported.<br/>
@@ -278,7 +278,7 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../lint-baseline.xml">../../lint-baseline.xml</a></span>: <span class="message">17 errors/warnings were listed in the baseline file (lint-baseline.xml) but not found in the project; perhaps they have been fixed? Another possible explanation is that lint recently stopped analyzing (and including results from) dependent projects by default. You can turn this back on with <code>android.lintOptions.checkDependencies=true</code>. Unmatched issue types: NewApi (15), ObsoleteLintCustomCheck, ObsoleteSdkInt</span><br />
+<span class="location"><a href="../../lint-baseline.xml">../../lint-baseline.xml</a></span>: <span class="message">17 errors/warnings were listed in the baseline file (lint-baseline.xml) but not found in the project; perhaps they have been fixed? Another possible explanation is that lint recently stopped analyzing (and including results from) dependent projects by default. You can turn this back on with <code>android.lintOptions.checkDependencies=true</code>. Unmatched issue types: GradleDependency (3), NewApi, ObsoleteLintCustomCheck, ObsoleteSdkInt, UseTomlInstead (11)</span><br />
 </div>
 <div class="metadata"><div class="explanation" id="explanationLintBaselineFixed" style="display: none;">
 If a lint baseline describes a problem which is no longer reported, then the problem has either been fixed, or perhaps the issue type has been disabled. In any case, the entry can be removed from the baseline (such that if the issue is reintroduced at some point, lint will complain rather than just silently starting to match the old baseline entry again.)<br/>To suppress this error, use the issue id "LintBaselineFixed" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
@@ -320,27 +320,7 @@ Dismiss</button>            </div>
 <span class="caretline"><span class="lineno"> 10 </span>    <span class="warning">compileSdk = 34</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span class="lineno"> 11 </span>
 <span class="lineno"> 12 </span>    defaultConfig {
-<span class="lineno"> 13 </span>        minSdk = 26
-</pre>
-
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:52</span>: <span class="message">A newer version of androidx.compose:compose-bom than 2024.02.00 is available: 2025.03.01</span><br /><pre class="errorlines">
-<span class="lineno"> 49 </span>    implementation("androidx.core:core-ktx:1.12.0")
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-<span class="lineno"> 51 </span>    implementation("androidx.activity:activity-compose:1.8.2")
-<span class="caretline"><span class="lineno"> 52 </span>    implementation(<span class="warning">platform("androidx.compose:compose-bom:2024.02.00")</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 53 </span>    implementation("androidx.compose.ui:ui")
-<span class="lineno"> 54 </span>    implementation("androidx.compose.ui:ui-graphics")
-<span class="lineno"> 55 </span>    implementation("androidx.compose.ui:ui-tooling-preview")
-</pre>
-
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:78</span>: <span class="message">A newer version of androidx.compose:compose-bom than 2024.02.00 is available: 2025.03.01</span><br /><pre class="errorlines">
-<span class="lineno"> 75 </span>    testImplementation("junit:junit:4.13.2")
-<span class="lineno"> 76 </span>    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-<span class="lineno"> 77 </span>    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-<span class="caretline"><span class="lineno"> 78 </span>    androidTestImplementation(<span class="warning">platform("androidx.compose:compose-bom:2024.02.00")</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 79 </span>    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-<span class="lineno"> 80 </span>    debugImplementation("androidx.compose.ui:ui-tooling")
-<span class="lineno"> 81 </span>    debugImplementation("androidx.compose.ui:ui-test-manifest")
+<span class="lineno"> 13 </span>        minSdk = 24
 </pre>
 
 </div>
@@ -381,20 +361,35 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:80</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 77 </span>    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-<span class="lineno"> 78 </span>    androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.00"))
-<span class="lineno"> 79 </span>    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-<span class="caretline"><span class="lineno"> 80 </span>    debugImplementation(<span class="warning">"androidx.compose.ui:ui-tooling"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 81 </span>    debugImplementation("androidx.compose.ui:ui-test-manifest")
-<span class="lineno"> 82 </span>} </pre>
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:63</span>: <span class="message">Use the existing version catalog reference (<code>libs.room.runtime</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno"> 60 </span>    implementation(libs.activity.compose)
+<span class="lineno"> 61 </span>    
+<span class="lineno"> 62 </span>    // Room
+<span class="caretline"><span class="lineno"> 63 </span>    implementation(<span class="warning">"androidx.room:room-runtime:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 64 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="lineno"> 65 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno"> 66 </span>    
+</pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:81</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 78 </span>    androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.00"))
-<span class="lineno"> 79 </span>    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-<span class="lineno"> 80 </span>    debugImplementation("androidx.compose.ui:ui-tooling")
-<span class="caretline"><span class="lineno"> 81 </span>    debugImplementation(<span class="warning">"androidx.compose.ui:ui-test-manifest"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 82 </span>} </pre>
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:64</span>: <span class="message">Use the existing version catalog reference (<code>libs.room.ktx</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno"> 61 </span>    
+<span class="lineno"> 62 </span>    // Room
+<span class="lineno"> 63 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="caretline"><span class="lineno"> 64 </span>    implementation(<span class="warning">"androidx.room:room-ktx:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 65 </span>    kapt("androidx.room:room-compiler:2.6.1")
+<span class="lineno"> 66 </span>    
+<span class="lineno"> 67 </span>    // Coroutines
+</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:65</span>: <span class="message">Use the existing version catalog reference (<code>libs.room.compiler</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno"> 62 </span>    // Room
+<span class="lineno"> 63 </span>    implementation("androidx.room:room-runtime:2.6.1")
+<span class="lineno"> 64 </span>    implementation("androidx.room:room-ktx:2.6.1")
+<span class="caretline"><span class="lineno"> 65 </span>    kapt(<span class="warning">"androidx.room:room-compiler:2.6.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 66 </span>    
+<span class="lineno"> 67 </span>    // Coroutines
+<span class="lineno"> 68 </span>    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+</pre>
 
 </div>
 <div class="metadata"><div class="explanation" id="explanationUseTomlInstead" style="display: none;">

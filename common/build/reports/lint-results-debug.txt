@@ -1,5 +1,5 @@
-E:\Plantseeds 3\common\lint-baseline.xml: Information: 30 warnings were filtered out because they are listed in the baseline file, lint-baseline.xml [LintBaseline]
-E:\Plantseeds 3\common\lint-baseline.xml: Information: 17 errors/warnings were listed in the baseline file (lint-baseline.xml) but not found in the project; perhaps they have been fixed? Another possible explanation is that lint recently stopped analyzing (and including results from) dependent projects by default. You can turn this back on with android.lintOptions.checkDependencies=true. Unmatched issue types: NewApi (15), ObsoleteLintCustomCheck, ObsoleteSdkInt [LintBaselineFixed]
+E:\Plantseeds 3\common\lint-baseline.xml: Information: 14 errors and 16 warnings were filtered out because they are listed in the baseline file, lint-baseline.xml [LintBaseline]
+E:\Plantseeds 3\common\lint-baseline.xml: Information: 17 errors/warnings were listed in the baseline file (lint-baseline.xml) but not found in the project; perhaps they have been fixed? Another possible explanation is that lint recently stopped analyzing (and including results from) dependent projects by default. You can turn this back on with android.lintOptions.checkDependencies=true. Unmatched issue types: GradleDependency (3), NewApi, ObsoleteLintCustomCheck, ObsoleteSdkInt, UseTomlInstead (11) [LintBaselineFixed]
 
    Explanation for issues of type "LintBaselineFixed":
    If a lint baseline describes a problem which is no longer reported, then
@@ -11,12 +11,6 @@ E:\Plantseeds 3\common\lint-baseline.xml: Information: 17 errors/warnings were l
 E:\Plantseeds 3\common\build.gradle.kts:10: Warning: A newer version of compileSdkVersion than 34 is available: 35 [GradleDependency]
     compileSdk = 34
     ~~~~~~~~~~~~~~~
-E:\Plantseeds 3\common\build.gradle.kts:52: Warning: A newer version of androidx.compose:compose-bom than 2024.02.00 is available: 2025.03.01 [GradleDependency]
-    implementation(platform("androidx.compose:compose-bom:2024.02.00"))
-                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-E:\Plantseeds 3\common\build.gradle.kts:78: Warning: A newer version of androidx.compose:compose-bom than 2024.02.00 is available: 2025.03.01 [GradleDependency]
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.00"))
-                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Explanation for issues of type "GradleDependency":
    This detector looks for usages of libraries where the version you are using
@@ -25,12 +19,15 @@ E:\Plantseeds 3\common\build.gradle.kts:78: Warning: A newer version of androidx
    However, you may simply not be aware that a more recent version is
    available, and that is what this lint check helps find.
 
-E:\Plantseeds 3\common\build.gradle.kts:80: Warning: Use version catalog instead [UseTomlInstead]
-    debugImplementation("androidx.compose.ui:ui-tooling")
-                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-E:\Plantseeds 3\common\build.gradle.kts:81: Warning: Use version catalog instead [UseTomlInstead]
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
-                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+E:\Plantseeds 3\common\build.gradle.kts:63: Warning: Use the existing version catalog reference (libs.room.runtime) instead [UseTomlInstead]
+    implementation("androidx.room:room-runtime:2.6.1")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+E:\Plantseeds 3\common\build.gradle.kts:64: Warning: Use the existing version catalog reference (libs.room.ktx) instead [UseTomlInstead]
+    implementation("androidx.room:room-ktx:2.6.1")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+E:\Plantseeds 3\common\build.gradle.kts:65: Warning: Use the existing version catalog reference (libs.room.compiler) instead [UseTomlInstead]
+    kapt("androidx.room:room-compiler:2.6.1")
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Explanation for issues of type "UseTomlInstead":
    If your project is using a libs.versions.toml file, you should place all
@@ -38,4 +35,4 @@ E:\Plantseeds 3\common\build.gradle.kts:81: Warning: Use version catalog instead
    declarations outside of the TOML file and suggests moving them (and in the
    IDE, provides a quickfix to performing the operation automatically).
 
-0 errors, 5 warnings (30 warnings filtered by baseline lint-baseline.xml)
+0 errors, 4 warnings (14 errors, 16 warnings filtered by baseline lint-baseline.xml)

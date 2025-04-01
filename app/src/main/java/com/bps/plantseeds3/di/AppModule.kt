@@ -8,6 +8,8 @@ import com.bps.plantseeds3.data.local.dao.GardenDao
 import com.bps.plantseeds3.data.local.dao.PlantDao
 import com.bps.plantseeds3.data.local.dao.PlantingDao
 import com.bps.plantseeds3.data.local.dao.SeedDao
+import com.bps.plantseeds3.domain.repository.SeedRepository
+import com.bps.plantseeds3.data.repository.SeedRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,11 +17,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+private const val TAG = "AppModule"
+
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    private const val TAG = "AppModule"
-
     @Provides
     @Singleton
     fun providePlantSeedsDatabase(
@@ -30,14 +32,6 @@ object AppModule {
             context,
             PlantSeedsDatabase::class.java,
             "plantseeds_v12.db"
-        )
-        .addMigrations(
-            PlantSeedsDatabase.MIGRATION_6_7,
-            PlantSeedsDatabase.MIGRATION_7_8,
-            PlantSeedsDatabase.MIGRATION_8_9,
-            PlantSeedsDatabase.MIGRATION_9_10,
-            PlantSeedsDatabase.MIGRATION_10_11,
-            PlantSeedsDatabase.MIGRATION_11_12
         )
         .build()
     }
@@ -68,5 +62,11 @@ object AppModule {
     fun providePlantingDao(database: PlantSeedsDatabase): PlantingDao {
         Log.d(TAG, "Skapar PlantingDao")
         return database.plantingDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSeedRepository(seedDao: SeedDao): SeedRepository {
+        return SeedRepositoryImpl(seedDao)
     }
 } 
