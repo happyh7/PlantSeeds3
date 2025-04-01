@@ -154,15 +154,17 @@ private fun SeedItem(
                 .padding(16.dp)
         ) {
             Text(
-                text = seed.name,
+                text = seed.name ?: "",
                 style = MaterialTheme.typography.titleMedium
             )
-            if (seed.description.isNotBlank()) {
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = seed.description,
-                    style = MaterialTheme.typography.bodyMedium
-                )
+            seed.description?.let { description ->
+                if (description.isNotBlank()) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = description,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         }
     }

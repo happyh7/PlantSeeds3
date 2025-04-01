@@ -11,7 +11,7 @@ import com.bps.plantseeds3.data.local.entity.GardenEntity
 import com.bps.plantseeds3.data.local.entity.PlantEntity
 import com.bps.plantseeds3.data.local.entity.PlantingEntity
 import com.bps.plantseeds3.data.local.entity.SeedEntity
-import com.bps.plantseeds3.data.local.converter.DateConverter
+import com.bps.plantseeds3.data.local.converter.Converters
 
 @Database(
     entities = [
@@ -23,7 +23,7 @@ import com.bps.plantseeds3.data.local.converter.DateConverter
     version = 14,
     exportSchema = false
 )
-@TypeConverters(DateConverter::class)
+@TypeConverters(Converters::class)
 abstract class PlantSeedsDatabase : RoomDatabase() {
     abstract fun gardenDao(): GardenDao
     abstract fun plantDao(): PlantDao

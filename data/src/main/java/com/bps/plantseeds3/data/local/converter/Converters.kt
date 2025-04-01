@@ -1,4 +1,4 @@
-package com.bps.plantseeds3.data.local
+package com.bps.plantseeds3.data.local.converter
 
 import androidx.room.TypeConverter
 import java.time.Instant
@@ -12,5 +12,15 @@ class Converters {
     @TypeConverter
     fun instantToTimestamp(instant: Instant?): Long? {
         return instant?.toEpochMilli()
+    }
+
+    @TypeConverter
+    fun stringListToString(list: List<String>?): String? {
+        return list?.joinToString(",")
+    }
+
+    @TypeConverter
+    fun stringToStringList(value: String?): List<String>? {
+        return value?.split(",")?.map { it.trim() }
     }
 } 

@@ -3,7 +3,7 @@ package com.bps.plantseeds3.data.repository
 import com.bps.plantseeds3.common.model.Resource
 import com.bps.plantseeds3.data.local.dao.SeedDao
 import com.bps.plantseeds3.data.mapper.toSeed
-import com.bps.plantseeds3.data.mapper.toSeedEntity
+import com.bps.plantseeds3.data.mapper.toEntity
 import com.bps.plantseeds3.domain.model.Seed
 import com.bps.plantseeds3.domain.repository.SeedRepository
 import kotlinx.coroutines.flow.Flow
@@ -35,7 +35,7 @@ class SeedRepositoryImpl @Inject constructor(
 
     override suspend fun insertSeed(seed: Seed): Resource<Unit> {
         return try {
-            seedDao.insertSeed(seed.toSeedEntity())
+            seedDao.insertSeed(seed.toEntity())
             Resource.Success(Unit)
         } catch (e: Exception) {
             Resource.Error(e.message ?: "Ett fel uppstod vid insättning av frö")
@@ -44,7 +44,7 @@ class SeedRepositoryImpl @Inject constructor(
 
     override suspend fun updateSeed(seed: Seed): Resource<Unit> {
         return try {
-            seedDao.updateSeed(seed.toSeedEntity())
+            seedDao.updateSeed(seed.toEntity())
             Resource.Success(Unit)
         } catch (e: Exception) {
             Resource.Error(e.message ?: "Ett fel uppstod vid uppdatering av frö")
@@ -69,9 +69,8 @@ class SeedRepositoryImpl @Inject constructor(
         return try {
             val seeds = seedDao.getAllSeeds().first().map { it.toSeed() }
             val filteredSeeds = seeds.filter { seed -> 
-                seed.name.contains(query, ignoreCase = true) || 
-                seed.description.contains(query, ignoreCase = true) ||
-                seed.notes.contains(query, ignoreCase = true)
+                seed.name?.contains(query, ignoreCase = true) == true || 
+                seed.description?.contains(query, ignoreCase = true) == true
             }
             Resource.Success(filteredSeeds)
         } catch (e: Exception) {

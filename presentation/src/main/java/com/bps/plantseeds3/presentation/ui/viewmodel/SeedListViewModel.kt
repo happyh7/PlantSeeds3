@@ -31,8 +31,8 @@ class SeedListViewModel @Inject constructor(
             currentSeeds
         } else {
             currentSeeds.filter { seed ->
-                seed.name.contains(query, ignoreCase = true) ||
-                seed.description.contains(query, ignoreCase = true)
+                seed.name?.contains(query, ignoreCase = true) == true ||
+                seed.description?.contains(query, ignoreCase = true) == true
             }
         }
         _uiState.value = _uiState.value.copy(
@@ -52,8 +52,8 @@ class SeedListViewModel @Inject constructor(
                             seeds
                         } else {
                             seeds.filter { seed ->
-                                seed.name.contains(_uiState.value.searchQuery, ignoreCase = true) ||
-                                seed.description.contains(_uiState.value.searchQuery, ignoreCase = true)
+                                seed.name?.contains(_uiState.value.searchQuery, ignoreCase = true) == true ||
+                                seed.description?.contains(_uiState.value.searchQuery, ignoreCase = true) == true
                             }
                         }
                         _uiState.value = _uiState.value.copy(
