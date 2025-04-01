@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,6 +19,8 @@ import com.bps.plantseeds3.presentation.screens.plants.viewmodel.PlantsViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlantsScreen(
+    onAddClick: () -> Unit,
+    onPlantClick: (String) -> Unit,
     viewModel: PlantsViewModel = hiltViewModel()
 ) {
     val plants by viewModel.plants.collectAsState()
@@ -30,7 +33,7 @@ fun PlantsScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /* TODO: Implementera lägg till växt */ }
+                onClick = onAddClick
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Lägg till växt")
             }
@@ -49,7 +52,7 @@ fun PlantsScreen(
                     items(plantsList) { plant ->
                         Card(
                             modifier = Modifier.fillMaxWidth(),
-                            onClick = { /* TODO: Implementera växtdetaljer */ }
+                            onClick = { onPlantClick(plant.id) }
                         ) {
                             Row(
                                 modifier = Modifier
@@ -69,7 +72,7 @@ fun PlantsScreen(
                                     )
                                 }
                                 Icon(
-                                    imageVector = Icons.Default.Add,
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                                     contentDescription = "Visa detaljer",
                                     tint = MaterialTheme.colorScheme.primary
                                 )
