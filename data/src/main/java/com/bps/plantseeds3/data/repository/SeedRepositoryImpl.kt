@@ -6,6 +6,7 @@ import com.bps.plantseeds3.data.mapper.toSeed
 import com.bps.plantseeds3.data.mapper.toEntity
 import com.bps.plantseeds3.domain.model.Seed
 import com.bps.plantseeds3.domain.repository.SeedRepository
+import com.bps.plantseeds3.common.exceptions.DatabaseException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -16,7 +17,11 @@ class SeedRepositoryImpl @Inject constructor(
 ) : SeedRepository {
     override fun getSeeds(): Flow<Resource<List<Seed>>> {
         return seedDao.getAllSeeds().map { seeds ->
-            Resource.Success(seeds.map { it.toSeed() })
+            try {
+                Resource.Success(seeds.map { it.toSeed() })
+            } catch (e: Exception) {
+                Resource.Error(DatabaseException.QueryFailedException("hämta alla frön", e).message ?: "Ett fel uppstod")
+            }
         }
     }
 
@@ -26,10 +31,10 @@ class SeedRepositoryImpl @Inject constructor(
             if (seed != null) {
                 Resource.Success(seed)
             } else {
-                Resource.Error("Frö hittades inte")
+                Resource.Error(DatabaseException.EntityNotFoundException("Frö", id).message ?: "Frö hittades inte")
             }
         } catch (e: Exception) {
-            Resource.Error(e.message ?: "Ett fel uppstod")
+            Resource.Error(DatabaseException.QueryFailedException("hämta frö med id $id", e).message ?: "Ett fel uppstod")
         }
     }
 
@@ -38,7 +43,7 @@ class SeedRepositoryImpl @Inject constructor(
             seedDao.insertSeed(seed.toEntity())
             Resource.Success(Unit)
         } catch (e: Exception) {
-            Resource.Error(e.message ?: "Ett fel uppstod vid insättning av frö")
+            Resource.Error(DatabaseException.InsertionFailedException("Frö", e).message ?: "Ett fel uppstod")
         }
     }
 
@@ -47,7 +52,7 @@ class SeedRepositoryImpl @Inject constructor(
             seedDao.updateSeed(seed.toEntity())
             Resource.Success(Unit)
         } catch (e: Exception) {
-            Resource.Error(e.message ?: "Ett fel uppstod vid uppdatering av frö")
+            Resource.Error(DatabaseException.UpdateFailedException("Frö", seed.id, e).message ?: "Ett fel uppstod")
         }
     }
 
@@ -58,10 +63,10 @@ class SeedRepositoryImpl @Inject constructor(
                 seedDao.deleteSeed(seed)
                 Resource.Success(Unit)
             } else {
-                Resource.Error("Frö hittades inte")
+                Resource.Error(DatabaseException.EntityNotFoundException("Frö", id).message ?: "Frö hittades inte")
             }
         } catch (e: Exception) {
-            Resource.Error(e.message ?: "Ett fel uppstod vid borttagning av frö")
+            Resource.Error(DatabaseException.DeletionFailedException("Frö", id, e).message ?: "Ett fel uppstod")
         }
     }
 
@@ -74,7 +79,7 @@ class SeedRepositoryImpl @Inject constructor(
             }
             Resource.Success(filteredSeeds)
         } catch (e: Exception) {
-            Resource.Error(e.message ?: "Ett fel uppstod vid sökning av frön")
+            Resource.Error(DatabaseException.QueryFailedException("söka efter frön", e).message ?: "Ett fel uppstod")
         }
     }
 } 
