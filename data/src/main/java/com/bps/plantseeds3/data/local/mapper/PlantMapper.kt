@@ -1,4 +1,4 @@
-package com.bps.plantseeds3.data.mapper
+package com.bps.plantseeds3.data.local.mapper
 
 import com.bps.plantseeds3.data.local.entity.PlantEntity
 import com.bps.plantseeds3.domain.model.Plant

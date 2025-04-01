@@ -3,8 +3,8 @@ package com.bps.plantseeds3.data.repository
 import android.util.Log
 import com.bps.plantseeds3.common.model.Resource
 import com.bps.plantseeds3.data.local.dao.PlantDao
-import com.bps.plantseeds3.data.mapper.toEntity
-import com.bps.plantseeds3.data.mapper.toPlant
+import com.bps.plantseeds3.data.local.mapper.toEntity
+import com.bps.plantseeds3.data.local.mapper.toPlant
 import com.bps.plantseeds3.domain.model.Plant
 import com.bps.plantseeds3.domain.repository.PlantRepository
 import kotlinx.coroutines.flow.Flow
