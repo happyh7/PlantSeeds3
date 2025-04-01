@@ -1,11 +1,12 @@
 package com.bps.plantseeds3.presentation.screens.plants
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -17,6 +18,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.bps.plantseeds3.common.model.Resource
 import com.bps.plantseeds3.domain.model.Plant
 import com.bps.plantseeds3.presentation.screens.plants.viewmodel.PlantsViewModel
+
+private const val TAG = "PlantsScreen"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,6 +33,7 @@ fun PlantsScreen(
     val plants by viewModel.plants.collectAsState()
 
     LaunchedEffect(gardenId) {
+        Log.d(TAG, "PlantsScreen: Setting selected garden ID: $gardenId")
         viewModel.setSelectedGarden(gardenId)
     }
 
@@ -39,7 +43,7 @@ fun PlantsScreen(
                 title = { Text("Växter") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Tillbaka")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Tillbaka")
                     }
                 }
             )
@@ -57,13 +61,16 @@ fun PlantsScreen(
         ) {
             when (plants) {
                 is Resource.Loading -> {
+                    Log.d(TAG, "PlantsScreen: Loading plants...")
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.Center)
                     )
                 }
                 is Resource.Success -> {
+                    Log.d(TAG, "PlantsScreen: Loaded ${(plants as Resource.Success<List<Plant>>).data.size} plants")
                     val plantsList = (plants as Resource.Success<List<Plant>>).data
                     if (plantsList.isEmpty()) {
+                        Log.d(TAG, "PlantsScreen: No plants found for garden")
                         Text(
                             text = "Inga växter i denna trädgård",
                             modifier = Modifier
@@ -113,8 +120,9 @@ fun PlantsScreen(
                     }
                 }
                 is Resource.Error -> {
+                    Log.e(TAG, "PlantsScreen: Error loading plants: ${(plants as Resource.Error).message}")
                     Text(
-                        text = (plants as Resource.Error).message,
+                        text = (plants as Resource.Error).message ?: "Ett fel uppstod",
                         modifier = Modifier
                             .align(Alignment.Center)
                             .padding(16.dp),

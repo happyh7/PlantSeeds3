@@ -1,5 +1,6 @@
 package com.bps.plantseeds3.presentation.screens.plants.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bps.plantseeds3.common.model.Resource
@@ -12,9 +13,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val TAG = "PlantsViewModel"
+
 @HiltViewModel
 class PlantsViewModel @Inject constructor(
-    private val repository: PlantRepository
+    private val plantRepository: PlantRepository
 ) : ViewModel() {
 
     private val _plants = MutableStateFlow<Resource<List<Plant>>>(Resource.Loading())
@@ -23,11 +26,8 @@ class PlantsViewModel @Inject constructor(
     private val _selectedGardenId = MutableStateFlow<String?>(null)
     val selectedGardenId: StateFlow<String?> = _selectedGardenId.asStateFlow()
 
-    init {
-        loadPlants()
-    }
-
     fun setSelectedGarden(gardenId: String?) {
+        Log.d(TAG, "setSelectedGarden: gardenId = $gardenId")
         _selectedGardenId.value = gardenId
         loadPlants()
     }
@@ -35,11 +35,14 @@ class PlantsViewModel @Inject constructor(
     private fun loadPlants() {
         viewModelScope.launch {
             val gardenId = _selectedGardenId.value
+            Log.d(TAG, "loadPlants: loading plants for gardenId = $gardenId")
             if (gardenId != null) {
-                repository.getPlantsByGardenId(gardenId).collect { result ->
+                plantRepository.getPlantsByGardenId(gardenId).collect { result ->
+                    Log.d(TAG, "loadPlants: received result = $result")
                     _plants.value = result
                 }
             } else {
+                Log.d(TAG, "loadPlants: no gardenId selected, returning empty list")
                 _plants.value = Resource.Success(emptyList())
             }
         }

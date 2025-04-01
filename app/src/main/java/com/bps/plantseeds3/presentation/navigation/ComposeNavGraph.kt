@@ -48,9 +48,7 @@ fun ComposeNavGraph(navController: NavHostController) {
             GardensScreen(
                 onAddClick = { navController.navigate(Screen.AddGarden.route) },
                 onGardenClick = { gardenId -> 
-                    navController.navigate(Screen.Plants.createRoute(gardenId)) {
-                        popUpTo(Screen.Gardens.route) { inclusive = true }
-                    }
+                    navController.navigate(Screen.Plants.createRoute(gardenId))
                 }
             )
         }

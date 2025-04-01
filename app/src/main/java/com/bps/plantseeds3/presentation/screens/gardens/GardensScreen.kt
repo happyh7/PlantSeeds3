@@ -12,6 +12,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+private data class Garden(
+    val id: String,
+    val name: String
+)
+
+private val temporaryGardens = listOf(
+    Garden(id = "garden_1", name = "Balkongen"),
+    Garden(id = "garden_2", name = "Köksträdgården"),
+    Garden(id = "garden_3", name = "Växthuset")
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GardensScreen(
@@ -39,10 +50,10 @@ fun GardensScreen(
                 .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(listOf("Balkongen", "Köksträdgården", "Växthuset")) { gardenName ->
+            items(temporaryGardens) { garden ->
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { onGardenClick("temp_id") } // Temporärt ID tills vi har riktiga data
+                    onClick = { onGardenClick(garden.id) }
                 ) {
                     Row(
                         modifier = Modifier
@@ -52,7 +63,7 @@ fun GardensScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = gardenName,
+                            text = garden.name,
                             style = MaterialTheme.typography.titleMedium
                         )
                         Icon(

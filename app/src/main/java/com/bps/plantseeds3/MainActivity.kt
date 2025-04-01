@@ -5,16 +5,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Grass
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocalFlorist
-import androidx.compose.material.icons.filled.Park
-import androidx.compose.material.icons.filled.Spa
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.bps.plantseeds3.presentation.navigation.ComposeNavGraph
+import com.bps.plantseeds3.presentation.navigation.Screen
 import com.bps.plantseeds3.presentation.theme.PlantSeedsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,47 +33,24 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route ?: "plants"
-    
+    var selectedItem by remember { mutableStateOf(0) }
     val items = listOf(
-        "plants" to Icons.Default.LocalFlorist,
-        "gardens" to Icons.Default.Park,
-        "seeds" to Icons.Default.Spa
+        Triple("Trädgårdar", Icons.Default.Home, Screen.Gardens.route),
+        Triple("Växter", Icons.Default.LocalFlorist, Screen.Gardens.route), // Temporärt navigera till trädgårdar
+        Triple("Fröbank", Icons.Default.Grass, Screen.Seeds.route)
     )
-    
-    val selectedIndex = when (currentRoute) {
-        "plants" -> 0
-        "gardens" -> 1
-        "seeds" -> 2
-        else -> 0
-    }
 
     Scaffold(
         bottomBar = {
             NavigationBar {
-                items.forEachIndexed { index, (route, icon) ->
+                items.forEachIndexed { index, (title, icon, route) ->
                     NavigationBarItem(
-                        icon = { Icon(icon, contentDescription = when (route) {
-                            "plants" -> "Växter"
-                            "gardens" -> "Trädgårdar"
-                            else -> "Fröbank"
-                        }) },
-                        label = { Text(when (route) {
-                            "plants" -> "Växter"
-                            "gardens" -> "Trädgårdar"
-                            else -> "Fröbank"
-                        }) },
-                        selected = selectedIndex == index,
+                        icon = { Icon(icon, contentDescription = title) },
+                        label = { Text(title) },
+                        selected = selectedItem == index,
                         onClick = {
-                            navController.navigate(route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
-                                    inclusive = true
-                                }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
+                            selectedItem = index
+                            navController.navigate(route)
                         }
                     )
                 }
