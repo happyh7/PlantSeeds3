@@ -2,6 +2,7 @@ package com.bps.plantseeds3.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
@@ -19,6 +20,10 @@ import androidx.room.PrimaryKey
             childColumns = ["plantId"],
             onDelete = ForeignKey.CASCADE
         )
+    ],
+    indices = [
+        Index("gardenId"),
+        Index("plantId")
     ]
 )
 data class PlantingEntity(
