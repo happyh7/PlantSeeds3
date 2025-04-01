@@ -12,6 +12,7 @@ import com.bps.plantseeds3.data.local.entity.PlantEntity
 import com.bps.plantseeds3.data.local.entity.PlantingEntity
 import com.bps.plantseeds3.data.local.entity.SeedEntity
 import com.bps.plantseeds3.data.local.converter.Converters
+import com.bps.plantseeds3.data.local.migration.DatabaseMigrations
 
 @Database(
     entities = [
@@ -21,7 +22,7 @@ import com.bps.plantseeds3.data.local.converter.Converters
         SeedEntity::class
     ],
     version = 14,
-    exportSchema = false
+    exportSchema = true
 )
 @TypeConverters(Converters::class)
 abstract class PlantSeedsDatabase : RoomDatabase() {
@@ -31,6 +32,8 @@ abstract class PlantSeedsDatabase : RoomDatabase() {
     abstract fun seedDao(): SeedDao
 
     companion object {
-        // Migrationer kommer att läggas till här senare
+        const val DATABASE_NAME = "plantseeds.db"
+
+        fun getMigrations() = DatabaseMigrations.getMigrations()
     }
 } 
