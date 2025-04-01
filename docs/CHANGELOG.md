@@ -49,4 +49,21 @@ Alla viktiga ändringar i projektet kommer att dokumenteras i denna fil.
 - Initial projektstruktur
 - Grundläggande dokumentation
 - Firebase-integration
-- Plant management funktionalitet 
+- Plant management funktionalitet
+
+## [1.1.0] - 2024-04-01
+
+### Tillagt
+- Omfattande felhanteringsmekanism för databasoperationer
+- Ny DatabaseException-hierarki för strukturerad felhantering
+- Förbättrad databasmigrationsstrategi
+- Index för bättre prestanda i databasen
+
+### Ändrat
+- Konsoliderat databaser till en enda PlantSeedsDatabase
+- Uppdaterat databasversion till 14
+- Förbättrat felhantering i repositories
+
+### Fixat
+- Problem med saknade index för foreign keys
+- Dagger-processor varningar 
