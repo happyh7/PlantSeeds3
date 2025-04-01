@@ -49,7 +49,9 @@ fun PlantsScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = onAddClick) {
+            FloatingActionButton(
+                onClick = { onAddClick() }
+            ) {
                 Icon(Icons.Default.Add, contentDescription = "Lägg till växt")
             }
         }
@@ -82,7 +84,6 @@ fun PlantsScreen(
                         LazyColumn(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .padding(paddingValues)
                                 .padding(horizontal = 16.dp),
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
@@ -122,7 +123,7 @@ fun PlantsScreen(
                 is Resource.Error -> {
                     Log.e(TAG, "PlantsScreen: Error loading plants: ${(plants as Resource.Error).message}")
                     Text(
-                        text = (plants as Resource.Error).message ?: "Ett fel uppstod",
+                        text = (plants as Resource.Error).message,
                         modifier = Modifier
                             .align(Alignment.Center)
                             .padding(16.dp),
