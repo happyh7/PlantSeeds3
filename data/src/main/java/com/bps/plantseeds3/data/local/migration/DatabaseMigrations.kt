@@ -13,7 +13,7 @@ object DatabaseMigrations {
                     ADD COLUMN plantId TEXT
                 """)
             } catch (e: Exception) {
-                throw DatabaseException.MigrationFailedException("Kunde inte migrera från version 1 till 2: ${e.message}")
+                throw DatabaseException.MigrationFailedException(1, 2, e)
             }
         }
     }
@@ -26,16 +26,16 @@ object DatabaseMigrations {
                     ON seeds(plantId)
                 """)
             } catch (e: Exception) {
-                throw DatabaseException.MigrationFailedException("Kunde inte migrera från version 2 till 3: ${e.message}")
+                throw DatabaseException.MigrationFailedException(2, 3, e)
             }
         }
     }
 
     val MIGRATION_13_14 = object : Migration(13, 14) {
-        override fun migrate(database: SupportSQLiteDatabase) {
+        override fun migrate(db: SupportSQLiteDatabase) {
             try {
                 // Skapa temporär tabell för seeds
-                database.execSQL("""
+                db.execSQL("""
                     CREATE TABLE IF NOT EXISTS seeds_temp (
                         id TEXT NOT NULL PRIMARY KEY,
                         plantId TEXT NOT NULL,
@@ -61,7 +61,7 @@ object DatabaseMigrations {
                 """)
 
                 // Kopiera data från gamla tabellen till den temporära
-                database.execSQL("""
+                db.execSQL("""
                     INSERT INTO seeds_temp (
                         id, plantId, name, species, description, plantingInstructions,
                         daysToGermination, daysToHarvest, lightNeeds, waterNeeds,
@@ -70,23 +70,28 @@ object DatabaseMigrations {
                     )
                     SELECT 
                         id, plantId, name, species, description, plantingInstructions,
-                        daysToGermination, daysToHarvest, lightNeeds, waterNeeds,
+                        CAST(daysToGermination AS INTEGER),
+                        CAST(daysToHarvest AS INTEGER),
+                        lightNeeds, waterNeeds,
                         soilType, temperature, spacing, companionPlants, avoidPlants,
-                        imageUrl, createdAt, updatedAt, isSynced
+                        imageUrl,
+                        CAST(createdAt AS INTEGER),
+                        CAST(updatedAt AS INTEGER),
+                        CAST(isSynced AS INTEGER)
                     FROM seeds
                 """)
 
                 // Ta bort gamla tabellen
-                database.execSQL("DROP TABLE seeds")
+                db.execSQL("DROP TABLE seeds")
 
                 // Byt namn på temporära tabellen
-                database.execSQL("ALTER TABLE seeds_temp RENAME TO seeds")
+                db.execSQL("ALTER TABLE seeds_temp RENAME TO seeds")
 
                 // Skapa index
-                database.execSQL("CREATE INDEX IF NOT EXISTS index_seeds_plantId ON seeds(plantId)")
-                database.execSQL("CREATE INDEX IF NOT EXISTS index_seeds_name ON seeds(name)")
-                database.execSQL("CREATE INDEX IF NOT EXISTS index_seeds_createdAt ON seeds(createdAt)")
-                database.execSQL("CREATE INDEX IF NOT EXISTS index_seeds_updatedAt ON seeds(updatedAt)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS index_seeds_plantId ON seeds(plantId)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS index_seeds_name ON seeds(name)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS index_seeds_createdAt ON seeds(createdAt)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS index_seeds_updatedAt ON seeds(updatedAt)")
             } catch (e: Exception) {
                 throw DatabaseException.MigrationFailedException(13, 14, e)
             }

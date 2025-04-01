@@ -65,6 +65,12 @@ class SeedListViewModel @Inject constructor(
                     error = response.message
                 )
             }
+            is Resource.Loading -> {
+                _uiState.value = _uiState.value.copy(
+                    isLoading = true,
+                    error = null
+                )
+            }
         }
     }
 
@@ -80,6 +86,12 @@ class SeedListViewModel @Inject constructor(
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
                     error = response.message
+                )
+            }
+            is Resource.Loading -> {
+                _uiState.value = _uiState.value.copy(
+                    isLoading = true,
+                    error = null
                 )
             }
         }

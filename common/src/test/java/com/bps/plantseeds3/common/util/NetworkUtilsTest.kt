@@ -1,23 +1,23 @@
 package com.bps.plantseeds3.common.util
 
+import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
-import android.net.NetworkRequest
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
 class NetworkUtilsTest {
+    private lateinit var context: Context
     private lateinit var connectivityManager: ConnectivityManager
-    private lateinit var networkUtils: NetworkUtils
 
     @Before
     fun setup() {
+        context = mockk()
         connectivityManager = mockk()
-        networkUtils = NetworkUtils(connectivityManager)
+        every { context.getSystemService(Context.CONNECTIVITY_SERVICE) } returns connectivityManager
     }
 
     @Test
@@ -29,14 +29,14 @@ class NetworkUtilsTest {
         every { connectivityManager.getNetworkCapabilities(network) } returns networkCapabilities
         every { networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) } returns true
 
-        assert(networkUtils.isNetworkAvailable())
+        assert(NetworkUtils.isNetworkAvailable(context))
     }
 
     @Test
     fun `isNetworkAvailable returns false when network is unavailable`() {
         every { connectivityManager.activeNetwork } returns null
 
-        assert(!networkUtils.isNetworkAvailable())
+        assert(!NetworkUtils.isNetworkAvailable(context))
     }
 
     @Test
@@ -48,6 +48,6 @@ class NetworkUtilsTest {
         every { connectivityManager.getNetworkCapabilities(network) } returns networkCapabilities
         every { networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) } returns false
 
-        assert(!networkUtils.isNetworkAvailable())
+        assert(!NetworkUtils.isNetworkAvailable(context))
     }
 } 
