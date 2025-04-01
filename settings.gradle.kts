@@ -14,9 +14,12 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Plantseeds 3"
+rootProject.name = "PlantSeeds3"
 include(":app")
 include(":common")
-include(":domain")
+include(":auth")
+include(":seed")
+include(":garden")
 include(":data")
+include(":domain")
 include(":presentation")

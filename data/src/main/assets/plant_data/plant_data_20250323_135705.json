@@ -1,0 +1,316 @@
+{
+  "Tomato": {
+    "name": "Tomato",
+    "scientificName": "Solanum lycopersicum",
+    "description": "The tomato is the fruit of the tomato plant, a member of the Nightshade family (Solanaceae). The fruit grows on a small compact bush.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed indoors, transplant seedlings outside after hardening off",
+    "hardiness": "Zone "
+  },
+  "Carrot": {
+    "name": "Carrot",
+    "scientificName": "Daucus Carota",
+    "description": "The carrot is a root vegetable. It is usually orange in color, but some cultivars are purple, black, red, white, and yellow. The most commonly eaten part of the plant is the taproot, but the greens are sometimes eaten as well. The leaves appear first, and the taproot grows more slowly beneath the soil. Fast-growing cultivars mature within three months of sowing the seed. Slower-maturing cultivars are harvested four months after sowing.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct Seed, thin to 3cm apart when seedlings are 8cm high",
+    "hardiness": "Zone "
+  },
+  "Potato": {
+    "name": "Potato",
+    "scientificName": "Solanum tuberosum",
+    "description": "Potatoes are starchy root vegetables in the Solanaceae, or Nightshade, family, which also includes tomatoes, eggplants, and peppers. They originated in South America, and spread to become a worldwide staple. The leaves and fruit are usually poisonous and the stem tuber is the only edible part once it is cooked. The potato can be cooked in many ways, brewed into alcohol, and also used as the basis for creating bioplastics. More growing information is available in individual species entries.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed outdoors after last frost. Each piece must have one eye.",
+    "hardiness": "Zone "
+  },
+  "Cucumber": {
+    "name": "Cucumber Heirloom Straight Eight",
+    "scientificName": "Cucumis sativus",
+    "description": "Cucumbers are the fruit of a creeping vine. They are generally oblong and have a high water content. Their edible skin is often green but can also be yellow, white, or striped. \n\nThe vine can be left to spread along the ground, or it can be trained to a trellis. The vine's large leaves hide the cucumbers and shade them. There are three main varieties of cucumber: slicing, pickling, and seedless.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed outdoors in groups of 2-3, 1/2\" deep. Thin to 1 plant.",
+    "hardiness": "Zone "
+  },
+  "Lettuce": {
+    "name": "Lettuce",
+    "scientificName": "Lactuca Sativa",
+    "description": "Lettuce is a cool weather crop and high temperatures will impede germination and/or cause the plant to bolt (go to seed quickly). Some hybrid cultivars have been bred to be more heat-resistant.",
+    "sunRequirement": "Partial Sun",
+    "sowingInstructions": "Direct seed outdoors, thin to 20cm when seedlings are 3cm tall",
+    "hardiness": "Zone "
+  },
+  "Pepper": {
+    "name": "Chili Pepper",
+    "scientificName": "Capsicum",
+    "description": "The chilli pepper (from Nahuatl chīlli) is the fruit of plants from the genus Capsicum which are members of the nightshade family, Solanaceae. Chilli peppers are widely used in many cuisines as a spice to add heat to dishes. The substances that give chilli peppers their intensity when ingested or applied topically are capsaicin and related compounds known as capsaicinoids.\n\nChilli peppers originated in Mexico. After the Columbian Exchange, many cultivars of chilli pepper spread across the world, used for both food and traditional medicine.",
+    "hardiness": "Zone "
+  },
+  "Onion": {
+    "name": "Onion",
+    "scientificName": "Allium cepa",
+    "description": "Onions are bulbous vegetables used in a wide range of culinary dishes, prized for their pungency when raw and sweetness when cooked. They come in different colors, including white, yellow, and red.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Start indoors",
+    "hardiness": "Zone "
+  },
+  "Garlic": {
+    "name": "Van Zerden Garlic",
+    "scientificName": "Allium sativum",
+    "description": "The garlic plant has a bulbous root separated into cloves and a tall stalk with branching leaves. \n\nThe plant has two main subspecies: hard and soft neck. The choice between which subspecies to grow depends on latitude and at what point in the growing season you will be planting the crop: garlic can be day-length sensitive. Hard-neck garlic is usually grown in cooler climates and creates larger cloves. Soft-neck garlic is grown in warmer climates and produces smaller, tightly-packed cloves. \n\nBe sure to trim garlic scapes before they flower - this will focus the plant's energy into bulb growth, resulting in larger cloves and bulbs. Scapes have a fresh, light garlic flavor. They are delicious raw or cooked, and make a great pesto.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed large cloves",
+    "hardiness": "Zone "
+  },
+  "Basil": {
+    "name": "Thai Basil",
+    "scientificName": "Ocimum basilicum",
+    "description": "Fragrant and delicious herb with tender green leaves. Great in just about anything - salad, sauces, meat marinades, and even popcorn.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Plant seeds under 1cm of soil in starting pots. Keep the plants indoors or transplant them outdoors in late spring.",
+    "hardiness": "Zone "
+  },
+  "Strawberry": {
+    "name": "Strawberry",
+    "scientificName": "Fragaria × ananassa",
+    "description": "Strawberries are a hybrid species of the genus Fragaria that produce sweet, bright red fruits. \n\nThere are three main types of strawberries: \n\n1) summer-fruiting: produce a single, large crop of fruit the year after planting. To grow, transplant plugs or crowns in early spring in rows spaced at least 120cm apart. Pinch off all flowers the first season and train the plant's runners, pressing them into the soil 15-22cm apart from the mother plant. Mulch with straw or pine needles in the fall when the plants have died back. When the plants start to grow back in the spring, move the mulch aside. After harvest the second season, set a lawnmower to about 10cm high and mow, being sure not to damage crowns.\n\n The other two types are \n\n2) Ever-bearing and 3) Day Neutral, both of which send out less runners and bear several crops of smaller fruit throughout the season. These two types can be grown using raised beds about 20cm high and 60cm wide. Transplant crowns or plugs in staggered double rows, about 30cm apart. Remove runners and flowers until July of the first year to give the roots time to develop, and then allow plants to produce fruit. All types of strawberries begin to produce fewer and less sweet fruit once they are two years or older. Because strawberries are a hybrid, seeds will not breed true. Strawberries are predominantly propagated using bare root plugs or crowns or dividing runners. Make sure not to bury the crown when transplanting plugs.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Transplant bare root plants/plugs or divide runners",
+    "hardiness": "Zone "
+  },
+  "Pea": {
+    "name": "Pea",
+    "scientificName": "Pisum sativum",
+    "description": "Sweet, edible pods/seeds",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "direct",
+    "hardiness": "Zone "
+  },
+  "Bean": {
+    "name": "Green Bean",
+    "scientificName": "Phaseolus vulgaris",
+    "description": "Green beans are the unripe, young fruit and protective pods of various cultivars of the common bean (Phaseolus vulgaris). Immature or young pods of the runner bean (Phaseolus coccineus), yardlong bean (Vigna unguiculata subsp. sesquipedalis), and hyacinth bean (Lablab purpureus) are used in a similar way.",
+    "sunRequirement": "Partial Sun",
+    "sowingInstructions": "direct",
+    "hardiness": "Zone "
+  },
+  "Corn": {
+    "name": "Corn",
+    "scientificName": "Zea mays",
+    "description": "Corn is a large grain plant, or tall grass, first domesticated about 10,000 years ago by indigenous peoples in Southern Mexico. The leafy stalk produces ears after pollination. Depending on the variety, the corn can be eaten fresh, or dried and ground into cornmeal.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed outdoors",
+    "hardiness": "Zone "
+  },
+  "Squash": {
+    "name": "Squash",
+    "scientificName": "Cucurbita",
+    "description": "Squash is a genus of herbaceous vines that have large edible orange flowers that mature into gourds or cucurbits. Squash are commonly divided into two main groups: summer and winter. Summer squash have shorter growing times, a bushy growth habit, tender skin, and are quite prolific. Common types include cucumbers, zucchini, and pattypan squash. Winter squash take longer to mature, have a more sprawling growth habit, and produce gourds with thicker skins that can be stored for a few months. Common winter squash are pumpkins, butternut squash, acorn, and delicata. Most squash transplant poorly. If starting from seed indoors, use peat pots that can be directly transplanted into the soil to reduce root disturbance. More growing information is available in individual species entries.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed indoors or outdoors",
+    "hardiness": "Zone "
+  },
+  "Radish": {
+    "name": "Icicle Radish",
+    "scientificName": "Raphanus sativus",
+    "description": "Icicle radishes have long, slender, snow-white roots and green leaves. The roots have a crisp flesh with a mild flavor. Radishes grow best in cool weather. Often eaten raw in salads.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed",
+    "hardiness": "Zone "
+  },
+  "Spinach": {
+    "name": "Spinach",
+    "scientificName": "Spinacia oleracea",
+    "description": "Spinach is an annual plant whose deep green leaves are eaten as a vegetable. It grows best in cooler weather. It can be eaten raw or cooked.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed outdoors, thin to 15cm when seedlings are 3cm high",
+    "hardiness": "Zone "
+  },
+  "Broccoli": {
+    "name": "Broccoli",
+    "scientificName": "Brassica oleracea",
+    "description": "Broccoli has large flower heads known as \"crowns\" that are green to blue-green in color, grouped tightly together atop a thick stem, and surrounded by leaves. Broccoli resembles cauliflower, a different cultivar in its species. It thrives in cool weather.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Sow seeds indoors and transplant outside",
+    "hardiness": "Zone "
+  },
+  "Cauliflower": {
+    "name": "Cauliflower",
+    "scientificName": "brassica oleracea var. botrytis",
+    "description": "Cauliflower is a vegetable in the Brassicaceae family. The solid, firm head resembles that of broccoli and is usually white, but can also be yellow, purple, or green in color. Like broccoli, it sits atop a stalk. The head is wrapped in thick leaves that begin to open when the plant is ready for harvest. All cauliflower does best in cool weather.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Sow seeds indoors, harden seedlings off before transplanting",
+    "hardiness": "Zone "
+  },
+  "Cabbage": {
+    "name": "Cabbage",
+    "scientificName": "Brassica oleracea",
+    "description": "Cabbage is a member of the Brassica family and related to kale, broccoli, brussels sprouts, and cauliflower. It's dense, layered heads grow on stalks and are surrounded by looser outer leaves. It's leaves can be green, white, or purple in color, and smooth or crinkly in texture. Depending on the variety, the head can be round, oblong, or flat. Cabbage prefers cooler temperatures and is best planted in the spring or fall.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed indoors, transplant seedlings outside after hardening off.",
+    "hardiness": "Zone "
+  },
+  "Kale": {
+    "name": "Sea Kale",
+    "scientificName": "Crambe maritima",
+    "description": "Crambe maritima (common name sea kale, sea cole, seakale, sea colewort or crambe) is a species of halophytic flowering plant in the genus Crambe of the family Brassicaceae (Cruciferae), that grows wild along the coasts of Europe, from the North Atlantic to the Black Sea.",
+    "sunRequirement": "Full Sun",
+    "hardiness": "Zone "
+  },
+  "Beet": {
+    "name": "Beet, Detroit Dark Red, Medium Top",
+    "scientificName": "Beta vulgaris",
+    "description": "Extremely sweet, perfectly round beets, 8cm across, have deep red skin and dark red flesh. http://burpee.com/more/65724",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Sow in well-worked soil after danger of frost in spring. In frost-free areas, sow in fall. Sow thinly in rows 30cm apart and cover with 1.5cm of fine soil. Firm lightly and keep evenly moist. Seedlings emerge in 14-21 days. Thin to stand about 8cm apart when seedlings are 3cm to 5cm tall.",
+    "hardiness": "Zone "
+  },
+  "Eggplant": {
+    "name": "Eggplant",
+    "scientificName": "Solanum melongena",
+    "description": "Eggplants commonly are egg-shaped with glossy black skin, but can come in a variety of other shapes and colors. They can be white, yellow, and pale to deep purple. Some are as small as goose eggs. The 'Rosa Bianca' cultivar is squat and round, while Asian cultivars can be long and thin. Eggplant stems are often spiny and their flowers range from white to purple. \n\nTheir flesh is generally white with a meaty texture and small seeds in the center. They are delicious grilled, roasted, in soups and stews, and breaded and fried.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Sow seeds indoors and transplant out, or plant nursery seedlings",
+    "hardiness": "Zone "
+  },
+  "Watermelon": {
+    "name": "Watermelon",
+    "scientificName": "Citrullus lanatus",
+    "description": "The watermelon is a species of melon that produces round or oblong fruits with thick skin and sweet, watery flesh. It is a special kind of berry with a hard rind and no internal division, botanically known as a \"pepo.\" The rind is usually dark green with light-green stripes. The flesh can be red or yellow. Like other melons and members of the Cucurbitaceae family, the watermelon grows on sprawling vines.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed into soil or peat pots (and transplant pots directly into soil after hardening off)",
+    "hardiness": "Zone "
+  },
+  "Cantaloupe": {
+    "name": "Cantaloupe Melon",
+    "scientificName": "cucumis melo var. cantalupensis",
+    "description": "Cantaloupe, Cucumis melo, is a vining plant in the family Cucurbitaceae, grown for its large, sweet fruit of the same name. Cantaloupe vines are trailing and are slightly hairy with simple oval leaves arranged alternately on the stem. The plant produces small yellow flowers which are 1.2–3.0 cm (0.5–1.2 in) in diameter and large oval to round fruit with green to orange flesh. Melon is an annual plant and a vine can grow up to 3 m (9.8 ft) in length. Cantaloupe may be referred to as muskmelon or melon and likely originate from East and Northeast Africa.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed. If planting indoors, use peat pots and harden off before transplanting seedlings outside.",
+    "hardiness": "Zone "
+  },
+  "Pumpkin": {
+    "name": "Pumpkin",
+    "scientificName": "Cucurbita pepo",
+    "description": "Pumpkins are squash cultivars that are round to oval in shape with thick, slightly ribbed skin that varies from deep yellow to orange in color. Their flesh ranges from yellow to gold and has large seeds. Like other members of the Cucurbitaceae family, they grow on sprawling vines. Different varieties of pumpkins are grown for food or decoration.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed indoors (and transplant outside after seedlings are hardened off) or outdoors",
+    "hardiness": "Zone "
+  },
+  "Zucchini": {
+    "name": "Green Zucchini",
+    "scientificName": "Cucurbita pepo",
+    "description": "Green Griller Zucchini\nAs the name suggests, this variety of zucchini squash is practically made for the grill. Oblong zucchinis are fatter and blockier than other varieties, yielding broad slices that are easy to flip. Fruits grow on a low, open bush, so picking them is a cinch. Leaves boast a green and silver variegated pattern that looks really attractive in the garden. Fruits mature quite quickly!Resistant to Zucchini Yellow Mosaic Virus.  Fruit is 6-7 in long.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed 2 seeds, thin to 1 plant when seedlings have 2 sets of leaves",
+    "hardiness": "Zone "
+  },
+  "Mint": {
+    "name": "Mint",
+    "scientificName": "Mentha spicata / Mentha viridis",
+    "description": "Mint is a perennial herb with a distinctive taste. It's stems are square-shaped and it has pink, purple, or white flowers. Peppermint, ginger mint, and large apple mint are hybrids of mint. Mint is often grown in pots to prevent it from overtaking the garden with its invasive, spreading rhizome root structure. It's leaves are most aromatic before the plant flowers and can be used fresh, dried, or frozen. Mint's strongly scented leaves confuse the pests of carrots, tomatoes, alliums, and brassicas, and deter flea beetles.",
+    "sunRequirement": "Partial Sun",
+    "sowingInstructions": "Direct seed indoors or outside",
+    "hardiness": "Zone "
+  },
+  "Oregano": {
+    "name": "Italian Oregano",
+    "scientificName": "Origanum vulgare",
+    "description": "pungent, flavorful her for cooking",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "direct or transplant",
+    "hardiness": "Zone "
+  },
+  "Thyme": {
+    "name": "Thyme",
+    "scientificName": "Thymus vulgaris",
+    "description": "Thyme is a perennial evergreen herb in the Lamiaceae (Mint) family. It is related to Oregano. Thyme is cold-hardy to -28.8 °C and a perennial in US Hardiness zones 5-8. Thyme can live for 5-6 years but needs to be divided or replaced after 3-4 years. It can be used fresh or dried to season dishes.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Transplant cuttings or seedlings or direct seed indoors",
+    "hardiness": "Zone "
+  },
+  "Rosemary": {
+    "name": "cumberland rosemary",
+    "scientificName": "conradina glabra",
+    "hardiness": "Zone "
+  },
+  "Cilantro": {
+    "name": "Cilantro",
+    "scientificName": "Coriandrum sativum",
+    "description": "Cilantro is a soft leafy green plant. It's leaves are variable in shape - they are broadly lobed at the base of the plant and become slender and feathery higher up the stems. All of the plant is edible, but the fresh leaves and dried seeds (coriander) are most commonly used. Cilantro is great in salads and as a garnish on stews, casseroles, and tacos, but tastes \"soapy\" to some people.",
+    "sunRequirement": "Partial Sun",
+    "sowingInstructions": "Sow seeds indoors 6-8 weeks before last frost of the season, harden off before transplanting outdoors",
+    "hardiness": "Zone "
+  },
+  "Parsley": {
+    "name": "Parsley",
+    "scientificName": "Petroselinum crispum",
+    "description": "Parsley is an herb in the Apiaceae family with two main cultivars: flat leafed (or Italian) and curly. Some gardeners feel flat leaf is easier to cultivate since it is more tolerant of rain and sunshine. Curly parsley is more decorative in appearance. Both cultivars can be used fresh or dried to season food.",
+    "sunRequirement": "Partial Sun",
+    "sowingInstructions": "direct seed indoors or outdoors",
+    "hardiness": "Zone "
+  },
+  "Dill": {
+    "name": "Dill",
+    "scientificName": "anethum graveolens",
+    "description": "Dill is a fragrant herb commonly used in cooking, especially for its fresh leaves and seeds. It has feathery, delicate green leaves and produces yellow, umbrella-like flower clusters. The plant is known for its unique flavor, often used in pickling, salad dressings, and as a seasoning for fish and potatoes. It attracts beneficial insects, such as pollinators, and can be grown in both home gardens and containers.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed outdoors",
+    "hardiness": "Zone "
+  },
+  "Chives": {
+    "name": "Chives",
+    "scientificName": "Allium schoenoprasum",
+    "description": "Chives are a perennial herb in the Allium genus related to garlic, shallots, leeks, scallions, and Chinese onions. They are grown for culinary and ornamental purposes. The scapes or stems are hollow and tubular and have a mild onion taste. They are one of the fines herbes of French cuisine and commonly used fresh. The plant forms dense clusters of slender 2-3cm bulbs, which can be cooked. Chive flowers are edible, star-shaped, and pale purple. Chives are a good companion plant because their sulfur compounds repel negative insects, and their flowers attract bees.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed. If planting indoors, harden off before transplanting seedlings outside.",
+    "hardiness": "Zone "
+  },
+  "Sage": {
+    "name": "Sage",
+    "scientificName": "Salvia officinalis",
+    "description": "Sage is an evergreen shrub with woody stems, soft green-gray leaves, and blue to purplish flowers. It is in the Mint family (Lamiaceae), and is perennial in Zones 4-8. It can be used fresh or dried, and has culinary and medicinal uses.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed indoors, harden seedlings off before transplanting outside.",
+    "hardiness": "Zone "
+  },
+  "Arugula": {
+    "name": "Arugula",
+    "scientificName": "Eruca sativa",
+    "description": "Mildly bitter, sometimes peppery, salad green. Fast-growing with deeply lobed leaves. Prefers cooler weather, bolts in the heat.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed or transplant in wide rows or raised beds",
+    "hardiness": "Zone "
+  },
+  "Swiss Chard": {
+    "name": "Swiss Chard",
+    "scientificName": "Beta vulgaris",
+    "description": "Swiss Chard is a leafy green vegetable in the Beet family. The thick stems come in a variety of colors including white, pink, red, yellow, orange, and pale green. It has large, crinkly leaves with distinctive veins. The leaves and stems are edible and high in nutrients. Swiss chard can be eaten raw or sautéed, baked, or steamed.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Direct seed indoors or outdoors. Transplant seedlings after hardening off.",
+    "hardiness": "Zone "
+  },
+  "Asparagus": {
+    "name": "Asparagus",
+    "scientificName": "Asparagus officinalis",
+    "description": "Perennial spring vegetable often sown from crowns. The vegetable has a mild flavor with earthy undertones. When mature and reproducing, the plant creates tall, stout stems with feathery foliage and small red berries.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Transplant crowns outside, or start seeds indoors",
+    "hardiness": "Zone "
+  },
+  "Brussels Sprouts": {
+    "name": "Brussels Sprouts",
+    "scientificName": "brassica oleracea cv. gemmifera",
+    "description": "Brussels sprouts grow on the sides of stalks up to 91cm tall. The stalks are covered with leaves and the sprouts look like miniature cabbages. They are a cool weather crop and are delicious roasted.",
+    "sunRequirement": "Full Sun",
+    "sowingInstructions": "Sow seeds indoors, harden off seedlings before transplanting outdoors",
+    "hardiness": "Zone "
+  },
+  "Celery": {
+    "name": "Celery",
+    "scientificName": "Apium graveolens",
+    "description": "The celery plant has long fibrous stalks that taper into leaves. The stalks and leaves can both be eaten. Celery seed is also used as a spice. Celery seed extracts are used in medicines.",
+    "sunRequirement": "Partial Sun",
+    "sowingInstructions": "Sow seeds indoors 10-12 weeks before transplanting outdoors",
+    "hardiness": "Zone "
+  }
+}

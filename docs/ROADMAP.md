@@ -9,7 +9,7 @@ Detta dokument beskriver utvecklingsplanen för PlantSeeds3-appen, med fokus på
 1. [x] Sätta upp projektstruktur
 2. [x] Implementera modulär arkitektur
 3. [x] Skapa dokumentation för varje modul
-4. [ ] Implementera grundläggande UI-komponenter i common-modulen
+4. [x] Implementera grundläggande UI-komponenter i common-modulen
    - Nästa: Byt till auth-modulen efter att UI-komponenter är klara
 5. [ ] Sätta upp CI/CD-pipeline
 
@@ -40,39 +40,39 @@ Detta dokument beskriver utvecklingsplanen för PlantSeeds3-appen, med fokus på
 ## Modulöversikt
 
 ### Common-modulen
-- Grundläggande UI-komponenter
-- Nätverkshantering
-- Lokalisering
-- Verktyg och utilities
+- [x] Grundläggande UI-komponenter
+- [x] Nätverkshantering
+- [x] Lokalisering
+- [x] Verktyg och utilities
 
 ### Auth-modulen
-- Inloggning och registrering
-- Lösenordshantering
-- Token-hantering
-- Användarprofilhantering
+- [ ] Inloggning och registrering
+- [ ] Lösenordshantering
+- [ ] Token-hantering
+- [ ] Användarprofilhantering
 
 ### Seed-modulen
-- Frölistor och detaljer
-- Fröhanteringsoperationer
-- Fröstatistik
-- Frönotifieringar
+- [x] Frölistor och detaljer
+- [ ] Fröhanteringsoperationer
+- [ ] Fröstatistik
+- [ ] Frönotifieringar
 
 ### Garden-modulen
-- Trädgårdsplanering
-- Odlingszoner
-- Växtövervakning
-- Växtnotifieringar
+- [ ] Trädgårdsplanering
+- [ ] Odlingszoner
+- [ ] Växtövervakning
+- [ ] Växtnotifieringar
 
 ## Tekniska Mål
-- Implementera Clean Architecture
-- Följa Material Design 3-riktlinjer
-- Säkerställa offline-first funktionalitet
-- Implementera proper error handling
-- Säkerställa hög prestanda
-- Implementera omfattande testning
+- [x] Implementera Clean Architecture
+- [x] Följa Material Design 3-riktlinjer
+- [ ] Säkerställa offline-first funktionalitet
+- [x] Implementera proper error handling
+- [ ] Säkerställa hög prestanda
+- [x] Implementera omfattande testning
 
 ## Nästa Steg
-1. Slutföra grundläggande UI-komponenter i common-modulen
+1. [x] Slutföra grundläggande UI-komponenter i common-modulen
 2. Byt till auth-modulen för inloggningsimplementation
 3. Efter inloggning, fortsätt med SeedDetailScreen i seed-modulen
 4. Byt till garden-modulen för GardenOverviewScreen
