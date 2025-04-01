@@ -2,83 +2,37 @@ package com.bps.plantseeds3.data.repository
 
 import android.util.Log
 import com.bps.plantseeds3.common.model.Resource
+import com.bps.plantseeds3.data.local.dao.PlantDao
+import com.bps.plantseeds3.data.mapper.toEntity
+import com.bps.plantseeds3.data.mapper.toPlant
 import com.bps.plantseeds3.domain.model.Plant
 import com.bps.plantseeds3.domain.repository.PlantRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.time.Instant
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 private const val TAG = "PlantRepositoryImpl"
 
-class PlantRepositoryImpl @Inject constructor() : PlantRepository {
-    // Temporär implementation med hårdkodad data
-    private val mockPlants = listOf(
-        Plant(
-            id = "1",
-            name = "Monstera",
-            species = "Monstera deliciosa",
-            description = "En stor och vacker växt med karakteristiska blad",
-            gardenId = "garden_1",
-            lastWatered = Instant.now(),
-            nextWatering = Instant.now().plusSeconds(60 * 60 * 24 * 7), // 7 dagar
-            createdAt = Instant.now(),
-            updatedAt = Instant.now()
-        ),
-        Plant(
-            id = "2",
-            name = "Fikus",
-            species = "Ficus lyrata",
-            description = "En populär inomhusväxt med stora, fiolformade blad",
-            gardenId = "garden_1",
-            lastWatered = Instant.now(),
-            nextWatering = Instant.now().plusSeconds(60 * 60 * 24 * 5), // 5 dagar
-            createdAt = Instant.now(),
-            updatedAt = Instant.now()
-        ),
-        Plant(
-            id = "3",
-            name = "Tomat",
-            species = "Solanum lycopersicum",
-            description = "Körsbärstomater för balkongodling",
-            gardenId = "garden_2",
-            lastWatered = Instant.now(),
-            nextWatering = Instant.now().plusSeconds(60 * 60 * 24 * 2), // 2 dagar
-            createdAt = Instant.now(),
-            updatedAt = Instant.now()
-        ),
-        Plant(
-            id = "4",
-            name = "Basilika",
-            species = "Ocimum basilicum",
-            description = "Färsk basilika för matlagning",
-            gardenId = "garden_2",
-            lastWatered = Instant.now(),
-            nextWatering = Instant.now().plusSeconds(60 * 60 * 24 * 3), // 3 dagar
-            createdAt = Instant.now(),
-            updatedAt = Instant.now()
-        ),
-        Plant(
-            id = "5",
-            name = "Gurka",
-            species = "Cucumis sativus",
-            description = "Växthusgurka för sallader",
-            gardenId = "garden_3",
-            lastWatered = Instant.now(),
-            nextWatering = Instant.now().plusSeconds(60 * 60 * 24 * 2), // 2 dagar
-            createdAt = Instant.now(),
-            updatedAt = Instant.now()
-        )
-    )
+class PlantRepositoryImpl @Inject constructor(
+    private val plantDao: PlantDao
+) : PlantRepository {
 
     override fun getPlants(): Flow<Resource<List<Plant>>> = flow {
-        Log.d(TAG, "getPlants: Loading all plants")
+        Log.d(TAG, "getPlants: Starting to load all plants")
         emit(Resource.Loading())
         try {
-            Log.d(TAG, "getPlants: Returning ${mockPlants.size} plants")
-            emit(Resource.Success(mockPlants))
+            plantDao.getAllPlants()
+                .map { entities -> 
+                    Log.d(TAG, "getPlants: Found ${entities.size} plants in database")
+                    entities.map { it.toPlant() }
+                }
+                .collect { plants ->
+                    Log.d(TAG, "getPlants: Converted to ${plants.size} Plant objects")
+                    emit(Resource.Success(plants))
+                }
         } catch (e: Exception) {
-            Log.e(TAG, "getPlants: Error", e)
+            Log.e(TAG, "getPlants: Error loading plants", e)
             emit(Resource.Error("Kunde inte hämta växterna: ${e.message}"))
         }
     }
@@ -87,10 +41,15 @@ class PlantRepositoryImpl @Inject constructor() : PlantRepository {
         Log.d(TAG, "getPlantsByGardenId: Starting to load plants for garden $gardenId")
         emit(Resource.Loading())
         try {
-            val filteredPlants = mockPlants.filter { it.gardenId == gardenId }
-            Log.d(TAG, "getPlantsByGardenId: Found ${filteredPlants.size} plants for garden $gardenId")
-            Log.d(TAG, "getPlantsByGardenId: Plants details: ${filteredPlants.map { it.name }}")
-            emit(Resource.Success(filteredPlants))
+            plantDao.getPlantsByGardenId(gardenId)
+                .map { entities ->
+                    Log.d(TAG, "getPlantsByGardenId: Found ${entities.size} plants for garden $gardenId")
+                    entities.map { it.toPlant() }
+                }
+                .collect { plants ->
+                    Log.d(TAG, "getPlantsByGardenId: Converted to ${plants.size} Plant objects")
+                    emit(Resource.Success(plants))
+                }
         } catch (e: Exception) {
             Log.e(TAG, "getPlantsByGardenId: Error loading plants for garden $gardenId", e)
             emit(Resource.Error("Kunde inte hämta växterna för trädgården: ${e.message}"))
@@ -100,7 +59,7 @@ class PlantRepositoryImpl @Inject constructor() : PlantRepository {
     override suspend fun getPlantById(id: String): Resource<Plant> {
         Log.d(TAG, "getPlantById: Loading plant with id = $id")
         return try {
-            val plant = mockPlants.find { it.id == id }
+            val plant = plantDao.getPlantById(id)?.toPlant()
             if (plant != null) {
                 Log.d(TAG, "getPlantById: Found plant = $plant")
                 Resource.Success(plant)
@@ -117,7 +76,8 @@ class PlantRepositoryImpl @Inject constructor() : PlantRepository {
     override suspend fun insertPlant(plant: Plant): Resource<Unit> {
         Log.d(TAG, "insertPlant: Inserting plant = $plant")
         return try {
-            // TODO: Implementera när vi har en databas
+            plantDao.insertPlant(plant.toEntity())
+            Log.d(TAG, "insertPlant: Successfully inserted plant")
             Resource.Success(Unit)
         } catch (e: Exception) {
             Log.e(TAG, "insertPlant: Error", e)
@@ -128,7 +88,8 @@ class PlantRepositoryImpl @Inject constructor() : PlantRepository {
     override suspend fun updatePlant(plant: Plant): Resource<Unit> {
         Log.d(TAG, "updatePlant: Updating plant = $plant")
         return try {
-            // TODO: Implementera när vi har en databas
+            plantDao.updatePlant(plant.toEntity())
+            Log.d(TAG, "updatePlant: Successfully updated plant")
             Resource.Success(Unit)
         } catch (e: Exception) {
             Log.e(TAG, "updatePlant: Error", e)
@@ -139,8 +100,15 @@ class PlantRepositoryImpl @Inject constructor() : PlantRepository {
     override suspend fun deletePlant(id: String): Resource<Unit> {
         Log.d(TAG, "deletePlant: Deleting plant with id = $id")
         return try {
-            // TODO: Implementera när vi har en databas
-            Resource.Success(Unit)
+            val plant = plantDao.getPlantById(id)
+            if (plant != null) {
+                plantDao.deletePlant(plant)
+                Log.d(TAG, "deletePlant: Successfully deleted plant")
+                Resource.Success(Unit)
+            } else {
+                Log.d(TAG, "deletePlant: Plant not found")
+                Resource.Error("Växten hittades inte")
+            }
         } catch (e: Exception) {
             Log.e(TAG, "deletePlant: Error", e)
             Resource.Error("Kunde inte ta bort växten: ${e.message}")
@@ -148,15 +116,11 @@ class PlantRepositoryImpl @Inject constructor() : PlantRepository {
     }
 
     override suspend fun searchPlants(query: String): Resource<List<Plant>> {
-        Log.d(TAG, "searchPlants: Searching for query = $query")
+        Log.d(TAG, "searchPlants: Searching for plants with query = $query")
         return try {
-            val filteredPlants = mockPlants.filter { plant -> 
-                plant.name.contains(query, ignoreCase = true) ||
-                plant.species.contains(query, ignoreCase = true) ||
-                (plant.description?.contains(query, ignoreCase = true) ?: false)
-            }
-            Log.d(TAG, "searchPlants: Found ${filteredPlants.size} plants")
-            Resource.Success(filteredPlants)
+            val plants = plantDao.searchPlants(query).map { it.toPlant() }
+            Log.d(TAG, "searchPlants: Found ${plants.size} plants")
+            Resource.Success(plants)
         } catch (e: Exception) {
             Log.e(TAG, "searchPlants: Error", e)
             Resource.Error("Kunde inte söka efter växter: ${e.message}")

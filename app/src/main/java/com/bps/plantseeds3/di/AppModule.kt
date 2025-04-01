@@ -33,8 +33,9 @@ object AppModule {
         return Room.databaseBuilder(
             context,
             PlantSeedsDatabase::class.java,
-            "plantseeds_v12.db"
+            "plantseeds_v13.db"
         )
+        .fallbackToDestructiveMigration()
         .build()
     }
 

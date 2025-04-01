@@ -1,5 +1,6 @@
 package com.bps.plantseeds3.data.repository
 
+import android.util.Log
 import com.bps.plantseeds3.common.model.Resource
 import com.bps.plantseeds3.data.local.dao.GardenDao
 import com.bps.plantseeds3.data.mapper.toEntity
@@ -16,14 +17,20 @@ class GardenRepositoryImpl @Inject constructor(
 ) : GardenRepository {
 
     override fun getGardens(): Flow<Resource<List<Garden>>> = flow {
+        Log.d("GardenRepositoryImpl", "Börjar hämta trädgårdar")
         emit(Resource.Loading())
         try {
             gardenDao.getAllGardens()
-                .map { entities -> entities.map { it.toGarden() } }
+                .map { entities -> 
+                    Log.d("GardenRepositoryImpl", "Hämtade ${entities.size} trädgårdar från databasen")
+                    entities.map { it.toGarden() }
+                }
                 .collect { gardens ->
+                    Log.d("GardenRepositoryImpl", "Konverterade till ${gardens.size} Garden-objekt")
                     emit(Resource.Success(gardens))
                 }
         } catch (e: Exception) {
+            Log.e("GardenRepositoryImpl", "Fel vid hämtning av trädgårdar", e)
             emit(Resource.Error(e.message ?: "Ett fel uppstod"))
         }
     }
@@ -43,9 +50,14 @@ class GardenRepositoryImpl @Inject constructor(
 
     override suspend fun insertGarden(garden: Garden): Resource<Unit> {
         return try {
-            gardenDao.insertGarden(garden.toEntity())
+            Log.d("GardenRepositoryImpl", "Försöker lägga till trädgård i databasen: $garden")
+            val entity = garden.toEntity()
+            Log.d("GardenRepositoryImpl", "Konverterade till entity: $entity")
+            gardenDao.insertGarden(entity)
+            Log.d("GardenRepositoryImpl", "Trädgård lades till framgångsrikt")
             Resource.Success(Unit)
         } catch (e: Exception) {
+            Log.e("GardenRepositoryImpl", "Fel vid tillägg av trädgård i databasen", e)
             Resource.Error(e.message ?: "Ett fel uppstod")
         }
     }

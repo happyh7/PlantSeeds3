@@ -1,5 +1,6 @@
 package com.bps.plantseeds3.presentation.screens.gardens.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bps.plantseeds3.common.model.Resource
@@ -23,6 +24,7 @@ class AddGardenViewModel @Inject constructor(
     fun addGarden(name: String, description: String, location: String) {
         viewModelScope.launch {
             try {
+                Log.d("AddGardenViewModel", "Börjar lägga till trädgård: $name")
                 _uiState.value = AddGardenUiState.Loading
                 
                 val garden = Garden(
@@ -34,12 +36,24 @@ class AddGardenViewModel @Inject constructor(
                     updatedAt = Instant.now()
                 )
                 
+                Log.d("AddGardenViewModel", "Skapade garden-objekt: $garden")
+                
                 when (val result = gardenRepository.insertGarden(garden)) {
-                    is Resource.Success -> _uiState.value = AddGardenUiState.Success
-                    is Resource.Error -> _uiState.value = AddGardenUiState.Error(result.message)
-                    is Resource.Loading -> _uiState.value = AddGardenUiState.Loading
+                    is Resource.Success -> {
+                        Log.d("AddGardenViewModel", "Trädgård lades till framgångsrikt")
+                        _uiState.value = AddGardenUiState.Success
+                    }
+                    is Resource.Error -> {
+                        Log.e("AddGardenViewModel", "Fel vid tillägg av trädgård: ${result.message}")
+                        _uiState.value = AddGardenUiState.Error(result.message)
+                    }
+                    is Resource.Loading -> {
+                        Log.d("AddGardenViewModel", "Laddar...")
+                        _uiState.value = AddGardenUiState.Loading
+                    }
                 }
             } catch (e: Exception) {
+                Log.e("AddGardenViewModel", "Ett oväntat fel uppstod", e)
                 _uiState.value = AddGardenUiState.Error(e.message ?: "Ett fel uppstod")
             }
         }

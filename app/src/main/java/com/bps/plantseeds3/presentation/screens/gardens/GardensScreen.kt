@@ -11,24 +11,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-
-private data class Garden(
-    val id: String,
-    val name: String
-)
-
-private val temporaryGardens = listOf(
-    Garden(id = "garden_1", name = "Balkongen"),
-    Garden(id = "garden_2", name = "Köksträdgården"),
-    Garden(id = "garden_3", name = "Växthuset")
-)
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.bps.plantseeds3.presentation.screens.gardens.viewmodel.GardensUiState
+import com.bps.plantseeds3.presentation.screens.gardens.viewmodel.GardensViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GardensScreen(
     onAddClick: () -> Unit,
-    onGardenClick: (String) -> Unit
+    onGardenClick: (String) -> Unit,
+    viewModel: GardensViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -43,35 +38,64 @@ fun GardensScreen(
             }
         }
     ) { paddingValues ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(temporaryGardens) { garden ->
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { onGardenClick(garden.id) }
+        when (uiState) {
+            is GardensUiState.Loading -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues),
+                    contentAlignment = Alignment.Center
                 ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = garden.name,
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                            contentDescription = "Visa detaljer",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
+                    CircularProgressIndicator()
+                }
+            }
+            is GardensUiState.Success -> {
+                val gardens = (uiState as GardensUiState.Success).gardens
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues)
+                        .padding(horizontal = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(gardens) { garden ->
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            onClick = { onGardenClick(garden.id) }
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = garden.name,
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                                    contentDescription = "Visa detaljer",
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        }
                     }
+                }
+            }
+            is GardensUiState.Error -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = (uiState as GardensUiState.Error).message,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.error
+                    )
                 }
             }
         }

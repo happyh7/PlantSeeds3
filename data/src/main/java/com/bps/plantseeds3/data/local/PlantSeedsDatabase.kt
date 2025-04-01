@@ -20,7 +20,7 @@ import com.bps.plantseeds3.data.local.converter.DateConverter
         PlantingEntity::class,
         SeedEntity::class
     ],
-    version = 12,
+    version = 13,
     exportSchema = true
 )
 @TypeConverters(DateConverter::class)
