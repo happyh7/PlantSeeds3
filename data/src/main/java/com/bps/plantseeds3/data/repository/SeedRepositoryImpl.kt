@@ -27,14 +27,14 @@ class SeedRepositoryImpl @Inject constructor(
 
     override suspend fun getSeedById(id: String): Resource<Seed> {
         return try {
-            val seed = seedDao.getSeedById(id.toLong())?.toSeed()
-            if (seed != null) {
-                Resource.Success(seed)
+            val seedEntity = seedDao.getSeedById(id)
+            if (seedEntity != null) {
+                Resource.Success(seedDao.getSeedById(id.toLong())?.toSeed() ?: throw IllegalStateException("Seed entity found but no corresponding seed entity"))
             } else {
-                Resource.Error(DatabaseException.EntityNotFoundException("Frö", id).message ?: "Frö hittades inte")
+                Resource.Error(DatabaseException.EntityNotFoundException("Seed med ID $id hittades inte"))
             }
         } catch (e: Exception) {
-            Resource.Error(DatabaseException.QueryFailedException("hämta frö med id $id", e).message ?: "Ett fel uppstod")
+            Resource.Error(DatabaseException.QueryFailedException("Kunde inte hämta seed: ${e.message}"))
         }
     }
 

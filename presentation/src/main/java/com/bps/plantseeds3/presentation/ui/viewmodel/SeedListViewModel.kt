@@ -45,33 +45,42 @@ class SeedListViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
             getSeedsUseCase().collect { resource ->
-                when (resource) {
-                    is Resource.Success -> {
-                        val seeds = resource.data ?: emptyList()
-                        val filteredSeeds = if (_uiState.value.searchQuery.isBlank()) {
-                            seeds
-                        } else {
-                            seeds.filter { seed ->
-                                seed.name?.contains(_uiState.value.searchQuery, ignoreCase = true) == true ||
-                                seed.description?.contains(_uiState.value.searchQuery, ignoreCase = true) == true
-                            }
-                        }
-                        _uiState.value = _uiState.value.copy(
-                            seeds = seeds,
-                            filteredSeeds = filteredSeeds,
-                            isLoading = false
-                        )
-                    }
-                    is Resource.Error -> {
-                        _uiState.value = _uiState.value.copy(
-                            error = resource.message,
-                            isLoading = false
-                        )
-                    }
-                    is Resource.Loading -> {
-                        _uiState.value = _uiState.value.copy(isLoading = true)
-                    }
-                }
+                handleSeedListResponse(resource)
+            }
+        }
+    }
+
+    private fun handleSeedListResponse(response: Resource<List<Seed>>) {
+        when (response) {
+            is Resource.Success -> {
+                _uiState.value = _uiState.value.copy(
+                    seeds = response.data,
+                    isLoading = false,
+                    error = null
+                )
+            }
+            is Resource.Error -> {
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    error = response.message
+                )
+            }
+        }
+    }
+
+    private fun handleSeedDeletionResponse(response: Resource<Unit>) {
+        when (response) {
+            is Resource.Success -> {
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    error = null
+                )
+            }
+            is Resource.Error -> {
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    error = response.message
+                )
             }
         }
     }

@@ -5,6 +5,32 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.bps.plantseeds3.common.exceptions.DatabaseException
 
 object DatabaseMigrations {
+    val MIGRATION_1_2 = object : Migration(1, 2) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            try {
+                db.execSQL("""
+                    ALTER TABLE seeds 
+                    ADD COLUMN plantId TEXT
+                """)
+            } catch (e: Exception) {
+                throw DatabaseException.MigrationFailedException("Kunde inte migrera från version 1 till 2: ${e.message}")
+            }
+        }
+    }
+
+    val MIGRATION_2_3 = object : Migration(2, 3) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            try {
+                db.execSQL("""
+                    CREATE INDEX IF NOT EXISTS index_seeds_plantId 
+                    ON seeds(plantId)
+                """)
+            } catch (e: Exception) {
+                throw DatabaseException.MigrationFailedException("Kunde inte migrera från version 2 till 3: ${e.message}")
+            }
+        }
+    }
+
     val MIGRATION_13_14 = object : Migration(13, 14) {
         override fun migrate(database: SupportSQLiteDatabase) {
             try {
@@ -69,6 +95,6 @@ object DatabaseMigrations {
 
     // Funktion för att få alla migrationer
     fun getMigrations(): Array<Migration> {
-        return arrayOf(MIGRATION_13_14)
+        return arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_13_14)
     }
 } 

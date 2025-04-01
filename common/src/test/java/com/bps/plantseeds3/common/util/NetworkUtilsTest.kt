@@ -1,79 +1,53 @@
 package com.bps.plantseeds3.common.util
 
-import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
-import android.net.NetworkInfo
+import android.net.NetworkRequest
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
-@RunWith(MockitoJUnitRunner::class)
 class NetworkUtilsTest {
-
-    @Mock
-    private lateinit var context: Context
-
-    @Mock
     private lateinit var connectivityManager: ConnectivityManager
-
-    @Mock
-    private lateinit var network: Network
-
-    @Mock
-    private lateinit var networkCapabilities: NetworkCapabilities
+    private lateinit var networkUtils: NetworkUtils
 
     @Before
     fun setup() {
-        `when`(context.getSystemService(Context.CONNECTIVITY_SERVICE)).thenReturn(connectivityManager)
+        connectivityManager = mockk()
+        networkUtils = NetworkUtils(connectivityManager)
     }
 
     @Test
     fun `isNetworkAvailable returns true when network is available`() {
-        // Given
-        `when`(connectivityManager.activeNetwork).thenReturn(network)
-        `when`(connectivityManager.getNetworkCapabilities(network)).thenReturn(networkCapabilities)
-        `when`(networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)).thenReturn(true)
+        val network = mockk<Network>()
+        val networkCapabilities = mockk<NetworkCapabilities>()
+        
+        every { connectivityManager.activeNetwork } returns network
+        every { connectivityManager.getNetworkCapabilities(network) } returns networkCapabilities
+        every { networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) } returns true
 
-        // When
-        val result = NetworkUtils.isNetworkAvailable(context)
-
-        // Then
-        assertTrue(result)
+        assert(networkUtils.isNetworkAvailable())
     }
 
     @Test
-    fun `isNetworkAvailable returns false when network is not available`() {
-        // Given
-        `when`(connectivityManager.activeNetwork).thenReturn(null)
+    fun `isNetworkAvailable returns false when network is unavailable`() {
+        every { connectivityManager.activeNetwork } returns null
 
-        // When
-        val result = NetworkUtils.isNetworkAvailable(context)
-
-        // Then
-        assertFalse(result)
+        assert(!networkUtils.isNetworkAvailable())
     }
 
     @Test
     fun `isNetworkAvailable returns false when network has no internet capability`() {
-        // Given
-        `when`(connectivityManager.activeNetwork).thenReturn(network)
-        `when`(connectivityManager.getNetworkCapabilities(network)).thenReturn(networkCapabilities)
-        `when`(networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)).thenReturn(false)
+        val network = mockk<Network>()
+        val networkCapabilities = mockk<NetworkCapabilities>()
+        
+        every { connectivityManager.activeNetwork } returns network
+        every { connectivityManager.getNetworkCapabilities(network) } returns networkCapabilities
+        every { networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) } returns false
 
-        // When
-        val result = NetworkUtils.isNetworkAvailable(context)
-
-        // Then
-        assertFalse(result)
+        assert(!networkUtils.isNetworkAvailable())
     }
 } 
