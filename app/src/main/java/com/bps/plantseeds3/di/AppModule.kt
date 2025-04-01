@@ -8,7 +8,9 @@ import com.bps.plantseeds3.data.local.dao.GardenDao
 import com.bps.plantseeds3.data.local.dao.PlantDao
 import com.bps.plantseeds3.data.local.dao.PlantingDao
 import com.bps.plantseeds3.data.local.dao.SeedDao
+import com.bps.plantseeds3.domain.repository.GardenRepository
 import com.bps.plantseeds3.domain.repository.SeedRepository
+import com.bps.plantseeds3.data.repository.GardenRepositoryImpl
 import com.bps.plantseeds3.data.repository.SeedRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -62,6 +64,12 @@ object AppModule {
     fun providePlantingDao(database: PlantSeedsDatabase): PlantingDao {
         Log.d(TAG, "Skapar PlantingDao")
         return database.plantingDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGardenRepository(gardenDao: GardenDao): GardenRepository {
+        return GardenRepositoryImpl(gardenDao)
     }
 
     @Provides
