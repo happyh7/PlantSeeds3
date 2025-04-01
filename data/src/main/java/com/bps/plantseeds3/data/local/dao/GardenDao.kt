@@ -15,10 +15,10 @@ interface GardenDao {
     fun getAllGardens(): Flow<List<GardenEntity>>
 
     @Query("SELECT * FROM gardens WHERE id = :id")
-    suspend fun getGardenById(id: Long): GardenEntity?
+    suspend fun getGardenById(id: String): GardenEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertGarden(garden: GardenEntity): Long
+    suspend fun insertGarden(garden: GardenEntity)
 
     @Update
     suspend fun updateGarden(garden: GardenEntity)

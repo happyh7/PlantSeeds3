@@ -1,4 +1,4 @@
-package com.bps.plantseeds3.presentation.screens.plants
+package com.bps.plantseeds3.presentation.screen.plants
 
 import android.util.Log
 import androidx.compose.foundation.layout.*
@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.bps.plantseeds3.common.model.Resource
 import com.bps.plantseeds3.domain.model.Plant
-import com.bps.plantseeds3.presentation.screens.plants.viewmodel.PlantsViewModel
+import com.bps.plantseeds3.presentation.viewmodel.plants.PlantsViewModel
 
 private const val TAG = "PlantsScreen"
 
@@ -57,7 +57,7 @@ fun PlantsScreen(
         }
     ) { paddingValues ->
         when (plants) {
-            is Resource.Loading -> {
+            is Resource.Loading<List<Plant>> -> {
                 Log.d(TAG, "PlantsScreen: Loading plants...")
                 Box(
                     modifier = Modifier
@@ -68,7 +68,7 @@ fun PlantsScreen(
                     CircularProgressIndicator()
                 }
             }
-            is Resource.Success -> {
+            is Resource.Success<List<Plant>> -> {
                 Log.d(TAG, "PlantsScreen: Loaded ${(plants as Resource.Success<List<Plant>>).data.size} plants")
                 val plantsList = (plants as Resource.Success<List<Plant>>).data
                 if (plantsList.isEmpty()) {
@@ -129,8 +129,8 @@ fun PlantsScreen(
                     }
                 }
             }
-            is Resource.Error -> {
-                Log.e(TAG, "PlantsScreen: Error loading plants: ${(plants as Resource.Error).message}")
+            is Resource.Error<List<Plant>> -> {
+                Log.e(TAG, "PlantsScreen: Error loading plants: ${(plants as Resource.Error<List<Plant>>).message}")
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -138,7 +138,7 @@ fun PlantsScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = (plants as Resource.Error).message,
+                        text = (plants as Resource.Error<List<Plant>>).message,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(16.dp)
                     )

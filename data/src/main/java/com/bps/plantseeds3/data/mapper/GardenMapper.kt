@@ -6,22 +6,22 @@ import java.time.Instant
 
 fun GardenEntity.toGarden(): Garden {
     return Garden(
-        id = id.toString(),
+        id = id,
         name = name,
         description = description,
         location = location,
         createdAt = Instant.ofEpochMilli(createdAt),
-        updatedAt = Instant.ofEpochMilli(createdAt) // Vi använder createdAt som updatedAt eftersom det inte finns i entiteten
+        updatedAt = Instant.ofEpochMilli(updatedAt)
     )
 }
 
 fun Garden.toEntity(): GardenEntity {
     return GardenEntity(
-        id = if (id.isEmpty()) 0 else id.toLong(),
+        id = id,
         name = name,
         description = description ?: "",
         location = location ?: "",
-        size = 0.0, // Default värde eftersom det inte finns i domänmodellen
-        createdAt = createdAt.toEpochMilli()
+        createdAt = createdAt.toEpochMilli(),
+        updatedAt = updatedAt.toEpochMilli()
     )
 } 

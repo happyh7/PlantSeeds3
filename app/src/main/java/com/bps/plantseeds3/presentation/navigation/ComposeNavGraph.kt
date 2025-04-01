@@ -6,10 +6,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.bps.plantseeds3.presentation.screen.plants.AddPlantScreen
+import com.bps.plantseeds3.presentation.screen.plants.PlantsScreen
 import com.bps.plantseeds3.presentation.screens.gardens.AddGardenScreen
 import com.bps.plantseeds3.presentation.screens.gardens.GardensScreen
-import com.bps.plantseeds3.presentation.screens.plants.AddPlantScreen
-import com.bps.plantseeds3.presentation.screens.plants.PlantsScreen
 import com.bps.plantseeds3.presentation.screens.seeds.SeedsScreen
 
 @Composable
@@ -26,13 +26,18 @@ fun ComposeNavGraph(navController: NavHostController) {
             val gardenId = backStackEntry.arguments?.getString("gardenId") ?: ""
             PlantsScreen(
                 gardenId = gardenId,
-                onAddClick = { navController.navigate(Screen.AddPlant.route) },
+                onAddClick = { navController.navigate(Screen.AddPlant.createRoute(gardenId)) },
                 onPlantClick = { plantId -> navController.navigate(Screen.PlantDetails.createRoute(plantId)) },
                 onNavigateBack = { navController.popBackStack() }
             )
         }
-        composable(Screen.AddPlant.route) {
+        composable(
+            route = Screen.AddPlant.route,
+            arguments = listOf(navArgument("gardenId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val gardenId = backStackEntry.arguments?.getString("gardenId") ?: ""
             AddPlantScreen(
+                gardenId = gardenId,
                 onNavigateBack = { navController.popBackStack() }
             )
         }

@@ -2,6 +2,7 @@ package com.bps.plantseeds3.presentation.screens.gardens.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bps.plantseeds3.common.model.Resource
 import com.bps.plantseeds3.domain.model.Garden
 import com.bps.plantseeds3.domain.repository.GardenRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +26,7 @@ class AddGardenViewModel @Inject constructor(
                 _uiState.value = AddGardenUiState.Loading
                 
                 val garden = Garden(
-                    id = "", // ID kommer att genereras av databasen
+                    id = System.currentTimeMillis().toString(), // Använder timestamp som temporärt ID
                     name = name,
                     description = description,
                     location = location,
@@ -33,8 +34,11 @@ class AddGardenViewModel @Inject constructor(
                     updatedAt = Instant.now()
                 )
                 
-                gardenRepository.insertGarden(garden)
-                _uiState.value = AddGardenUiState.Success
+                when (val result = gardenRepository.insertGarden(garden)) {
+                    is Resource.Success -> _uiState.value = AddGardenUiState.Success
+                    is Resource.Error -> _uiState.value = AddGardenUiState.Error(result.message)
+                    is Resource.Loading -> _uiState.value = AddGardenUiState.Loading
+                }
             } catch (e: Exception) {
                 _uiState.value = AddGardenUiState.Error(e.message ?: "Ett fel uppstod")
             }

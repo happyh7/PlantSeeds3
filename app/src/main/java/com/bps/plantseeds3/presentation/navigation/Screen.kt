@@ -4,7 +4,9 @@ sealed class Screen(val route: String) {
     object Plants : Screen("plants/{gardenId}") {
         fun createRoute(gardenId: String) = "plants/$gardenId"
     }
-    object AddPlant : Screen("add_plant")
+    object AddPlant : Screen("add_plant/{gardenId}") {
+        fun createRoute(gardenId: String) = "add_plant/$gardenId"
+    }
     object PlantDetails : Screen("plant/{plantId}") {
         fun createRoute(plantId: String) = "plant/$plantId"
     }

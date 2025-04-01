@@ -30,7 +30,7 @@ class GardenRepositoryImpl @Inject constructor(
 
     override suspend fun getGardenById(id: String): Resource<Garden> {
         return try {
-            val garden = gardenDao.getGardenById(id.toLong())?.toGarden()
+            val garden = gardenDao.getGardenById(id)?.toGarden()
             if (garden != null) {
                 Resource.Success(garden)
             } else {
@@ -61,7 +61,7 @@ class GardenRepositoryImpl @Inject constructor(
 
     override suspend fun deleteGarden(id: String): Resource<Unit> {
         return try {
-            val garden = gardenDao.getGardenById(id.toLong())
+            val garden = gardenDao.getGardenById(id)
             if (garden != null) {
                 gardenDao.deleteGarden(garden)
                 Resource.Success(Unit)

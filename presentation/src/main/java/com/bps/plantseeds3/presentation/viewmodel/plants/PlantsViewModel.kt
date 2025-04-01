@@ -1,4 +1,4 @@
-package com.bps.plantseeds3.presentation.screens.plants.viewmodel
+package com.bps.plantseeds3.presentation.viewmodel.plants
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
