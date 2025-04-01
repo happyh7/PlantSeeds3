@@ -50,84 +50,97 @@ fun PlantsScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { onAddClick() }
+                onClick = onAddClick
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Lägg till växt")
             }
         }
     ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
-            when (plants) {
-                is Resource.Loading -> {
-                    Log.d(TAG, "PlantsScreen: Loading plants...")
-                    CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.Center)
-                    )
+        when (plants) {
+            is Resource.Loading -> {
+                Log.d(TAG, "PlantsScreen: Loading plants...")
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
                 }
-                is Resource.Success -> {
-                    Log.d(TAG, "PlantsScreen: Loaded ${(plants as Resource.Success<List<Plant>>).data.size} plants")
-                    val plantsList = (plants as Resource.Success<List<Plant>>).data
-                    if (plantsList.isEmpty()) {
-                        Log.d(TAG, "PlantsScreen: No plants found for garden")
+            }
+            is Resource.Success -> {
+                Log.d(TAG, "PlantsScreen: Loaded ${(plants as Resource.Success<List<Plant>>).data.size} plants")
+                val plantsList = (plants as Resource.Success<List<Plant>>).data
+                if (plantsList.isEmpty()) {
+                    Log.d(TAG, "PlantsScreen: No plants found for garden")
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValues),
+                        contentAlignment = Alignment.Center
+                    ) {
                         Text(
                             text = "Inga växter i denna trädgård",
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .padding(16.dp),
-                            textAlign = TextAlign.Center
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(16.dp)
                         )
-                    } else {
-                        LazyColumn(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(horizontal = 16.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            items(plantsList) { plant ->
-                                Card(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    onClick = { onPlantClick(plant.id) }
+                    }
+                } else {
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValues)
+                            .padding(horizontal = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        contentPadding = PaddingValues(vertical = 8.dp)
+                    ) {
+                        items(plantsList) { plant ->
+                            Card(
+                                modifier = Modifier.fillMaxWidth(),
+                                onClick = { onPlantClick(plant.id) }
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(16.dp),
-                                        horizontalArrangement = Arrangement.SpaceBetween,
-                                        verticalAlignment = Alignment.CenterVertically
+                                    Column(
+                                        modifier = Modifier.weight(1f)
                                     ) {
-                                        Column {
-                                            Text(
-                                                text = plant.name,
-                                                style = MaterialTheme.typography.titleMedium
-                                            )
-                                            Text(
-                                                text = plant.species,
-                                                style = MaterialTheme.typography.bodyMedium
-                                            )
-                                        }
-                                        Icon(
-                                            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                                            contentDescription = "Visa detaljer",
-                                            tint = MaterialTheme.colorScheme.primary
+                                        Text(
+                                            text = plant.name,
+                                            style = MaterialTheme.typography.titleMedium
+                                        )
+                                        Text(
+                                            text = plant.species,
+                                            style = MaterialTheme.typography.bodyMedium
                                         )
                                     }
+                                    Icon(
+                                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                                        contentDescription = "Visa detaljer",
+                                        tint = MaterialTheme.colorScheme.primary
+                                    )
                                 }
                             }
                         }
                     }
                 }
-                is Resource.Error -> {
-                    Log.e(TAG, "PlantsScreen: Error loading plants: ${(plants as Resource.Error).message}")
+            }
+            is Resource.Error -> {
+                Log.e(TAG, "PlantsScreen: Error loading plants: ${(plants as Resource.Error).message}")
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues),
+                    contentAlignment = Alignment.Center
+                ) {
                     Text(
                         text = (plants as Resource.Error).message,
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .padding(16.dp),
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(16.dp)
                     )
                 }
             }
