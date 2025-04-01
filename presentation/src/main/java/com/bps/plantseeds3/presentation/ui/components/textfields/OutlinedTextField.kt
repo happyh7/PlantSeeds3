@@ -1,5 +1,6 @@
 package com.bps.plantseeds3.presentation.ui.components.textfields
 
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -9,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import com.bps.plantseeds3.presentation.ui.components.modifiers.noRippleClickable
 
 @Composable
@@ -50,6 +52,9 @@ fun OutlinedTextField(
             }
         },
         textStyle = MaterialTheme.typography.bodyLarge.copy(color = textColor),
+        keyboardOptions = KeyboardOptions(
+            capitalization = KeyboardCapitalization.Sentences
+        ),
         colors = MaterialTheme.colorScheme.run {
             OutlinedTextFieldDefaults.colors(
                 focusedTextColor = textColor,
