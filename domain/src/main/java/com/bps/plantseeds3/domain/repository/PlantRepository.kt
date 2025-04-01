@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface PlantRepository {
     fun getPlants(): Flow<Resource<List<Plant>>>
+    fun getPlantsByGardenId(gardenId: String): Flow<Resource<List<Plant>>>
     suspend fun getPlantById(id: String): Resource<Plant>
     suspend fun insertPlant(plant: Plant): Resource<Unit>
     suspend fun updatePlant(plant: Plant): Resource<Unit>

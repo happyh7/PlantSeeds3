@@ -20,14 +20,27 @@ class PlantsViewModel @Inject constructor(
     private val _plants = MutableStateFlow<Resource<List<Plant>>>(Resource.Loading())
     val plants: StateFlow<Resource<List<Plant>>> = _plants.asStateFlow()
 
+    private val _selectedGardenId = MutableStateFlow<String?>(null)
+    val selectedGardenId: StateFlow<String?> = _selectedGardenId.asStateFlow()
+
     init {
+        loadPlants()
+    }
+
+    fun setSelectedGarden(gardenId: String?) {
+        _selectedGardenId.value = gardenId
         loadPlants()
     }
 
     private fun loadPlants() {
         viewModelScope.launch {
-            repository.getPlants().collect { result ->
-                _plants.value = result
+            val gardenId = _selectedGardenId.value
+            if (gardenId != null) {
+                repository.getPlantsByGardenId(gardenId).collect { result ->
+                    _plants.value = result
+                }
+            } else {
+                _plants.value = Resource.Success(emptyList())
             }
         }
     }

@@ -16,13 +16,19 @@ import com.bps.plantseeds3.presentation.screens.seeds.SeedsScreen
 fun ComposeNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Plants.route
+        startDestination = Screen.Gardens.route
     ) {
         // Plants
-        composable(Screen.Plants.route) {
+        composable(
+            route = Screen.Plants.route,
+            arguments = listOf(navArgument("gardenId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val gardenId = backStackEntry.arguments?.getString("gardenId") ?: ""
             PlantsScreen(
+                gardenId = gardenId,
                 onAddClick = { navController.navigate(Screen.AddPlant.route) },
-                onPlantClick = { plantId -> navController.navigate(Screen.PlantDetails.createRoute(plantId)) }
+                onPlantClick = { plantId -> navController.navigate(Screen.PlantDetails.createRoute(plantId)) },
+                onNavigateBack = { navController.popBackStack() }
             )
         }
         composable(Screen.AddPlant.route) {
@@ -41,7 +47,11 @@ fun ComposeNavGraph(navController: NavHostController) {
         composable(Screen.Gardens.route) {
             GardensScreen(
                 onAddClick = { navController.navigate(Screen.AddGarden.route) },
-                onGardenClick = { gardenId -> navController.navigate(Screen.GardenDetails.createRoute(gardenId)) }
+                onGardenClick = { gardenId -> 
+                    navController.navigate(Screen.Plants.createRoute(gardenId)) {
+                        popUpTo(Screen.Gardens.route) { inclusive = true }
+                    }
+                }
             )
         }
         composable(Screen.AddGarden.route) {
