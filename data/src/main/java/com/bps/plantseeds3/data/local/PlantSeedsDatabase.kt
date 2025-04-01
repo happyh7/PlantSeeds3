@@ -20,8 +20,8 @@ import com.bps.plantseeds3.data.local.converter.DateConverter
         PlantingEntity::class,
         SeedEntity::class
     ],
-    version = 13,
-    exportSchema = true
+    version = 14,
+    exportSchema = false
 )
 @TypeConverters(DateConverter::class)
 abstract class PlantSeedsDatabase : RoomDatabase() {

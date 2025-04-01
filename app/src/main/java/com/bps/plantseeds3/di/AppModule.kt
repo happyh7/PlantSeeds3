@@ -33,7 +33,7 @@ object AppModule {
         return Room.databaseBuilder(
             context,
             PlantSeedsDatabase::class.java,
-            "plantseeds_v13.db"
+            "plantseeds_v14.db"
         )
         .fallbackToDestructiveMigration()
         .build()
