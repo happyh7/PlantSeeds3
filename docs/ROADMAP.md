@@ -10,18 +10,9 @@ Detta dokument beskriver utvecklingsplanen för PlantSeeds3-appen, med fokus på
 2. [x] Implementera modulär arkitektur
 3. [x] Skapa dokumentation för varje modul
 4. [x] Implementera grundläggande UI-komponenter i common-modulen
-   - Nästa: Byt till auth-modulen efter att UI-komponenter är klara
 5. [ ] Sätta upp CI/CD-pipeline
 
-### Fas 2: Autentisering och Användarhantering (Auth-modulen)
-1. [ ] Implementera inloggningsskärm
-   - Nästa: Byt till seed-modulen efter att inloggning är klar
-2. [ ] Implementera registreringsskärm
-3. [ ] Implementera lösenordsåterställning
-4. [ ] Implementera användarprofilhantering
-5. [ ] Implementera biometrisk autentisering
-
-### Fas 3: Fröhantering (Seed-modulen)
+### Fas 2: Fröhantering (Seed-modulen)
 1. [x] Implementera SeedListScreen
 2. [ ] Implementera SeedDetailScreen
    - Nästa: Byt till garden-modulen efter att SeedDetailScreen är klar
@@ -29,13 +20,20 @@ Detta dokument beskriver utvecklingsplanen för PlantSeeds3-appen, med fokus på
 4. [ ] Implementera fröstatistik
 5. [ ] Implementera frönotifieringar
 
-### Fas 4: Trädgårdshantering (Garden-modulen)
+### Fas 3: Trädgårdshantering (Garden-modulen)
 1. [ ] Implementera GardenOverviewScreen
    - Nästa: Byt tillbaka till common-modulen för optimering
 2. [ ] Implementera GardenPlanningScreen
 3. [ ] Implementera PlantCareScreen
 4. [ ] Implementera växtövervakning
 5. [ ] Implementera växtnotifieringar
+
+### Fas 4: Autentisering och Användarhantering (Auth-modulen)
+1. [ ] Implementera inloggningsskärm
+2. [ ] Implementera registreringsskärm
+3. [ ] Implementera lösenordsåterställning
+4. [ ] Implementera användarprofilhantering
+5. [ ] Implementera biometrisk autentisering
 
 ## Modulöversikt
 
@@ -44,12 +42,6 @@ Detta dokument beskriver utvecklingsplanen för PlantSeeds3-appen, med fokus på
 - [x] Nätverkshantering
 - [x] Lokalisering
 - [x] Verktyg och utilities
-
-### Auth-modulen
-- [ ] Inloggning och registrering
-- [ ] Lösenordshantering
-- [ ] Token-hantering
-- [ ] Användarprofilhantering
 
 ### Seed-modulen
 - [x] Frölistor och detaljer
@@ -63,6 +55,12 @@ Detta dokument beskriver utvecklingsplanen för PlantSeeds3-appen, med fokus på
 - [ ] Växtövervakning
 - [ ] Växtnotifieringar
 
+### Auth-modulen
+- [ ] Inloggning och registrering
+- [ ] Lösenordshantering
+- [ ] Token-hantering
+- [ ] Användarprofilhantering
+
 ## Tekniska Mål
 - [x] Implementera Clean Architecture
 - [x] Följa Material Design 3-riktlinjer
@@ -73,10 +71,10 @@ Detta dokument beskriver utvecklingsplanen för PlantSeeds3-appen, med fokus på
 
 ## Nästa Steg
 1. [x] Slutföra grundläggande UI-komponenter i common-modulen
-2. Byt till auth-modulen för inloggningsimplementation
-3. Efter inloggning, fortsätt med SeedDetailScreen i seed-modulen
-4. Byt till garden-modulen för GardenOverviewScreen
-5. Återvänd till common-modulen för optimering
+2. Implementera SeedDetailScreen i seed-modulen
+3. Byt till garden-modulen för GardenOverviewScreen
+4. Återvänd till common-modulen för optimering
+5. Implementera auth-modulen i slutet av utvecklingen
 
 ## Noteringar
 - Varje modul ska ha egen dokumentation och roadmap

@@ -1,7 +1,7 @@
 # Auth-modulen
 
 ## Översikt
-Auth-modulen hanterar all autentisering och auktorisering i appen, inklusive inloggning, registrering och lösenordshantering.
+Auth-modulen hanterar all autentisering och auktorisering i appen, inklusive inloggning, registrering och lösenordshantering. Denna modul implementeras i slutet av utvecklingen för att underlätta testning av andra funktioner.
 
 ## Struktur
 ```
@@ -23,19 +23,20 @@ auth/
 ## Roadmap för auth-modulen
 1. [x] Sätta upp grundläggande struktur
 2. [ ] Implementera inloggningsskärm
-   - Nästa: Byt till seed-modulen efter att inloggning är klar
+   - Nästa: Implementera efter att alla andra moduler är klara
 3. [ ] Implementera registreringsskärm
 4. [ ] Implementera lösenordsåterställning
 5. [ ] Implementera biometrisk autentisering
 6. [ ] Implementera sessionhantering
 
 ## Nästa steg
-Implementera inloggningsskärmen med Firebase Authentication. Efter att detta är klart, byt till seed-modulen för SeedDetailScreen.
+Implementera inloggningsskärmen med Firebase Authentication. Detta görs i slutet av utvecklingen för att underlätta testning av andra funktioner.
 
 ## Changelog
 ### 2024-03-31
 - Skapad modulstruktur
 - Förberedd för Firebase Authentication-integration
+- Flyttad till slutet av utvecklingsplanen för enklare testning
 
 ## Beroenden
 - Firebase Authentication
@@ -47,4 +48,4 @@ Implementera inloggningsskärmen med Firebase Authentication. Efter att detta ä
 - All känslig data ska hanteras säkert
 - Implementera proper error handling
 - Följ OWASP säkerhetsriktlinjer
-- Modulbyten sker efter att inloggningsfunktionalitet är klar 
+- Modulen implementeras i slutet av utvecklingen för enklare testning 
