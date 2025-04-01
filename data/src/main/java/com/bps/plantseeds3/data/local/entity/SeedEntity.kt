@@ -16,7 +16,10 @@ import androidx.room.PrimaryKey
         )
     ],
     indices = [
-        Index("plantId")
+        Index("plantId"),
+        Index("name"),
+        Index("createdAt"),
+        Index("updatedAt")
     ]
 )
 data class SeedEntity(

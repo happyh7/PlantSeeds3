@@ -1,9 +1,18 @@
 package com.bps.plantseeds3.data.local.entity
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "plants")
+@Entity(
+    tableName = "plants",
+    indices = [
+        Index(value = ["name"]),
+        Index(value = ["species"]),
+        Index(value = ["description"]),
+        Index(value = ["gardenId"])
+    ]
+)
 data class PlantEntity(
     @PrimaryKey
     val id: String,
