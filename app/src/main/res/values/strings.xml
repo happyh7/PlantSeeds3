@@ -71,4 +71,5 @@
     <string name="add_edit_plant">Lägg till/Redigera växt</string>
     <string name="no_plants">Inga växter</string>
     <string name="garden_placeholder">Trädgård: %s</string>
+    <string name="profile">Profil</string>
 </resources>
