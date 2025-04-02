@@ -81,6 +81,9 @@ class AddSeedViewModel @Inject constructor(
                 val now = Instant.now()
                 val plantId = UUID.randomUUID().toString()
                 
+                Log.d(TAG, "saveSeed: Creating plant with ID: $plantId")
+                Log.d(TAG, "saveSeed: Plant data - name: ${_uiState.value.name}, species: ${_uiState.value.species}")
+                
                 val plant = Plant(
                     id = plantId,
                     name = _uiState.value.name,
@@ -99,8 +102,12 @@ class AddSeedViewModel @Inject constructor(
                     is Resource.Success<Unit> -> {
                         Log.d(TAG, "saveSeed: Successfully inserted plant")
                         
+                        val seedId = UUID.randomUUID().toString()
+                        Log.d(TAG, "saveSeed: Creating seed with ID: $seedId")
+                        Log.d(TAG, "saveSeed: Seed data - name: ${_uiState.value.name}, species: ${_uiState.value.species}")
+                        
                         val seed = Seed(
-                            id = UUID.randomUUID().toString(),
+                            id = seedId,
                             plantId = plantId,
                             name = _uiState.value.name,
                             species = _uiState.value.species.ifBlank { null },
@@ -126,16 +133,16 @@ class AddSeedViewModel @Inject constructor(
                         when (val result = addSeedUseCase(seed)) {
                             is Resource.Success<Unit> -> {
                                 Log.d(TAG, "saveSeed: Successfully inserted seed")
-                                // Vänta längre för att säkerställa att databasen har slutfört operationen
-                                delay(500)
                                 _uiState.value = _uiState.value.copy(isLoading = false)
                                 onSuccess()
                             }
                             is Resource.Error<Unit> -> {
                                 Log.e(TAG, "saveSeed: Failed to insert seed", Exception(result.message))
+                                Log.e(TAG, "saveSeed: Error message: ${result.message}")
                                 // Försök ta bort planten om seed misslyckas
                                 try {
                                     // TODO: Implementera DeletePlantUseCase och använd den här
+                                    Log.e(TAG, "saveSeed: TODO: Implement DeletePlantUseCase")
                                     _uiState.value = _uiState.value.copy(
                                         isLoading = false,
                                         error = result.message
@@ -156,6 +163,7 @@ class AddSeedViewModel @Inject constructor(
                     }
                     is Resource.Error<Unit> -> {
                         Log.e(TAG, "saveSeed: Failed to insert plant", Exception(plantResult.message))
+                        Log.e(TAG, "saveSeed: Plant error message: ${plantResult.message}")
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
                             error = plantResult.message
@@ -168,6 +176,8 @@ class AddSeedViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "saveSeed: Exception occurred", e)
+                Log.e(TAG, "saveSeed: Exception message: ${e.message}")
+                Log.e(TAG, "saveSeed: Exception stack trace: ${e.stackTraceToString()}")
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
                     error = "Kunde inte spara frö: ${e.message}"

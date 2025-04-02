@@ -60,7 +60,7 @@ class SeedRepositoryImpl @Inject constructor(
             seedDao.updateSeed(seed.toEntity())
             Resource.Success(Unit)
         } catch (e: Exception) {
-            Resource.Error(DatabaseException.UpdateFailedException("Frö", seed.id, e).message ?: "Ett fel uppstod")
+            Resource.Error(DatabaseException.UpdateFailedException("Kunde inte uppdatera seed", e).message ?: "Ett fel uppstod")
         }
     }
 
