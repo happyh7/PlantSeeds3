@@ -23,6 +23,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.rememberCoroutineScope
 import com.bps.plantseeds3.presentation.ui.viewmodel.SeedDetailViewModel
+import com.bps.plantseeds3.garden.presentation.overview.GardenOverviewScreen
 
 @Composable
 fun NavGraph(
@@ -124,7 +125,11 @@ fun NavGraph(
                 enterTransition = { fadeIn(animationSpec = tween(300)) },
                 exitTransition = { fadeOut(animationSpec = tween(300)) }
             ) {
-                GardenListScreen()
+                GardenOverviewScreen(
+                    onNavigateToGardenDetails = { gardenId ->
+                        // TODO: Implementera navigering till trädgårdsdetaljer
+                    }
+                )
             }
 
             composable(
