@@ -84,9 +84,8 @@ fun NavGraph(
                 val viewModel = hiltViewModel<AddSeedViewModel>()
                 val scope = rememberCoroutineScope()
                 AddSeedScreen(
-                    viewModel = viewModel,
                     onNavigateBack = { navController.popBackStack() },
-                    onSaveSeed = { name, species, description, plantingInstructions, daysToGermination, daysToHarvest, lightNeeds, waterNeeds, soilType, temperature, spacing ->
+                    onSaveSeed = { _, _, _, _, _, _, _, _, _, _, _ ->
                         viewModel.saveSeed {
                             scope.launch {
                                 delay(500)
