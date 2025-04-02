@@ -24,6 +24,7 @@ fun SeedListScreen(
     viewModel: SeedListViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    var showAddSeedDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -33,7 +34,7 @@ fun SeedListScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = onNavigateToAddSeed
+                onClick = { showAddSeedDialog = true }
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Lägg till frö")
             }
@@ -85,6 +86,16 @@ fun SeedListScreen(
                 }
             }
         }
+    }
+
+    if (showAddSeedDialog) {
+        AddSeedScreen(
+            onNavigateBack = { showAddSeedDialog = false },
+            onSaveSeed = { _, _, _ ->
+                showAddSeedDialog = false
+                viewModel.refreshSeeds()
+            }
+        )
     }
 }
 

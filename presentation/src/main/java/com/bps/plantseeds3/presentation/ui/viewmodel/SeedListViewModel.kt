@@ -25,6 +25,10 @@ class SeedListViewModel @Inject constructor(
         loadSeeds()
     }
 
+    fun refreshSeeds() {
+        loadSeeds()
+    }
+
     fun onSearchQueryChange(query: String) {
         val currentSeeds = _uiState.value.seeds
         val filteredSeeds = if (query.isBlank()) {
