@@ -41,12 +41,16 @@ data class Seed(
 - Planteringsinstruktioner
 - Skötselråd
 - Bilder och dokumentation
+- Scrollbar detaljvy med all information
+- Automatisk uppdatering efter redigering
 
 ### 3. Fröredigering
 - Lägga till nya frön
 - Redigera befintliga frön
 - Ta bort frön
 - Kopiera frön
+- Hantera följeslagare och växter att undvika
+- Förbättrad felhantering och validering
 
 ### 4. Kategorisering
 - Organisera frön i kategorier
@@ -208,8 +212,17 @@ sealed class SeedException : Exception() {
     class NotFound(val id: String) : SeedException()
     class InvalidInput(val message: String) : SeedException()
     class SyncFailed(override val cause: Throwable) : SeedException()
+    class DatabaseError(override val cause: Throwable) : SeedException()
+    class ValidationError(val message: String) : SeedException()
 }
 ```
+
+### Förbättrad Felhantering
+- Centraliserad felhantering för databasoperationer
+- Detaljerad loggning för felsökning
+- Användarvänliga felmeddelanden
+- Automatisk återhämtning från fel
+- Validering av indata
 
 ## Tester
 
