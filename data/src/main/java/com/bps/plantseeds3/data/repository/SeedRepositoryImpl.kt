@@ -27,7 +27,7 @@ class SeedRepositoryImpl @Inject constructor(
 
     override suspend fun getSeedById(id: String): Resource<Seed> {
         return try {
-            val seedEntity = seedDao.getSeedById(id.toLong())
+            val seedEntity = seedDao.getSeedById(id)
             if (seedEntity != null) {
                 Resource.Success(seedEntity.toSeed())
             } else {
@@ -58,13 +58,8 @@ class SeedRepositoryImpl @Inject constructor(
 
     override suspend fun deleteSeed(id: String): Resource<Unit> {
         return try {
-            val seed = seedDao.getSeedById(id.toLong())
-            if (seed != null) {
-                seedDao.deleteSeed(seed)
-                Resource.Success(Unit)
-            } else {
-                Resource.Error(DatabaseException.EntityNotFoundException("Frö", id).message ?: "Frö hittades inte")
-            }
+            seedDao.deleteSeedById(id)
+            Resource.Success(Unit)
         } catch (e: Exception) {
             Resource.Error(DatabaseException.DeletionFailedException("Frö", id, e).message ?: "Ett fel uppstod")
         }
