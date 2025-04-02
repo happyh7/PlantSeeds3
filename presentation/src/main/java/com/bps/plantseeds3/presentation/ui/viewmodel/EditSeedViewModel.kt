@@ -99,16 +99,22 @@ class EditSeedViewModel @Inject constructor(
             val currentState = _uiState.value
             _uiState.value = currentState.copy(isLoading = true)
             
-            // Hämta det befintliga fröet för att få rätt tidsstämplar
-            val existingSeed = seedId?.let { id ->
-                when (val result = seedRepository.getSeedById(id)) {
-                    is Resource.Success -> result.data
-                    else -> null
-                }
+            if (seedId == null) {
+                _uiState.value = currentState.copy(
+                    isLoading = false,
+                    error = "Inget frö-ID hittades"
+                )
+                return@launch
+            }
+            
+            // Hämta det befintliga fröet för att få rätt tidsstämplar och plantId
+            val existingSeed = when (val result = seedRepository.getSeedById(seedId!!)) {
+                is Resource.Success -> result.data
+                else -> null
             }
 
             val seed = Seed(
-                id = seedId ?: "",
+                id = seedId!!,
                 name = currentState.name,
                 species = currentState.species,
                 description = currentState.description,
@@ -122,28 +128,28 @@ class EditSeedViewModel @Inject constructor(
                 spacing = currentState.spacing,
                 companionPlants = currentState.companionPlants,
                 avoidPlants = currentState.avoidPlants,
-                plantId = "",
-                imageUrl = null,
+                plantId = existingSeed?.plantId ?: "",
+                imageUrl = existingSeed?.imageUrl,
                 createdAt = existingSeed?.createdAt ?: Instant.now(),
                 updatedAt = Instant.now()
             )
 
             when (val result = seedRepository.updateSeed(seed)) {
                 is Resource.Success -> {
-                    _uiState.value = currentState.copy(
+                    _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         error = null
                     )
                     onSuccess()
                 }
                 is Resource.Error -> {
-                    _uiState.value = currentState.copy(
+                    _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         error = result.message ?: "Ett fel uppstod vid sparande av fröet"
                     )
                 }
                 is Resource.Loading -> {
-                    _uiState.value = currentState.copy(isLoading = true)
+                    _uiState.value = _uiState.value.copy(isLoading = true)
                 }
             }
         }
