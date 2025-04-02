@@ -41,7 +41,7 @@ class SeedListViewModel @Inject constructor(
         )
     }
 
-    private fun loadSeeds() {
+    fun loadSeeds() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
             getSeedsUseCase().collect { resource ->
