@@ -15,6 +15,9 @@ import com.bps.plantseeds3.presentation.ui.viewmodel.SeedListViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.bps.plantseeds3.presentation.ui.screens.EditSeedScreen
 import com.bps.plantseeds3.presentation.ui.viewmodel.EditSeedViewModel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
+import com.bps.plantseeds3.presentation.ui.viewmodel.AddSeedViewModel
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -73,18 +76,23 @@ fun NavGraph(navController: NavHostController) {
                         navController.popBackStack()
                     },
                     onSaveSeed = {
-                        seedListViewModel.loadSeeds()
-                        navController.popBackStack()
+                        viewModel.onSaveSeed {
+                            seedListViewModel.loadSeeds()
+                            navController.popBackStack()
+                        }
                     }
                 )
             }
 
             composable(Screen.AddSeed.route) {
+                val viewModel = hiltViewModel<AddSeedViewModel>()
                 AddSeedScreen(
                     onNavigateBack = { navController.popBackStack() },
                     onSaveSeed = { _, _, _ ->
-                        seedListViewModel.loadSeeds()
-                        navController.popBackStack()
+                        viewModel.saveSeed {
+                            seedListViewModel.loadSeeds()
+                            navController.popBackStack()
+                        }
                     }
                 )
             }

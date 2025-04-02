@@ -9,6 +9,7 @@ import com.bps.plantseeds3.domain.model.Plant
 import com.bps.plantseeds3.domain.repository.SeedRepository
 import com.bps.plantseeds3.domain.repository.PlantRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -92,6 +93,8 @@ class AddSeedViewModel @Inject constructor(
                         when (val seedResult = seedRepository.insertSeed(seed)) {
                             is Resource.Success<Unit> -> {
                                 Log.d(TAG, "saveSeed: Successfully inserted seed")
+                                // Vänta en kort stund för att säkerställa att databasen har slutfört operationen
+                                delay(100)
                                 _uiState.value = _uiState.value.copy(isLoading = false)
                                 onSuccess()
                             }

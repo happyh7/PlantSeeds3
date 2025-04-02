@@ -107,50 +107,63 @@ class EditSeedViewModel @Inject constructor(
                 return@launch
             }
             
-            // Hämta det befintliga fröet för att få rätt tidsstämplar och plantId
-            val existingSeed = when (val result = seedRepository.getSeedById(seedId!!)) {
-                is Resource.Success -> result.data
-                else -> null
-            }
+            try {
+                // Hämta det befintliga fröet för att få rätt tidsstämplar och plantId
+                val existingSeed = when (val result = seedRepository.getSeedById(seedId!!)) {
+                    is Resource.Success -> result.data
+                    else -> {
+                        _uiState.value = currentState.copy(
+                            isLoading = false,
+                            error = "Kunde inte hitta det befintliga fröet"
+                        )
+                        return@launch
+                    }
+                }
 
-            val seed = Seed(
-                id = seedId!!,
-                name = currentState.name,
-                species = currentState.species,
-                description = currentState.description,
-                plantingInstructions = currentState.plantingInstructions,
-                daysToGermination = currentState.daysToGermination,
-                daysToHarvest = currentState.daysToHarvest,
-                lightNeeds = currentState.lightNeeds,
-                waterNeeds = currentState.waterNeeds,
-                soilType = currentState.soilType,
-                temperature = currentState.temperature,
-                spacing = currentState.spacing,
-                companionPlants = currentState.companionPlants,
-                avoidPlants = currentState.avoidPlants,
-                plantId = existingSeed?.plantId ?: "",
-                imageUrl = existingSeed?.imageUrl,
-                createdAt = existingSeed?.createdAt ?: Instant.now(),
-                updatedAt = Instant.now()
-            )
+                val seed = Seed(
+                    id = seedId!!,
+                    name = currentState.name,
+                    species = currentState.species,
+                    description = currentState.description,
+                    plantingInstructions = currentState.plantingInstructions,
+                    daysToGermination = currentState.daysToGermination,
+                    daysToHarvest = currentState.daysToHarvest,
+                    lightNeeds = currentState.lightNeeds,
+                    waterNeeds = currentState.waterNeeds,
+                    soilType = currentState.soilType,
+                    temperature = currentState.temperature,
+                    spacing = currentState.spacing,
+                    companionPlants = currentState.companionPlants,
+                    avoidPlants = currentState.avoidPlants,
+                    plantId = existingSeed.plantId,
+                    imageUrl = existingSeed.imageUrl,
+                    createdAt = existingSeed.createdAt,
+                    updatedAt = Instant.now()
+                )
 
-            when (val result = seedRepository.updateSeed(seed)) {
-                is Resource.Success -> {
-                    _uiState.value = _uiState.value.copy(
-                        isLoading = false,
-                        error = null
-                    )
-                    onSuccess()
+                when (val result = seedRepository.updateSeed(seed)) {
+                    is Resource.Success -> {
+                        _uiState.value = _uiState.value.copy(
+                            isLoading = false,
+                            error = null
+                        )
+                        onSuccess()
+                    }
+                    is Resource.Error -> {
+                        _uiState.value = _uiState.value.copy(
+                            isLoading = false,
+                            error = result.message ?: "Ett fel uppstod vid sparande av fröet"
+                        )
+                    }
+                    is Resource.Loading -> {
+                        _uiState.value = _uiState.value.copy(isLoading = true)
+                    }
                 }
-                is Resource.Error -> {
-                    _uiState.value = _uiState.value.copy(
-                        isLoading = false,
-                        error = result.message ?: "Ett fel uppstod vid sparande av fröet"
-                    )
-                }
-                is Resource.Loading -> {
-                    _uiState.value = _uiState.value.copy(isLoading = true)
-                }
+            } catch (e: Exception) {
+                _uiState.value = currentState.copy(
+                    isLoading = false,
+                    error = "Ett oväntat fel uppstod: ${e.message}"
+                )
             }
         }
     }
