@@ -106,6 +106,7 @@ fun NavGraph(
                 exitTransition = { fadeOut(animationSpec = tween(300)) }
             ) {
                 val viewModel = hiltViewModel<EditSeedViewModel>()
+                val seedDetailViewModel = hiltViewModel<SeedDetailViewModel>()
                 val scope = rememberCoroutineScope()
                 EditSeedScreen(
                     viewModel = viewModel,
@@ -113,6 +114,7 @@ fun NavGraph(
                     onSaveSeed = {
                         scope.launch {
                             delay(500)
+                            seedDetailViewModel.refreshSeed()
                             navController.popBackStack()
                         }
                     }

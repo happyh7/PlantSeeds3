@@ -26,10 +26,20 @@ class SeedDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(SeedDetailUiState())
     val uiState: StateFlow<SeedDetailUiState> = _uiState.asStateFlow()
 
+    private var seedId: String? = null
+
     init {
-        savedStateHandle.get<String>("seedId")?.let { seedId ->
-            Log.d(TAG, "init: Loading seed with ID: $seedId")
-            loadSeed(seedId)
+        savedStateHandle.get<String>("seedId")?.let { id ->
+            seedId = id
+            Log.d(TAG, "init: Loading seed with ID: $id")
+            loadSeed(id)
+        }
+    }
+
+    fun refreshSeed() {
+        seedId?.let { id ->
+            Log.d(TAG, "refreshSeed: Reloading seed with ID: $id")
+            loadSeed(id)
         }
     }
 
