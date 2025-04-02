@@ -1,5 +1,6 @@
 package com.bps.plantseeds3.presentation.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bps.plantseeds3.common.model.Resource
@@ -13,6 +14,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val TAG = "SeedListViewModel"
+
 @HiltViewModel
 class SeedListViewModel @Inject constructor(
     private val getSeedsUseCase: GetSeedsUseCase
@@ -22,20 +25,23 @@ class SeedListViewModel @Inject constructor(
     val uiState: StateFlow<SeedListUiState> = _uiState.asStateFlow()
 
     init {
+        Log.d(TAG, "init: Loading seeds")
         loadSeeds()
     }
 
     fun refreshSeeds() {
+        Log.d(TAG, "refreshSeeds: Refreshing seeds")
         loadSeeds()
     }
 
     fun onSearchQueryChange(query: String) {
+        Log.d(TAG, "onSearchQueryChange: Query = $query")
         val currentSeeds = _uiState.value.seeds
         val filteredSeeds = if (query.isBlank()) {
             currentSeeds
         } else {
             currentSeeds.filter { seed ->
-                seed.name?.contains(query, ignoreCase = true) == true ||
+                seed.name.contains(query, ignoreCase = true) ||
                 seed.description?.contains(query, ignoreCase = true) == true
             }
         }
@@ -46,30 +52,54 @@ class SeedListViewModel @Inject constructor(
     }
 
     fun loadSeeds() {
+        Log.d(TAG, "loadSeeds: Starting to load seeds")
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
-            getSeedsUseCase().collect { resource ->
-                handleSeedListResponse(resource)
+            try {
+                getSeedsUseCase().collect { resource ->
+                    Log.d(TAG, "loadSeeds: Received resource: $resource")
+                    handleSeedListResponse(resource)
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "loadSeeds: Exception occurred", e)
+                Log.e(TAG, "loadSeeds: Exception message: ${e.message}")
+                Log.e(TAG, "loadSeeds: Exception stack trace: ${e.stackTraceToString()}")
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    error = "Kunde inte ladda frön: ${e.message}"
+                )
             }
         }
     }
 
     private fun handleSeedListResponse(response: Resource<List<Seed>>) {
+        Log.d(TAG, "handleSeedListResponse: Handling response: $response")
         when (response) {
             is Resource.Success -> {
-                _uiState.value = _uiState.value.copy(
-                    seeds = response.data,
-                    isLoading = false,
-                    error = null
-                )
+                Log.d(TAG, "handleSeedListResponse: Success, found ${response.data.size} seeds")
+                val currentSeeds = _uiState.value.seeds
+                val newSeeds = response.data
+                
+                // Uppdatera endast om det finns faktiska ändringar
+                if (currentSeeds != newSeeds) {
+                    _uiState.value = _uiState.value.copy(
+                        seeds = newSeeds,
+                        isLoading = false,
+                        error = null
+                    )
+                } else {
+                    Log.d(TAG, "handleSeedListResponse: No changes detected, skipping update")
+                }
             }
             is Resource.Error -> {
+                Log.e(TAG, "handleSeedListResponse: Error: ${response.message}")
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
                     error = response.message
                 )
             }
             is Resource.Loading -> {
+                Log.d(TAG, "handleSeedListResponse: Loading")
                 _uiState.value = _uiState.value.copy(
                     isLoading = true,
                     error = null
@@ -79,20 +109,24 @@ class SeedListViewModel @Inject constructor(
     }
 
     private fun handleSeedDeletionResponse(response: Resource<Unit>) {
+        Log.d(TAG, "handleSeedDeletionResponse: Handling response: $response")
         when (response) {
             is Resource.Success -> {
+                Log.d(TAG, "handleSeedDeletionResponse: Success")
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
                     error = null
                 )
             }
             is Resource.Error -> {
+                Log.e(TAG, "handleSeedDeletionResponse: Error: ${response.message}")
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
                     error = response.message
                 )
             }
             is Resource.Loading -> {
+                Log.d(TAG, "handleSeedDeletionResponse: Loading")
                 _uiState.value = _uiState.value.copy(
                     isLoading = true,
                     error = null

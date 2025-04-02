@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bps.plantseeds3.common.model.Resource
 import com.bps.plantseeds3.domain.model.Seed
-import com.bps.plantseeds3.domain.repository.SeedRepository
+import com.bps.plantseeds3.domain.use_case.GetSeedUseCase
+import com.bps.plantseeds3.domain.use_case.UpdateSeedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -34,7 +35,8 @@ data class EditSeedUiState(
 
 @HiltViewModel
 class EditSeedViewModel @Inject constructor(
-    private val seedRepository: SeedRepository,
+    private val getSeedUseCase: GetSeedUseCase,
+    private val updateSeedUseCase: UpdateSeedUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -53,38 +55,34 @@ class EditSeedViewModel @Inject constructor(
     private fun loadSeed(id: String) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
-            when (val result = seedRepository.getSeedById(id)) {
+            when (val result = getSeedUseCase(id)) {
                 is Resource.Success -> {
                     val seed = result.data
-                    if (seed != null) {
-                        _uiState.value = _uiState.value.copy(
-                            name = seed.name,
-                            species = seed.species,
-                            description = seed.description,
-                            plantingInstructions = seed.plantingInstructions,
-                            daysToGermination = seed.daysToGermination,
-                            daysToHarvest = seed.daysToHarvest,
-                            lightNeeds = seed.lightNeeds,
-                            waterNeeds = seed.waterNeeds,
-                            soilType = seed.soilType,
-                            temperature = seed.temperature,
-                            spacing = seed.spacing,
-                            companionPlants = seed.companionPlants,
-                            avoidPlants = seed.avoidPlants,
-                            isLoading = false,
-                            error = null
-                        )
-                    } else {
-                        _uiState.value = _uiState.value.copy(
-                            isLoading = false,
-                            error = "Kunde inte hitta fröet"
-                        )
-                    }
+                    _uiState.value = EditSeedUiState(
+                        name = seed.name,
+                        species = seed.species,
+                        description = seed.description,
+                        plantingInstructions = seed.plantingInstructions,
+                        daysToGermination = seed.daysToGermination,
+                        daysToHarvest = seed.daysToHarvest,
+                        lightNeeds = seed.lightNeeds,
+                        waterNeeds = seed.waterNeeds,
+                        soilType = seed.soilType,
+                        temperature = seed.temperature,
+                        spacing = seed.spacing,
+                        companionPlants = seed.companionPlants,
+                        avoidPlants = seed.avoidPlants
+                    )
                 }
                 is Resource.Error -> {
+                    val errorMessage = if (result.message != null) {
+                        result.message
+                    } else {
+                        "Kunde inte ladda fröet"
+                    }
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
-                        error = result.message ?: "Ett fel uppstod vid laddning av fröet"
+                        error = errorMessage
                     )
                 }
                 is Resource.Loading -> {
@@ -92,6 +90,50 @@ class EditSeedViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun onNameChange(name: String) {
+        _uiState.value = _uiState.value.copy(name = name)
+    }
+
+    fun onSpeciesChange(species: String) {
+        _uiState.value = _uiState.value.copy(species = species)
+    }
+
+    fun onDescriptionChange(description: String) {
+        _uiState.value = _uiState.value.copy(description = description)
+    }
+
+    fun onPlantingInstructionsChange(plantingInstructions: String) {
+        _uiState.value = _uiState.value.copy(plantingInstructions = plantingInstructions)
+    }
+
+    fun onDaysToGerminationChange(daysToGermination: Int) {
+        _uiState.value = _uiState.value.copy(daysToGermination = daysToGermination)
+    }
+
+    fun onDaysToHarvestChange(daysToHarvest: Int) {
+        _uiState.value = _uiState.value.copy(daysToHarvest = daysToHarvest)
+    }
+
+    fun onLightNeedsChange(lightNeeds: String) {
+        _uiState.value = _uiState.value.copy(lightNeeds = lightNeeds)
+    }
+
+    fun onWaterNeedsChange(waterNeeds: String) {
+        _uiState.value = _uiState.value.copy(waterNeeds = waterNeeds)
+    }
+
+    fun onSoilTypeChange(soilType: String) {
+        _uiState.value = _uiState.value.copy(soilType = soilType)
+    }
+
+    fun onTemperatureChange(temperature: String) {
+        _uiState.value = _uiState.value.copy(temperature = temperature)
+    }
+
+    fun onSpacingChange(spacing: String) {
+        _uiState.value = _uiState.value.copy(spacing = spacing)
     }
 
     fun onSaveSeed(onSuccess: () -> Unit) {
@@ -109,7 +151,7 @@ class EditSeedViewModel @Inject constructor(
             
             try {
                 // Hämta det befintliga fröet för att få rätt tidsstämplar och plantId
-                val existingSeed = when (val result = seedRepository.getSeedById(seedId!!)) {
+                val existingSeed = when (val result = getSeedUseCase(seedId!!)) {
                     is Resource.Success -> result.data
                     else -> {
                         _uiState.value = currentState.copy(
@@ -141,7 +183,7 @@ class EditSeedViewModel @Inject constructor(
                     updatedAt = Instant.now()
                 )
 
-                when (val result = seedRepository.updateSeed(seed)) {
+                when (val result = updateSeedUseCase(seed)) {
                     is Resource.Success -> {
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
@@ -150,9 +192,14 @@ class EditSeedViewModel @Inject constructor(
                         onSuccess()
                     }
                     is Resource.Error -> {
+                        val errorMessage = if (result.message != null) {
+                            result.message
+                        } else {
+                            "Ett fel uppstod vid sparande av fröet"
+                        }
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
-                            error = result.message ?: "Ett fel uppstod vid sparande av fröet"
+                            error = errorMessage
                         )
                     }
                     is Resource.Loading -> {
@@ -166,57 +213,5 @@ class EditSeedViewModel @Inject constructor(
                 )
             }
         }
-    }
-
-    fun onNameChange(value: String) {
-        _uiState.value = _uiState.value.copy(name = value)
-    }
-
-    fun onSpeciesChange(value: String) {
-        _uiState.value = _uiState.value.copy(species = value)
-    }
-
-    fun onDescriptionChange(value: String) {
-        _uiState.value = _uiState.value.copy(description = value)
-    }
-
-    fun onPlantingInstructionsChange(value: String) {
-        _uiState.value = _uiState.value.copy(plantingInstructions = value)
-    }
-
-    fun onDaysToGerminationChange(value: Int) {
-        _uiState.value = _uiState.value.copy(daysToGermination = value)
-    }
-
-    fun onDaysToHarvestChange(value: Int) {
-        _uiState.value = _uiState.value.copy(daysToHarvest = value)
-    }
-
-    fun onLightNeedsChange(value: String) {
-        _uiState.value = _uiState.value.copy(lightNeeds = value)
-    }
-
-    fun onWaterNeedsChange(value: String) {
-        _uiState.value = _uiState.value.copy(waterNeeds = value)
-    }
-
-    fun onSoilTypeChange(value: String) {
-        _uiState.value = _uiState.value.copy(soilType = value)
-    }
-
-    fun onTemperatureChange(value: String) {
-        _uiState.value = _uiState.value.copy(temperature = value)
-    }
-
-    fun onSpacingChange(value: String) {
-        _uiState.value = _uiState.value.copy(spacing = value)
-    }
-
-    fun onCompanionPlantsChange(value: List<String>) {
-        _uiState.value = _uiState.value.copy(companionPlants = value)
-    }
-
-    fun onAvoidPlantsChange(value: List<String>) {
-        _uiState.value = _uiState.value.copy(avoidPlants = value)
     }
 } 
