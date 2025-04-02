@@ -55,7 +55,8 @@ class EditSeedViewModel @Inject constructor(
             _uiState.value = _uiState.value.copy(isLoading = true)
             when (val result = seedRepository.getSeedById(id)) {
                 is Resource.Success -> {
-                    result.data?.let { seed ->
+                    val seed = result.data
+                    if (seed != null) {
                         _uiState.value = _uiState.value.copy(
                             name = seed.name,
                             species = seed.species,
@@ -72,6 +73,11 @@ class EditSeedViewModel @Inject constructor(
                             avoidPlants = seed.avoidPlants,
                             isLoading = false,
                             error = null
+                        )
+                    } else {
+                        _uiState.value = _uiState.value.copy(
+                            isLoading = false,
+                            error = "Kunde inte hitta fröet"
                         )
                     }
                 }
@@ -91,6 +97,15 @@ class EditSeedViewModel @Inject constructor(
     fun onSaveSeed(onSuccess: () -> Unit) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
+            
+            // Hämta det befintliga fröet för att få rätt tidsstämplar
+            val existingSeed = seedId?.let { id ->
+                when (val result = seedRepository.getSeedById(id)) {
+                    is Resource.Success -> result.data
+                    else -> null
+                }
+            }
+
             val seed = Seed(
                 id = seedId ?: "",
                 name = uiState.value.name,
@@ -108,7 +123,7 @@ class EditSeedViewModel @Inject constructor(
                 avoidPlants = uiState.value.avoidPlants,
                 plantId = "",
                 imageUrl = null,
-                createdAt = Instant.now(),
+                createdAt = existingSeed?.createdAt ?: Instant.now(),
                 updatedAt = Instant.now()
             )
 
