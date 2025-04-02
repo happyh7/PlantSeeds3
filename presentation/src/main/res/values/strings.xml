@@ -3,4 +3,10 @@
     <string name="seeds">Frön</string>
     <string name="gardens">Trädgårdar</string>
     <string name="profile">Profil</string>
+    <string name="add_seed">Lägg till frö</string>
+    <string name="back">Tillbaka</string>
+    <string name="save">Spara</string>
+    <string name="name">Namn</string>
+    <string name="species">Art</string>
+    <string name="description">Beskrivning</string>
 </resources> 

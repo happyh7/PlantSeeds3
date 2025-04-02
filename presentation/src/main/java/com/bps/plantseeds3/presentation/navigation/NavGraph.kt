@@ -10,10 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.bps.plantseeds3.presentation.ui.components.BottomNavigationBar
-import com.bps.plantseeds3.presentation.ui.screens.GardenListScreen
-import com.bps.plantseeds3.presentation.ui.screens.ProfileScreen
-import com.bps.plantseeds3.presentation.ui.screens.SeedDetailScreen
-import com.bps.plantseeds3.presentation.ui.screens.SeedListScreen
+import com.bps.plantseeds3.presentation.ui.screens.*
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -31,6 +28,19 @@ fun NavGraph(navController: NavHostController) {
                 SeedListScreen(
                     onNavigateToSeedDetail = { seedId ->
                         navController.navigate(Screen.SeedDetail.createRoute(seedId))
+                    },
+                    onNavigateToAddSeed = {
+                        navController.navigate(Screen.AddSeed.route)
+                    }
+                )
+            }
+
+            composable(Screen.AddSeed.route) {
+                AddSeedScreen(
+                    onNavigateBack = { navController.popBackStack() },
+                    onSaveSeed = { name, species, description ->
+                        // TODO: Implementera sparande av frö
+                        navController.popBackStack()
                     }
                 )
             }

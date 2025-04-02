@@ -20,6 +20,7 @@ import com.bps.plantseeds3.presentation.ui.viewmodel.SeedListViewModel
 @Composable
 fun SeedListScreen(
     onNavigateToSeedDetail: (String) -> Unit,
+    onNavigateToAddSeed: () -> Unit,
     viewModel: SeedListViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -32,7 +33,7 @@ fun SeedListScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /* TODO: Implementera skapande av nytt frö */ }
+                onClick = onNavigateToAddSeed
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Lägg till frö")
             }
