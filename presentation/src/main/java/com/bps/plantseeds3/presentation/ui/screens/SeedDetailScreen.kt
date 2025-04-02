@@ -1,6 +1,8 @@
 package com.bps.plantseeds3.presentation.ui.screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
@@ -26,6 +28,7 @@ fun SeedDetailScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var showDeleteDialog by remember { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
 
     Scaffold(
         topBar = {
@@ -83,7 +86,8 @@ fun SeedDetailScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(16.dp),
+                            .padding(16.dp)
+                            .verticalScroll(scrollState),
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         // Grundläggande information
