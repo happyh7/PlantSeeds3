@@ -1,5 +1,6 @@
 package com.bps.plantseeds3.data.repository
 
+import android.util.Log
 import com.bps.plantseeds3.common.model.Resource
 import com.bps.plantseeds3.data.local.dao.SeedDao
 import com.bps.plantseeds3.data.mapper.toSeed
@@ -11,6 +12,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+
+private const val TAG = "SeedRepositoryImpl"
 
 class SeedRepositoryImpl @Inject constructor(
     private val seedDao: SeedDao
@@ -39,10 +42,15 @@ class SeedRepositoryImpl @Inject constructor(
     }
 
     override suspend fun insertSeed(seed: Seed): Resource<Unit> {
+        Log.d(TAG, "insertSeed: Inserting seed = $seed")
         return try {
-            seedDao.insertSeed(seed.toEntity())
+            val seedEntity = seed.toEntity()
+            Log.d(TAG, "insertSeed: Converted to entity = $seedEntity")
+            seedDao.insertSeed(seedEntity)
+            Log.d(TAG, "insertSeed: Successfully inserted seed")
             Resource.Success(Unit)
         } catch (e: Exception) {
+            Log.e(TAG, "insertSeed: Failed to insert seed", e)
             Resource.Error(DatabaseException.InsertionFailedException("Frö", e).message ?: "Ett fel uppstod")
         }
     }

@@ -76,23 +76,27 @@ class PlantRepositoryImpl @Inject constructor(
     override suspend fun insertPlant(plant: Plant): Resource<Unit> {
         Log.d(TAG, "insertPlant: Inserting plant = $plant")
         return try {
-            plantDao.insertPlant(plant.toEntity())
+            val plantEntity = plant.toEntity()
+            Log.d(TAG, "insertPlant: Converted to entity = $plantEntity")
+            plantDao.insertPlant(plantEntity)
             Log.d(TAG, "insertPlant: Successfully inserted plant")
             Resource.Success(Unit)
         } catch (e: Exception) {
-            Log.e(TAG, "insertPlant: Error", e)
-            Resource.Error("Kunde inte lägga till växten: ${e.message}")
+            Log.e(TAG, "insertPlant: Failed to insert plant", e)
+            Resource.Error("Kunde inte spara växten: ${e.message}")
         }
     }
 
     override suspend fun updatePlant(plant: Plant): Resource<Unit> {
         Log.d(TAG, "updatePlant: Updating plant = $plant")
         return try {
-            plantDao.updatePlant(plant.toEntity())
+            val plantEntity = plant.toEntity()
+            Log.d(TAG, "updatePlant: Converted to entity = $plantEntity")
+            plantDao.updatePlant(plantEntity)
             Log.d(TAG, "updatePlant: Successfully updated plant")
             Resource.Success(Unit)
         } catch (e: Exception) {
-            Log.e(TAG, "updatePlant: Error", e)
+            Log.e(TAG, "updatePlant: Failed to update plant", e)
             Resource.Error("Kunde inte uppdatera växten: ${e.message}")
         }
     }
@@ -100,17 +104,19 @@ class PlantRepositoryImpl @Inject constructor(
     override suspend fun deletePlant(id: String): Resource<Unit> {
         Log.d(TAG, "deletePlant: Deleting plant with id = $id")
         return try {
-            val plant = plantDao.getPlantById(id)
-            if (plant != null) {
-                plantDao.deletePlant(plant)
+            val plant = getPlantById(id)
+            if (plant is Resource.Success) {
+                val plantEntity = plant.data.toEntity()
+                Log.d(TAG, "deletePlant: Converted to entity = $plantEntity")
+                plantDao.deletePlant(plantEntity)
                 Log.d(TAG, "deletePlant: Successfully deleted plant")
                 Resource.Success(Unit)
             } else {
-                Log.d(TAG, "deletePlant: Plant not found")
+                Log.e(TAG, "deletePlant: Plant not found")
                 Resource.Error("Växten hittades inte")
             }
         } catch (e: Exception) {
-            Log.e(TAG, "deletePlant: Error", e)
+            Log.e(TAG, "deletePlant: Failed to delete plant", e)
             Resource.Error("Kunde inte ta bort växten: ${e.message}")
         }
     }
@@ -118,11 +124,13 @@ class PlantRepositoryImpl @Inject constructor(
     override suspend fun searchPlants(query: String): Resource<List<Plant>> {
         Log.d(TAG, "searchPlants: Searching for plants with query = $query")
         return try {
-            val plants = plantDao.searchPlants(query).map { it.toPlant() }
-            Log.d(TAG, "searchPlants: Found ${plants.size} plants")
+            val entities = plantDao.searchPlants(query)
+            Log.d(TAG, "searchPlants: Found ${entities.size} plants")
+            val plants = entities.map { it.toPlant() }
+            Log.d(TAG, "searchPlants: Converted to ${plants.size} Plant objects")
             Resource.Success(plants)
         } catch (e: Exception) {
-            Log.e(TAG, "searchPlants: Error", e)
+            Log.e(TAG, "searchPlants: Failed to search plants", e)
             Resource.Error("Kunde inte söka efter växter: ${e.message}")
         }
     }

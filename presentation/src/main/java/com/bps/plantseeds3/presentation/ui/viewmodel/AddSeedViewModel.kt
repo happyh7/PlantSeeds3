@@ -1,10 +1,13 @@
 package com.bps.plantseeds3.presentation.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bps.plantseeds3.domain.model.Resource
 import com.bps.plantseeds3.domain.model.Seed
+import com.bps.plantseeds3.domain.model.Plant
 import com.bps.plantseeds3.domain.repository.SeedRepository
+import com.bps.plantseeds3.domain.repository.PlantRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,9 +17,12 @@ import java.time.Instant
 import java.util.UUID
 import javax.inject.Inject
 
+private const val TAG = "AddSeedViewModel"
+
 @HiltViewModel
 class AddSeedViewModel @Inject constructor(
-    private val seedRepository: SeedRepository
+    private val seedRepository: SeedRepository,
+    private val plantRepository: PlantRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AddSeedUiState())
@@ -36,48 +42,90 @@ class AddSeedViewModel @Inject constructor(
 
     fun saveSeed(onSuccess: () -> Unit) {
         viewModelScope.launch {
+            Log.d(TAG, "saveSeed: Starting to save seed")
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
             try {
                 val now = Instant.now()
-                val seed = Seed(
-                    id = UUID.randomUUID().toString(),
-                    plantId = UUID.randomUUID().toString(), // TODO: Implementera Plant-hantering
+                val plantId = UUID.randomUUID().toString()
+                
+                // Skapa en ny Plant först
+                val plant = Plant(
+                    id = plantId,
                     name = _uiState.value.name,
-                    species = _uiState.value.species.ifBlank { null },
+                    species = _uiState.value.species.ifBlank { "Okänd" },
                     description = _uiState.value.description.ifBlank { null },
-                    plantingInstructions = null,
-                    daysToGermination = null,
-                    daysToHarvest = null,
-                    lightNeeds = null,
-                    waterNeeds = null,
-                    soilType = null,
-                    temperature = null,
-                    spacing = null,
-                    companionPlants = null,
-                    avoidPlants = null,
-                    imageUrl = null,
+                    gardenId = null,
+                    lastWatered = null,
+                    nextWatering = null,
                     createdAt = now,
                     updatedAt = now
                 )
 
-                when (val result = seedRepository.insertSeed(seed)) {
+                Log.d(TAG, "saveSeed: Created plant = $plant")
+
+                when (val plantResult = plantRepository.insertPlant(plant)) {
                     is Resource.Success<*> -> {
-                        onSuccess()
+                        Log.d(TAG, "saveSeed: Successfully inserted plant")
+                        // Vänta en kort stund för att säkerställa att Plant-transaktionen är klar
+                        kotlinx.coroutines.delay(100)
+                        
+                        // Skapa Seed efter att Plant har skapats
+                        val seed = Seed(
+                            id = UUID.randomUUID().toString(),
+                            plantId = plantId,
+                            name = _uiState.value.name,
+                            species = _uiState.value.species.ifBlank { null },
+                            description = _uiState.value.description.ifBlank { null },
+                            plantingInstructions = null,
+                            daysToGermination = null,
+                            daysToHarvest = null,
+                            lightNeeds = null,
+                            waterNeeds = null,
+                            soilType = null,
+                            temperature = null,
+                            spacing = null,
+                            companionPlants = null,
+                            avoidPlants = null,
+                            imageUrl = null,
+                            createdAt = now,
+                            updatedAt = now
+                        )
+
+                        Log.d(TAG, "saveSeed: Created seed = $seed")
+
+                        when (val seedResult = seedRepository.insertSeed(seed)) {
+                            is Resource.Success<*> -> {
+                                Log.d(TAG, "saveSeed: Successfully inserted seed")
+                                _uiState.value = _uiState.value.copy(isLoading = false)
+                                onSuccess()
+                            }
+                            is Resource.Error<*> -> {
+                                Log.e(TAG, "saveSeed: Failed to insert seed", Exception(seedResult.message))
+                                _uiState.value = _uiState.value.copy(
+                                    isLoading = false,
+                                    error = seedResult.message ?: "Ett fel uppstod"
+                                )
+                            }
+                            else -> {
+                                // Loading state är redan hanterat i början av funktionen
+                                Log.d(TAG, "saveSeed: Loading state when inserting seed")
+                            }
+                        }
                     }
                     is Resource.Error<*> -> {
+                        Log.e(TAG, "saveSeed: Failed to insert plant", Exception(plantResult.message))
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
-                            error = result.message ?: "Ett fel uppstod"
+                            error = plantResult.message ?: "Ett fel uppstod"
                         )
                     }
                     else -> {
-                        _uiState.value = _uiState.value.copy(
-                            isLoading = false,
-                            error = "Okänt fel"
-                        )
+                        // Loading state är redan hanterat i början av funktionen
+                        Log.d(TAG, "saveSeed: Loading state when inserting plant")
                     }
                 }
             } catch (e: Exception) {
+                Log.e(TAG, "saveSeed: Exception occurred", e)
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
                     error = "Kunde inte spara frö: ${e.message}"
