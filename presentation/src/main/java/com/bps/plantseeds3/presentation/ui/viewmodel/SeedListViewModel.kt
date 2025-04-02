@@ -8,9 +8,7 @@ import com.bps.plantseeds3.domain.model.Seed
 import com.bps.plantseeds3.domain.use_case.GetSeedsUseCase
 import com.bps.plantseeds3.presentation.ui.state.SeedListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,12 +24,12 @@ class SeedListViewModel @Inject constructor(
 
     init {
         Log.d(TAG, "init: Loading seeds")
-        loadSeeds()
+        observeSeeds()
     }
 
     fun refreshSeeds() {
         Log.d(TAG, "refreshSeeds: Refreshing seeds")
-        loadSeeds()
+        // Vi behöver inte göra något här eftersom Flow automatiskt uppdateras
     }
 
     fun onSearchQueryChange(query: String) {
@@ -51,19 +49,31 @@ class SeedListViewModel @Inject constructor(
         )
     }
 
-    fun loadSeeds() {
-        Log.d(TAG, "loadSeeds: Starting to load seeds")
+    private fun observeSeeds() {
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true)
             try {
-                getSeedsUseCase().collect { resource ->
-                    Log.d(TAG, "loadSeeds: Received resource: $resource")
-                    handleSeedListResponse(resource)
-                }
+                getSeedsUseCase()
+                    .onStart { 
+                        Log.d(TAG, "observeSeeds: Starting to observe seeds")
+                        _uiState.value = _uiState.value.copy(isLoading = true) 
+                    }
+                    .catch { e ->
+                        Log.e(TAG, "observeSeeds: Exception occurred", e)
+                        Log.e(TAG, "observeSeeds: Exception message: ${e.message}")
+                        Log.e(TAG, "observeSeeds: Exception stack trace: ${e.stackTraceToString()}")
+                        _uiState.value = _uiState.value.copy(
+                            isLoading = false,
+                            error = "Kunde inte ladda frön: ${e.message}"
+                        )
+                    }
+                    .collect { resource ->
+                        Log.d(TAG, "observeSeeds: Received resource: $resource")
+                        handleSeedListResponse(resource)
+                    }
             } catch (e: Exception) {
-                Log.e(TAG, "loadSeeds: Exception occurred", e)
-                Log.e(TAG, "loadSeeds: Exception message: ${e.message}")
-                Log.e(TAG, "loadSeeds: Exception stack trace: ${e.stackTraceToString()}")
+                Log.e(TAG, "observeSeeds: Exception occurred", e)
+                Log.e(TAG, "observeSeeds: Exception message: ${e.message}")
+                Log.e(TAG, "observeSeeds: Exception stack trace: ${e.stackTraceToString()}")
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
                     error = "Kunde inte ladda frön: ${e.message}"
@@ -84,11 +94,13 @@ class SeedListViewModel @Inject constructor(
                 if (currentSeeds != newSeeds) {
                     _uiState.value = _uiState.value.copy(
                         seeds = newSeeds,
+                        filteredSeeds = if (_uiState.value.searchQuery.isBlank()) newSeeds else _uiState.value.filteredSeeds,
                         isLoading = false,
                         error = null
                     )
                 } else {
                     Log.d(TAG, "handleSeedListResponse: No changes detected, skipping update")
+                    _uiState.value = _uiState.value.copy(isLoading = false)
                 }
             }
             is Resource.Error -> {
