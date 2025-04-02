@@ -2,7 +2,7 @@ package com.bps.plantseeds3.presentation.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
@@ -30,10 +30,10 @@ fun SeedDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Frödetaljer") },
+                title = { Text(uiState.seed?.name ?: "Frö") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Tillbaka")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Tillbaka")
                     }
                 },
                 actions = {
@@ -78,12 +78,165 @@ fun SeedDetailScreen(
                     )
                 }
                 else -> {
-                    SeedDetailContent(
-                        seed = uiState.seed!!,
+                    val seed = uiState.seed!!
+                    Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(16.dp)
-                    )
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        // Grundläggande information
+                        Card(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Text(
+                                    text = "Grundläggande information",
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                                Text(
+                                    text = "Namn: ${seed.name}",
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+                                seed.species?.let { species ->
+                                    Text(
+                                        text = "Art: $species",
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                }
+                                seed.description?.let { description ->
+                                    if (description.isNotBlank()) {
+                                        Text(
+                                            text = "Beskrivning: $description",
+                                            style = MaterialTheme.typography.bodyMedium
+                                        )
+                                    }
+                                }
+                            }
+                        }
+
+                        // Odlingsinstruktioner
+                        Card(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Text(
+                                    text = "Odlingsinstruktioner",
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                                seed.plantingInstructions?.let { instructions ->
+                                    if (instructions.isNotBlank()) {
+                                        Text(
+                                            text = instructions,
+                                            style = MaterialTheme.typography.bodyMedium
+                                        )
+                                    }
+                                }
+                                seed.daysToGermination?.let { days ->
+                                    Text(
+                                        text = "Dagar till grodd: $days",
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                }
+                                seed.daysToHarvest?.let { days ->
+                                    Text(
+                                        text = "Dagar till skörd: $days",
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                }
+                            }
+                        }
+
+                        // Växtens behov
+                        Card(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Text(
+                                    text = "Växtens behov",
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                                seed.lightNeeds?.let { light ->
+                                    Text(
+                                        text = "Ljus: $light",
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                }
+                                seed.waterNeeds?.let { water ->
+                                    Text(
+                                        text = "Vatten: $water",
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                }
+                                seed.soilType?.let { soil ->
+                                    Text(
+                                        text = "Jordtyp: $soil",
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                }
+                                seed.temperature?.let { temp ->
+                                    Text(
+                                        text = "Temperatur: $temp",
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                }
+                                seed.spacing?.let { space ->
+                                    Text(
+                                        text = "Avstånd: $space",
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                }
+                            }
+                        }
+
+                        // Följeslagare och växter att undvika
+                        Card(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Text(
+                                    text = "Följeslagare och växter att undvika",
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                                seed.companionPlants?.let { companions ->
+                                    if (companions.isNotEmpty()) {
+                                        Text(
+                                            text = "Följeslagare: ${companions.joinToString(", ")}",
+                                            style = MaterialTheme.typography.bodyMedium
+                                        )
+                                    }
+                                }
+                                seed.avoidPlants?.let { avoid ->
+                                    if (avoid.isNotEmpty()) {
+                                        Text(
+                                            text = "Växter att undvika: ${avoid.joinToString(", ")}",
+                                            style = MaterialTheme.typography.bodyMedium
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -110,40 +263,5 @@ fun SeedDetailScreen(
                 }
             }
         )
-    }
-}
-
-@Composable
-private fun SeedDetailContent(
-    seed: Seed,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        Text(
-            text = seed.name,
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        seed.description?.let { description ->
-            if (description.isNotBlank()) {
-                Text(
-                    text = description,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-        }
-
-        // Här kan vi lägga till mer information om fröet senare
-        // Till exempel:
-        // - Art
-        // - Sådningsdatum
-        // - Skördedatum
-        // - Växtinstruktioner
-        // - etc.
     }
 } 
