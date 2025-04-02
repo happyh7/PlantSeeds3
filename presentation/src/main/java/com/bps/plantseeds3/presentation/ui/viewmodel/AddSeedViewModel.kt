@@ -3,7 +3,7 @@ package com.bps.plantseeds3.presentation.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bps.plantseeds3.domain.model.Resource
+import com.bps.plantseeds3.common.model.Resource
 import com.bps.plantseeds3.domain.model.Seed
 import com.bps.plantseeds3.domain.model.Plant
 import com.bps.plantseeds3.domain.repository.SeedRepository
@@ -63,9 +63,8 @@ class AddSeedViewModel @Inject constructor(
                 Log.d(TAG, "saveSeed: Created plant = $plant")
 
                 when (val plantResult = plantRepository.insertPlant(plant)) {
-                    is Resource.Success<*> -> {
+                    is Resource.Success<Unit> -> {
                         Log.d(TAG, "saveSeed: Successfully inserted plant")
-                        kotlinx.coroutines.delay(100)
                         
                         val seed = Seed(
                             id = UUID.randomUUID().toString(),
@@ -91,32 +90,34 @@ class AddSeedViewModel @Inject constructor(
                         Log.d(TAG, "saveSeed: Created seed = $seed")
 
                         when (val seedResult = seedRepository.insertSeed(seed)) {
-                            is Resource.Success<*> -> {
+                            is Resource.Success<Unit> -> {
                                 Log.d(TAG, "saveSeed: Successfully inserted seed")
                                 _uiState.value = _uiState.value.copy(isLoading = false)
                                 onSuccess()
                             }
-                            is Resource.Error<*> -> {
+                            is Resource.Error<Unit> -> {
                                 Log.e(TAG, "saveSeed: Failed to insert seed", Exception(seedResult.message))
                                 _uiState.value = _uiState.value.copy(
                                     isLoading = false,
-                                    error = seedResult.message ?: "Ett fel uppstod"
+                                    error = seedResult.message
                                 )
                             }
-                            else -> {
+                            is Resource.Loading<Unit> -> {
                                 Log.d(TAG, "saveSeed: Loading state when inserting seed")
+                                _uiState.value = _uiState.value.copy(isLoading = true)
                             }
                         }
                     }
-                    is Resource.Error<*> -> {
+                    is Resource.Error<Unit> -> {
                         Log.e(TAG, "saveSeed: Failed to insert plant", Exception(plantResult.message))
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
-                            error = plantResult.message ?: "Ett fel uppstod"
+                            error = plantResult.message
                         )
                     }
-                    else -> {
+                    is Resource.Loading<Unit> -> {
                         Log.d(TAG, "saveSeed: Loading state when inserting plant")
+                        _uiState.value = _uiState.value.copy(isLoading = true)
                     }
                 }
             } catch (e: Exception) {
