@@ -30,7 +30,7 @@ fun SeedDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(uiState.seed?.name ?: "Frö") },
+                title = { Text("Frödetaljer") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Tillbaka")
@@ -59,25 +59,26 @@ fun SeedDetailScreen(
                     )
                 }
                 uiState.error != null -> {
-                    Text(
-                        text = uiState.error!!,
-                        color = MaterialTheme.colorScheme.error,
-                        textAlign = TextAlign.Center,
+                    Column(
                         modifier = Modifier
-                            .align(Alignment.Center)
-                            .padding(16.dp)
-                    )
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = uiState.error ?: "Ett fel uppstod",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.error,
+                            textAlign = TextAlign.Center
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Button(onClick = onNavigateBack) {
+                            Text("Tillbaka")
+                        }
+                    }
                 }
-                uiState.seed == null -> {
-                    Text(
-                        text = "Inget frö hittades",
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .padding(16.dp)
-                    )
-                }
-                else -> {
+                uiState.seed != null -> {
                     val seed = uiState.seed!!
                     Column(
                         modifier = Modifier
@@ -251,7 +252,7 @@ fun SeedDetailScreen(
                 TextButton(
                     onClick = {
                         showDeleteDialog = false
-                        viewModel.onDeleteSeed(onDeleteSeed)
+                        onDeleteSeed()
                     }
                 ) {
                     Text("Ta bort")

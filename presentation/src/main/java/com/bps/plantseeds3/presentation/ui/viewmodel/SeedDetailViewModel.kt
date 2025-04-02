@@ -1,11 +1,12 @@
 package com.bps.plantseeds3.presentation.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bps.plantseeds3.domain.model.Resource
+import com.bps.plantseeds3.common.model.Resource
 import com.bps.plantseeds3.domain.model.Seed
-import com.bps.plantseeds3.domain.repository.SeedRepository
+import com.bps.plantseeds3.domain.use_case.GetSeedUseCase
 import com.bps.plantseeds3.presentation.ui.state.SeedDetailUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,9 +15,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val TAG = "SeedDetailViewModel"
+
 @HiltViewModel
 class SeedDetailViewModel @Inject constructor(
-    private val seedRepository: SeedRepository,
+    private val getSeedUseCase: GetSeedUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -25,6 +28,7 @@ class SeedDetailViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<String>("seedId")?.let { seedId ->
+            Log.d(TAG, "init: Loading seed with ID: $seedId")
             loadSeed(seedId)
         }
     }
@@ -33,29 +37,26 @@ class SeedDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
             try {
-                when (val result = seedRepository.getSeedById(seedId)) {
-                    is Resource.Success<*> -> {
+                Log.d(TAG, "loadSeed: Attempting to load seed with ID: $seedId")
+                when (val result = getSeedUseCase(seedId)) {
+                    is Resource.Success -> {
                         val seed = result.data
-                        if (seed is Seed) {
-                            _uiState.value = _uiState.value.copy(
-                                seed = seed,
-                                isLoading = false,
-                                error = null
-                            )
-                        } else {
-                            _uiState.value = _uiState.value.copy(
-                                isLoading = false,
-                                error = "Ogiltig datatyp returnerad från servern"
-                            )
-                        }
+                        Log.d(TAG, "loadSeed: Successfully loaded seed: $seed")
+                        _uiState.value = _uiState.value.copy(
+                            seed = seed,
+                            isLoading = false,
+                            error = null
+                        )
                     }
-                    is Resource.Error<*> -> {
+                    is Resource.Error -> {
+                        Log.e(TAG, "loadSeed: Error loading seed: ${result.message}")
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
                             error = result.message ?: "Ett fel uppstod"
                         )
                     }
                     else -> {
+                        Log.e(TAG, "loadSeed: Unknown result type")
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
                             error = "Okänt fel"
@@ -63,6 +64,7 @@ class SeedDetailViewModel @Inject constructor(
                     }
                 }
             } catch (e: Exception) {
+                Log.e(TAG, "loadSeed: Exception while loading seed", e)
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
                     error = "Kunde inte ladda frö: ${e.message}"
@@ -76,11 +78,11 @@ class SeedDetailViewModel @Inject constructor(
             _uiState.value.seed?.id?.let { seedId ->
                 _uiState.value = _uiState.value.copy(isLoading = true, error = null)
                 try {
-                    when (val result = seedRepository.deleteSeed(seedId)) {
-                        is Resource.Success<*> -> {
+                    when (val result = getSeedUseCase(seedId)) {
+                        is Resource.Success -> {
                             onSuccess()
                         }
-                        is Resource.Error<*> -> {
+                        is Resource.Error -> {
                             _uiState.value = _uiState.value.copy(
                                 isLoading = false,
                                 error = result.message ?: "Ett fel uppstod"

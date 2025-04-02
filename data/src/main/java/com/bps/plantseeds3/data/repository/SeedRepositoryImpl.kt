@@ -29,14 +29,20 @@ class SeedRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getSeedById(id: String): Resource<Seed> {
+        Log.d(TAG, "getSeedById: Attempting to get seed with ID: $id")
         return try {
             val seedEntity = seedDao.getSeedById(id)
             if (seedEntity != null) {
-                Resource.Success(seedEntity.toSeed())
+                Log.d(TAG, "getSeedById: Successfully found seed entity: $seedEntity")
+                val seed = seedEntity.toSeed()
+                Log.d(TAG, "getSeedById: Successfully converted to Seed: $seed")
+                Resource.Success(seed)
             } else {
+                Log.e(TAG, "getSeedById: No seed found with ID: $id")
                 Resource.Error(DatabaseException.EntityNotFoundException("Seed", id).message ?: "Seed hittades inte")
             }
         } catch (e: Exception) {
+            Log.e(TAG, "getSeedById: Exception while getting seed", e)
             Resource.Error(DatabaseException.QueryFailedException("Kunde inte hämta seed", e).message ?: "Ett fel uppstod")
         }
     }
