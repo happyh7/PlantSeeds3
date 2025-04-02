@@ -201,6 +201,39 @@ fun EditSeedScreen(
                     singleLine = true
                 )
 
+                // Följeslagare och växter att undvika
+                Card(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = "Följeslagare och växter att undvika",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                        
+                        OutlinedTextField(
+                            value = uiState.companionPlants?.joinToString(", ") ?: "",
+                            onValueChange = { viewModel.onCompanionPlantsChange(it.split(",").map { it.trim() }) },
+                            label = { Text("Följeslagare (kommaseparerade)") },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true
+                        )
+
+                        OutlinedTextField(
+                            value = uiState.avoidPlants?.joinToString(", ") ?: "",
+                            onValueChange = { viewModel.onAvoidPlantsChange(it.split(",").map { it.trim() }) },
+                            label = { Text("Växter att undvika (kommaseparerade)") },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true
+                        )
+                    }
+                }
+
                 if (uiState.error != null) {
                     Text(
                         text = uiState.error!!,

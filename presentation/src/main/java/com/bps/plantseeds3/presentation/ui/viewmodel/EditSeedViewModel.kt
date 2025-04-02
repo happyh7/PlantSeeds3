@@ -133,7 +133,19 @@ class EditSeedViewModel @Inject constructor(
     }
 
     fun onSpacingChange(spacing: String) {
-        _uiState.value = _uiState.value.copy(spacing = spacing)
+        _uiState.value = _uiState.value.copy(spacing = spacing.takeIf { it.isNotBlank() })
+    }
+
+    fun onCompanionPlantsChange(companionPlants: List<String>) {
+        _uiState.value = _uiState.value.copy(
+            companionPlants = companionPlants.takeIf { it.isNotEmpty() }
+        )
+    }
+
+    fun onAvoidPlantsChange(avoidPlants: List<String>) {
+        _uiState.value = _uiState.value.copy(
+            avoidPlants = avoidPlants.takeIf { it.isNotEmpty() }
+        )
     }
 
     fun onSaveSeed(onSuccess: () -> Unit) {
