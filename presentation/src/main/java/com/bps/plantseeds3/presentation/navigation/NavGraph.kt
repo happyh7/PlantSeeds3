@@ -61,7 +61,6 @@ fun NavGraph(
                 enterTransition = { fadeIn(animationSpec = tween(300)) },
                 exitTransition = { fadeOut(animationSpec = tween(300)) }
             ) {
-                val viewModel = hiltViewModel<SeedDetailViewModel>()
                 val seedId = it.arguments?.getString("seedId")
                 SeedDetailScreen(
                     onNavigateBack = { navController.popBackStack() },
@@ -81,8 +80,8 @@ fun NavGraph(
                 enterTransition = { fadeIn(animationSpec = tween(300)) },
                 exitTransition = { fadeOut(animationSpec = tween(300)) }
             ) {
-                val viewModel = hiltViewModel<AddSeedViewModel>()
                 val scope = rememberCoroutineScope()
+                val viewModel = hiltViewModel<AddSeedViewModel>()
                 AddSeedScreen(
                     onNavigateBack = { navController.popBackStack() },
                     onSaveSeed = { _, _, _, _, _, _, _, _, _, _, _ ->
