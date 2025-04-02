@@ -23,7 +23,7 @@ import com.bps.plantseeds3.data.local.migration.DatabaseMigrations
         PlantingEntity::class,
         SeedEntity::class
     ],
-    version = 14,
+    version = 15,
     exportSchema = true
 )
 @TypeConverters(Converters::class)
@@ -37,13 +37,19 @@ abstract class PlantSeedsDatabase : RoomDatabase() {
         const val DATABASE_NAME = "plantseeds.db"
 
         private val MIGRATION_1_2 = object : Migration(1, 2) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE gardens ADD COLUMN plants TEXT NOT NULL DEFAULT ''")
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE gardens ADD COLUMN plants TEXT NOT NULL DEFAULT ''")
+            }
+        }
+
+        private val MIGRATION_14_15 = object : Migration(14, 15) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE gardens ADD COLUMN plants TEXT NOT NULL DEFAULT ''")
             }
         }
 
         fun getMigrations(): Array<Migration> {
-            return arrayOf(MIGRATION_1_2)
+            return arrayOf(MIGRATION_1_2, MIGRATION_14_15)
         }
     }
 } 
