@@ -87,7 +87,7 @@ fun NavGraph(
                 AddSeedScreen(
                     viewModel = viewModel,
                     onNavigateBack = { navController.popBackStack() },
-                    onSaveSeed = { name, species, description ->
+                    onSaveSeed = { name, species, description, plantingInstructions, daysToGermination, daysToHarvest, lightNeeds, waterNeeds, soilType, temperature, spacing ->
                         viewModel.saveSeed {
                             scope.launch {
                                 delay(500)

@@ -41,6 +41,38 @@ class AddSeedViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(description = description)
     }
 
+    fun onPlantingInstructionsChange(plantingInstructions: String) {
+        _uiState.value = _uiState.value.copy(plantingInstructions = plantingInstructions)
+    }
+
+    fun onDaysToGerminationChange(daysToGermination: Int) {
+        _uiState.value = _uiState.value.copy(daysToGermination = daysToGermination)
+    }
+
+    fun onDaysToHarvestChange(daysToHarvest: Int) {
+        _uiState.value = _uiState.value.copy(daysToHarvest = daysToHarvest)
+    }
+
+    fun onLightNeedsChange(lightNeeds: String) {
+        _uiState.value = _uiState.value.copy(lightNeeds = lightNeeds)
+    }
+
+    fun onWaterNeedsChange(waterNeeds: String) {
+        _uiState.value = _uiState.value.copy(waterNeeds = waterNeeds)
+    }
+
+    fun onSoilTypeChange(soilType: String) {
+        _uiState.value = _uiState.value.copy(soilType = soilType)
+    }
+
+    fun onTemperatureChange(temperature: String) {
+        _uiState.value = _uiState.value.copy(temperature = temperature)
+    }
+
+    fun onSpacingChange(spacing: String) {
+        _uiState.value = _uiState.value.copy(spacing = spacing)
+    }
+
     fun saveSeed(onSuccess: () -> Unit) {
         viewModelScope.launch {
             Log.d(TAG, "saveSeed: Starting to save seed")
@@ -73,19 +105,20 @@ class AddSeedViewModel @Inject constructor(
                             name = _uiState.value.name,
                             species = _uiState.value.species.ifBlank { null },
                             description = _uiState.value.description.ifBlank { null },
-                            plantingInstructions = null,
-                            daysToGermination = null,
-                            daysToHarvest = null,
-                            lightNeeds = null,
-                            waterNeeds = null,
-                            soilType = null,
-                            temperature = null,
-                            spacing = null,
+                            plantingInstructions = _uiState.value.plantingInstructions.ifBlank { null },
+                            daysToGermination = _uiState.value.daysToGermination,
+                            daysToHarvest = _uiState.value.daysToHarvest,
+                            lightNeeds = _uiState.value.lightNeeds.ifBlank { null },
+                            waterNeeds = _uiState.value.waterNeeds.ifBlank { null },
+                            soilType = _uiState.value.soilType.ifBlank { null },
+                            temperature = _uiState.value.temperature.ifBlank { null },
+                            spacing = _uiState.value.spacing.ifBlank { null },
                             companionPlants = null,
                             avoidPlants = null,
                             imageUrl = null,
                             createdAt = now,
-                            updatedAt = now
+                            updatedAt = now,
+                            isSynced = false
                         )
 
                         Log.d(TAG, "saveSeed: Created seed = $seed")
@@ -93,13 +126,19 @@ class AddSeedViewModel @Inject constructor(
                         when (val seedResult = seedRepository.insertSeed(seed)) {
                             is Resource.Success<Unit> -> {
                                 Log.d(TAG, "saveSeed: Successfully inserted seed")
-                                // Vänta en kort stund för att säkerställa att databasen har slutfört operationen
-                                delay(100)
+                                // Vänta längre för att säkerställa att databasen har slutfört operationen
+                                delay(500)
                                 _uiState.value = _uiState.value.copy(isLoading = false)
                                 onSuccess()
                             }
                             is Resource.Error<Unit> -> {
                                 Log.e(TAG, "saveSeed: Failed to insert seed", Exception(seedResult.message))
+                                // Försök ta bort planten om seed misslyckas
+                                try {
+                                    plantRepository.deletePlant(plantId)
+                                } catch (e: Exception) {
+                                    Log.e(TAG, "saveSeed: Failed to delete plant after seed error", e)
+                                }
                                 _uiState.value = _uiState.value.copy(
                                     isLoading = false,
                                     error = seedResult.message
@@ -138,6 +177,14 @@ data class AddSeedUiState(
     val name: String = "",
     val species: String = "",
     val description: String = "",
+    val plantingInstructions: String = "",
+    val daysToGermination: Int? = null,
+    val daysToHarvest: Int? = null,
+    val lightNeeds: String = "",
+    val waterNeeds: String = "",
+    val soilType: String = "",
+    val temperature: String = "",
+    val spacing: String = "",
     val isLoading: Boolean = false,
     val error: String? = null
 ) 

@@ -91,7 +91,7 @@ fun SeedListScreen(
     if (showAddSeedDialog) {
         AddSeedScreen(
             onNavigateBack = { showAddSeedDialog = false },
-            onSaveSeed = { _, _, _ ->
+            onSaveSeed = { _, _, _, _, _, _, _, _, _, _, _ ->
                 showAddSeedDialog = false
                 viewModel.refreshSeeds()
             }
