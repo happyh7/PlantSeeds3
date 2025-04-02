@@ -1,4 +1,4 @@
-package com.bps.plantseeds3.presentation.theme
+package com.bps.plantseeds3.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

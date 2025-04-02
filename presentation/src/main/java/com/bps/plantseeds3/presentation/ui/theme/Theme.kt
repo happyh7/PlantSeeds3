@@ -1,4 +1,4 @@
-package com.bps.plantseeds3.presentation.theme
+package com.bps.plantseeds3.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -28,7 +28,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun PlantSeedsTheme(
+fun PlantSeeds3Theme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit

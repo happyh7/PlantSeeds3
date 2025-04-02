@@ -5,7 +5,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,45 +19,20 @@ import com.bps.plantseeds3.presentation.ui.viewmodel.SeedListViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SeedListScreen(
-    onAddSeed: () -> Unit,
-    onSeedClick: (Seed) -> Unit,
+    onNavigateToSeedDetail: (String) -> Unit,
     viewModel: SeedListViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    var showSearch by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
-            if (showSearch) {
-                SearchBar(
-                    query = uiState.searchQuery,
-                    onQueryChange = viewModel::onSearchQueryChange,
-                    onSearch = { showSearch = false },
-                    active = true,
-                    onActiveChange = { showSearch = it },
-                    placeholder = { Text("Sök frön...") },
-                    leadingIcon = {
-                        IconButton(onClick = { showSearch = false }) {
-                            Icon(Icons.Default.Search, contentDescription = "Sök")
-                        }
-                    }
-                ) {
-                    // Sökresultat kan visas här om det behövs
-                }
-            } else {
-                TopAppBar(
-                    title = { Text("Mina frön") },
-                    actions = {
-                        IconButton(onClick = { showSearch = true }) {
-                            Icon(Icons.Default.Search, contentDescription = "Sök")
-                        }
-                    }
-                )
-            }
+            TopAppBar(
+                title = { Text("Mina frön") }
+            )
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = onAddSeed
+                onClick = { /* TODO: Implementera skapande av nytt frö */ }
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Lägg till frö")
             }
@@ -85,55 +59,30 @@ fun SeedListScreen(
                             .padding(16.dp)
                     )
                 }
-                uiState.filteredSeeds.isEmpty() -> {
-                    Column(
+                uiState.seeds.isEmpty() -> {
+                    Text(
+                        text = "Inga frön hittades",
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .align(Alignment.Center)
-                            .padding(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = if (uiState.searchQuery.isBlank()) "Inga frön än" else "Inga resultat",
-                            style = MaterialTheme.typography.headlineMedium,
-                            textAlign = TextAlign.Center
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = if (uiState.searchQuery.isBlank()) 
-                                "Tryck på + för att lägga till ditt första frö"
-                            else 
-                                "Inga frön matchar din sökning",
-                            style = MaterialTheme.typography.bodyLarge,
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                }
-                else -> {
-                    SeedList(
-                        seeds = uiState.filteredSeeds,
-                        onSeedClick = onSeedClick
+                            .padding(16.dp)
                     )
                 }
+                else -> {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(uiState.seeds) { seed ->
+                            SeedItem(
+                                seed = seed,
+                                onClick = { onNavigateToSeedDetail(seed.id) }
+                            )
+                        }
+                    }
+                }
             }
-        }
-    }
-}
-
-@Composable
-private fun SeedList(
-    seeds: List<Seed>,
-    onSeedClick: (Seed) -> Unit
-) {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(seeds) { seed ->
-            SeedItem(
-                seed = seed,
-                onClick = { onSeedClick(seed) }
-            )
         }
     }
 }
@@ -154,15 +103,15 @@ private fun SeedItem(
                 .padding(16.dp)
         ) {
             Text(
-                text = seed.name ?: "",
+                text = seed.name,
                 style = MaterialTheme.typography.titleMedium
             )
             seed.description?.let { description ->
                 if (description.isNotBlank()) {
-                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = description,
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 2
                     )
                 }
             }
