@@ -39,6 +39,43 @@ fun NavGraph(navController: NavHostController) {
                 )
             }
 
+            composable(
+                route = Screen.SeedDetail.route,
+                arguments = listOf(
+                    navArgument("seedId") { type = NavType.StringType }
+                )
+            ) { backStackEntry ->
+                val seedId = backStackEntry.arguments?.getString("seedId") ?: return@composable
+                SeedDetailScreen(
+                    onNavigateBack = { navController.popBackStack() },
+                    onEditSeed = {
+                        navController.navigate(Screen.EditSeed.createRoute(seedId))
+                    },
+                    onDeleteSeed = {
+                        navController.popBackStack()
+                        seedListViewModel.loadSeeds()
+                    }
+                )
+            }
+
+            composable(
+                route = Screen.EditSeed.route,
+                arguments = listOf(
+                    navArgument("seedId") {
+                        type = NavType.StringType
+                    }
+                )
+            ) { backStackEntry ->
+                EditSeedScreen(
+                    onNavigateBack = {
+                        navController.popBackStack()
+                    },
+                    onSaveSeed = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+
             composable(Screen.AddSeed.route) {
                 AddSeedScreen(
                     onNavigateBack = { navController.popBackStack() },
@@ -49,27 +86,16 @@ fun NavGraph(navController: NavHostController) {
                 )
             }
 
-            composable(
-                route = Screen.SeedDetail.route,
-                arguments = listOf(
-                    navArgument("seedId") { type = NavType.StringType }
-                )
-            ) {
-                SeedDetailScreen(
-                    onNavigateBack = { navController.popBackStack() },
-                    onEditSeed = { /* TODO: Implementera redigering */ },
-                    onDeleteSeed = { navController.popBackStack() }
-                )
-            }
-
             composable(Screen.GardenList.route) {
                 GardenListScreen(
                     onNavigateToGardenDetail = { /* TODO: Implementera navigering */ }
                 )
             }
 
-            composable(Screen.Profile.route) {
-                ProfileScreen()
+            composable(
+                route = Screen.Settings.route
+            ) {
+                SettingsScreen()
             }
         }
     }

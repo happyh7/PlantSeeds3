@@ -2,60 +2,56 @@ package com.bps.plantseeds3.presentation.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Yard
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.bps.plantseeds3.presentation.R
 import com.bps.plantseeds3.presentation.navigation.Screen
 
 @Composable
-fun BottomNavigationBar(
-    navController: NavController,
-    modifier: Modifier = Modifier
-) {
+fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
         NavigationItem(
-            route = Screen.SeedList.route,
+            title = "Frön",
+            icon = Icons.Default.List,
+            route = Screen.SeedList.route
+        ),
+        NavigationItem(
+            title = "Trädgårdar",
             icon = Icons.Default.Home,
-            labelResId = R.string.seeds
+            route = Screen.GardenList.route
         ),
         NavigationItem(
-            route = Screen.GardenList.route,
-            icon = Icons.Default.Yard,
-            labelResId = R.string.gardens
-        ),
-        NavigationItem(
-            route = Screen.Profile.route,
-            icon = Icons.Default.Person,
-            labelResId = R.string.profile
+            title = "Inställningar",
+            icon = Icons.Default.Settings,
+            route = Screen.Settings.route
         )
     )
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    NavigationBar(modifier = modifier) {
+    NavigationBar {
         items.forEach { item ->
             NavigationBarItem(
-                icon = { Icon(item.icon, contentDescription = stringResource(item.labelResId)) },
-                label = { Text(stringResource(item.labelResId)) },
+                icon = { Icon(item.icon, contentDescription = item.title) },
+                label = { Text(text = item.title) },
                 selected = currentRoute == item.route,
                 onClick = {
-                    if (currentRoute != item.route) {
-                        navController.navigate(item.route) {
-                            popUpTo(navController.graph.findStartDestination().id)
-                            launchSingleTop = true
+                    navController.navigate(item.route) {
+                        navController.graph.startDestinationRoute?.let { route ->
+                            popUpTo(route) {
+                                saveState = true
+                            }
                         }
+                        launchSingleTop = true
+                        restoreState = true
                     }
                 }
             )
@@ -64,7 +60,7 @@ fun BottomNavigationBar(
 }
 
 private data class NavigationItem(
-    val route: String,
+    val title: String,
     val icon: androidx.compose.ui.graphics.vector.ImageVector,
-    val labelResId: Int
+    val route: String
 ) 
