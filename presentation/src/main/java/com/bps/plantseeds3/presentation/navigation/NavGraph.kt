@@ -71,7 +71,7 @@ fun NavGraph(
                         }
                     },
                     onDeleteSeed = {
-                        seedListViewModel.loadSeeds()
+                        seedListViewModel.refreshSeeds()
                         navController.popBackStack()
                     }
                 )
@@ -91,7 +91,7 @@ fun NavGraph(
                         viewModel.saveSeed {
                             scope.launch {
                                 delay(500)
-                                seedListViewModel.loadSeeds()
+                                seedListViewModel.refreshSeeds()
                                 navController.popBackStack()
                             }
                         }
@@ -115,7 +115,7 @@ fun NavGraph(
                     onSaveSeed = {
                         scope.launch {
                             delay(500)
-                            seedListViewModel.loadSeeds()
+                            seedListViewModel.refreshSeeds()
                             navController.popBackStack()
                         }
                     }
