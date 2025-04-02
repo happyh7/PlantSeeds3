@@ -62,7 +62,7 @@ class SeedDetailViewModel @Inject constructor(
                         Log.e(TAG, "loadSeed: Error loading seed: ${result.message}")
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
-                            error = result.message ?: "Ett fel uppstod"
+                            error = result.message
                         )
                     }
                     else -> {
