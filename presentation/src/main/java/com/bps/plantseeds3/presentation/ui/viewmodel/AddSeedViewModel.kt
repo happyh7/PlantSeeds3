@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.bps.plantseeds3.common.model.Resource
 import com.bps.plantseeds3.domain.model.Seed
 import com.bps.plantseeds3.domain.model.Plant
-import com.bps.plantseeds3.domain.repository.SeedRepository
-import com.bps.plantseeds3.domain.repository.PlantRepository
+import com.bps.plantseeds3.domain.use_case.AddSeedUseCase
+import com.bps.plantseeds3.domain.use_case.AddPlantUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,8 +22,8 @@ private const val TAG = "AddSeedViewModel"
 
 @HiltViewModel
 class AddSeedViewModel @Inject constructor(
-    private val seedRepository: SeedRepository,
-    private val plantRepository: PlantRepository
+    private val addSeedUseCase: AddSeedUseCase,
+    private val addPlantUseCase: AddPlantUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AddSeedUiState())
@@ -95,7 +95,7 @@ class AddSeedViewModel @Inject constructor(
 
                 Log.d(TAG, "saveSeed: Created plant = $plant")
 
-                when (val plantResult = plantRepository.insertPlant(plant)) {
+                when (val plantResult = addPlantUseCase(plant)) {
                     is Resource.Success<Unit> -> {
                         Log.d(TAG, "saveSeed: Successfully inserted plant")
                         
@@ -123,7 +123,7 @@ class AddSeedViewModel @Inject constructor(
 
                         Log.d(TAG, "saveSeed: Created seed = $seed")
 
-                        when (val seedResult = seedRepository.insertSeed(seed)) {
+                        when (val result = addSeedUseCase(seed)) {
                             is Resource.Success<Unit> -> {
                                 Log.d(TAG, "saveSeed: Successfully inserted seed")
                                 // Vänta längre för att säkerställa att databasen har slutfört operationen
@@ -132,17 +132,21 @@ class AddSeedViewModel @Inject constructor(
                                 onSuccess()
                             }
                             is Resource.Error<Unit> -> {
-                                Log.e(TAG, "saveSeed: Failed to insert seed", Exception(seedResult.message))
+                                Log.e(TAG, "saveSeed: Failed to insert seed", Exception(result.message))
                                 // Försök ta bort planten om seed misslyckas
                                 try {
-                                    plantRepository.deletePlant(plantId)
+                                    // TODO: Implementera DeletePlantUseCase och använd den här
+                                    _uiState.value = _uiState.value.copy(
+                                        isLoading = false,
+                                        error = result.message
+                                    )
                                 } catch (e: Exception) {
                                     Log.e(TAG, "saveSeed: Failed to delete plant after seed error", e)
+                                    _uiState.value = _uiState.value.copy(
+                                        isLoading = false,
+                                        error = result.message
+                                    )
                                 }
-                                _uiState.value = _uiState.value.copy(
-                                    isLoading = false,
-                                    error = seedResult.message
-                                )
                             }
                             is Resource.Loading<Unit> -> {
                                 Log.d(TAG, "saveSeed: Loading state when inserting seed")
