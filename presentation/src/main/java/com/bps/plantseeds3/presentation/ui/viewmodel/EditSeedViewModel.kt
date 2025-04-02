@@ -96,7 +96,8 @@ class EditSeedViewModel @Inject constructor(
 
     fun onSaveSeed(onSuccess: () -> Unit) {
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true)
+            val currentState = _uiState.value
+            _uiState.value = currentState.copy(isLoading = true)
             
             // Hämta det befintliga fröet för att få rätt tidsstämplar
             val existingSeed = seedId?.let { id ->
@@ -108,19 +109,19 @@ class EditSeedViewModel @Inject constructor(
 
             val seed = Seed(
                 id = seedId ?: "",
-                name = uiState.value.name,
-                species = uiState.value.species,
-                description = uiState.value.description,
-                plantingInstructions = uiState.value.plantingInstructions,
-                daysToGermination = uiState.value.daysToGermination,
-                daysToHarvest = uiState.value.daysToHarvest,
-                lightNeeds = uiState.value.lightNeeds,
-                waterNeeds = uiState.value.waterNeeds,
-                soilType = uiState.value.soilType,
-                temperature = uiState.value.temperature,
-                spacing = uiState.value.spacing,
-                companionPlants = uiState.value.companionPlants,
-                avoidPlants = uiState.value.avoidPlants,
+                name = currentState.name,
+                species = currentState.species,
+                description = currentState.description,
+                plantingInstructions = currentState.plantingInstructions,
+                daysToGermination = currentState.daysToGermination,
+                daysToHarvest = currentState.daysToHarvest,
+                lightNeeds = currentState.lightNeeds,
+                waterNeeds = currentState.waterNeeds,
+                soilType = currentState.soilType,
+                temperature = currentState.temperature,
+                spacing = currentState.spacing,
+                companionPlants = currentState.companionPlants,
+                avoidPlants = currentState.avoidPlants,
                 plantId = "",
                 imageUrl = null,
                 createdAt = existingSeed?.createdAt ?: Instant.now(),
@@ -129,20 +130,20 @@ class EditSeedViewModel @Inject constructor(
 
             when (val result = seedRepository.updateSeed(seed)) {
                 is Resource.Success -> {
-                    _uiState.value = _uiState.value.copy(
+                    _uiState.value = currentState.copy(
                         isLoading = false,
                         error = null
                     )
                     onSuccess()
                 }
                 is Resource.Error -> {
-                    _uiState.value = _uiState.value.copy(
+                    _uiState.value = currentState.copy(
                         isLoading = false,
                         error = result.message ?: "Ett fel uppstod vid sparande av fröet"
                     )
                 }
                 is Resource.Loading -> {
-                    _uiState.value = _uiState.value.copy(isLoading = true)
+                    _uiState.value = currentState.copy(isLoading = true)
                 }
             }
         }
