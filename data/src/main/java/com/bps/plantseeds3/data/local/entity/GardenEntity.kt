@@ -10,6 +10,7 @@ data class GardenEntity(
     val name: String,
     val description: String,
     val location: String,
+    val plants: String = "", // Kommaseparerad lista av plant IDs
     val createdAt: Long,
     val updatedAt: Long
 ) 

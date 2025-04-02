@@ -66,6 +66,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":common"))
     implementation(project(":presentation"))
+    implementation(project(":garden"))
     
     // Core Android
     implementation("androidx.core:core-ktx:1.12.0")

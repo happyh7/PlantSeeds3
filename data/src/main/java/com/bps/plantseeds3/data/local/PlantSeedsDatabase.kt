@@ -3,6 +3,8 @@ package com.bps.plantseeds3.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.bps.plantseeds3.data.local.dao.GardenDao
 import com.bps.plantseeds3.data.local.dao.PlantDao
 import com.bps.plantseeds3.data.local.dao.PlantingDao
@@ -34,6 +36,14 @@ abstract class PlantSeedsDatabase : RoomDatabase() {
     companion object {
         const val DATABASE_NAME = "plantseeds.db"
 
-        fun getMigrations() = DatabaseMigrations.getMigrations()
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE gardens ADD COLUMN plants TEXT NOT NULL DEFAULT ''")
+            }
+        }
+
+        fun getMigrations(): Array<Migration> {
+            return arrayOf(MIGRATION_1_2)
+        }
     }
 } 
