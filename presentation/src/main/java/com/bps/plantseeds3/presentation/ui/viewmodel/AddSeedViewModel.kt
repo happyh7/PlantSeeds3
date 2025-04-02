@@ -48,7 +48,6 @@ class AddSeedViewModel @Inject constructor(
                 val now = Instant.now()
                 val plantId = UUID.randomUUID().toString()
                 
-                // Skapa en ny Plant först
                 val plant = Plant(
                     id = plantId,
                     name = _uiState.value.name,
@@ -66,10 +65,8 @@ class AddSeedViewModel @Inject constructor(
                 when (val plantResult = plantRepository.insertPlant(plant)) {
                     is Resource.Success<*> -> {
                         Log.d(TAG, "saveSeed: Successfully inserted plant")
-                        // Vänta en kort stund för att säkerställa att Plant-transaktionen är klar
                         kotlinx.coroutines.delay(100)
                         
-                        // Skapa Seed efter att Plant har skapats
                         val seed = Seed(
                             id = UUID.randomUUID().toString(),
                             plantId = plantId,
@@ -107,7 +104,6 @@ class AddSeedViewModel @Inject constructor(
                                 )
                             }
                             else -> {
-                                // Loading state är redan hanterat i början av funktionen
                                 Log.d(TAG, "saveSeed: Loading state when inserting seed")
                             }
                         }
@@ -120,7 +116,6 @@ class AddSeedViewModel @Inject constructor(
                         )
                     }
                     else -> {
-                        // Loading state är redan hanterat i början av funktionen
                         Log.d(TAG, "saveSeed: Loading state when inserting plant")
                     }
                 }
