@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.bps.plantseeds3.domain.model.Plant
 import java.time.Instant
-import java.util.UUID
+import java.util.*
 
 @Composable
 fun AddPlantDialog(
@@ -26,7 +26,8 @@ fun AddPlantDialog(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 OutlinedTextField(
                     value = name,
@@ -34,40 +35,37 @@ fun AddPlantDialog(
                     label = { Text("Namn") },
                     modifier = Modifier.fillMaxWidth()
                 )
-                Spacer(modifier = Modifier.height(8.dp))
                 OutlinedTextField(
                     value = species,
                     onValueChange = { species = it },
                     label = { Text("Art") },
                     modifier = Modifier.fillMaxWidth()
                 )
-                Spacer(modifier = Modifier.height(8.dp))
                 OutlinedTextField(
                     value = description,
                     onValueChange = { description = it },
                     label = { Text("Beskrivning") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    minLines = 3
                 )
             }
         },
         confirmButton = {
             TextButton(
                 onClick = {
-                    if (name.isNotBlank() && species.isNotBlank()) {
-                        onConfirm(
-                            Plant(
-                                id = UUID.randomUUID().toString(),
-                                name = name,
-                                species = species,
-                                description = description.ifBlank { null },
-                                gardenId = gardenId,
-                                lastWatered = null,
-                                nextWatering = null,
-                                createdAt = Instant.now(),
-                                updatedAt = Instant.now()
-                            )
-                        )
-                    }
+                    val plant = Plant(
+                        id = UUID.randomUUID().toString(),
+                        name = name,
+                        species = species,
+                        description = description.takeIf { it.isNotBlank() },
+                        gardenId = gardenId,
+                        lastWatered = null,
+                        nextWatering = null,
+                        createdAt = Instant.now(),
+                        updatedAt = Instant.now()
+                    )
+                    onConfirm(plant)
+                    onDismiss()
                 },
                 enabled = name.isNotBlank() && species.isNotBlank()
             ) {

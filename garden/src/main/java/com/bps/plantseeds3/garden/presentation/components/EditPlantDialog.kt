@@ -25,7 +25,8 @@ fun EditPlantDialog(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 OutlinedTextField(
                     value = name,
@@ -33,35 +34,32 @@ fun EditPlantDialog(
                     label = { Text("Namn") },
                     modifier = Modifier.fillMaxWidth()
                 )
-                Spacer(modifier = Modifier.height(8.dp))
                 OutlinedTextField(
                     value = species,
                     onValueChange = { species = it },
                     label = { Text("Art") },
                     modifier = Modifier.fillMaxWidth()
                 )
-                Spacer(modifier = Modifier.height(8.dp))
                 OutlinedTextField(
                     value = description,
                     onValueChange = { description = it },
                     label = { Text("Beskrivning") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    minLines = 3
                 )
             }
         },
         confirmButton = {
             TextButton(
                 onClick = {
-                    if (name.isNotBlank() && species.isNotBlank()) {
-                        onConfirm(
-                            plant.copy(
-                                name = name,
-                                species = species,
-                                description = description.ifBlank { null },
-                                updatedAt = Instant.now()
-                            )
-                        )
-                    }
+                    val updatedPlant = plant.copy(
+                        name = name,
+                        species = species,
+                        description = description.takeIf { it.isNotBlank() },
+                        updatedAt = Instant.now()
+                    )
+                    onConfirm(updatedPlant)
+                    onDismiss()
                 },
                 enabled = name.isNotBlank() && species.isNotBlank()
             ) {
