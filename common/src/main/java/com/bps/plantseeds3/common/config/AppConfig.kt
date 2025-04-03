@@ -4,7 +4,7 @@ object AppConfig {
     const val APP_NAME = "PlantSeeds3"
     const val APP_VERSION = "1.0.0"
     const val DATABASE_NAME = "plantseeds3.db"
-    const val DATABASE_VERSION = 1
+    const val DATABASE_VERSION = 15
 
     object Api {
         const val BASE_URL = "https://api.plantseeds3.com/"

@@ -1,144 +1,37 @@
 package com.bps.plantseeds3.presentation.navigation
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import com.bps.plantseeds3.presentation.ui.components.BottomNavigationBar
-import com.bps.plantseeds3.presentation.ui.screens.*
-import com.bps.plantseeds3.presentation.ui.viewmodel.SeedListViewModel
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.bps.plantseeds3.presentation.ui.screens.EditSeedScreen
-import com.bps.plantseeds3.presentation.ui.viewmodel.EditSeedViewModel
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.delay
-import com.bps.plantseeds3.presentation.ui.viewmodel.AddSeedViewModel
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.runtime.rememberCoroutineScope
-import com.bps.plantseeds3.presentation.ui.viewmodel.SeedDetailViewModel
 import com.bps.plantseeds3.garden.presentation.overview.GardenOverviewScreen
 
 @Composable
 fun NavGraph(
     navController: NavHostController,
-    seedListViewModel: SeedListViewModel
+    modifier: Modifier = Modifier,
+    startDestination: String = Screen.GardenOverview.route
 ) {
-    Scaffold(
-        bottomBar = {
-            BottomNavigationBar(navController = navController)
+    NavHost(
+        navController = navController,
+        startDestination = startDestination,
+        modifier = modifier
+    ) {
+        composable(route = Screen.GardenOverview.route) {
+            GardenOverviewScreen(
+                onNavigateToGardenDetail = { gardenId ->
+                    // TODO: Implementera navigering till trädgårdsdetaljer när skärmen är klar
+                }
+            )
         }
-    ) { paddingValues ->
-        NavHost(
-            navController = navController,
-            startDestination = Screen.SeedList.route,
-            modifier = Modifier.padding(paddingValues)
-        ) {
-            composable(
-                route = Screen.SeedList.route,
-                enterTransition = { fadeIn(animationSpec = tween(300)) },
-                exitTransition = { fadeOut(animationSpec = tween(300)) }
-            ) {
-                SeedListScreen(
-                    viewModel = seedListViewModel,
-                    onNavigateToSeedDetail = { seedId -> 
-                        navController.navigate(Screen.SeedDetail.createRoute(seedId))
-                    },
-                    onNavigateToAddSeed = { navController.navigate(Screen.AddSeed.route) }
-                )
-            }
-
-            composable(
-                route = Screen.SeedDetail.route,
-                arguments = listOf(
-                    navArgument("seedId") { type = NavType.StringType }
-                ),
-                enterTransition = { fadeIn(animationSpec = tween(300)) },
-                exitTransition = { fadeOut(animationSpec = tween(300)) }
-            ) {
-                val seedId = it.arguments?.getString("seedId")
-                SeedDetailScreen(
-                    onNavigateBack = { navController.popBackStack() },
-                    onEditSeed = { 
-                        seedId?.let { id -> 
-                            navController.navigate(Screen.EditSeed.createRoute(id))
-                        }
-                    },
-                    onDeleteSeed = {
-                        navController.popBackStack()
-                    }
-                )
-            }
-
-            composable(
-                route = Screen.AddSeed.route,
-                enterTransition = { fadeIn(animationSpec = tween(300)) },
-                exitTransition = { fadeOut(animationSpec = tween(300)) }
-            ) {
-                val scope = rememberCoroutineScope()
-                val viewModel = hiltViewModel<AddSeedViewModel>()
-                AddSeedScreen(
-                    onNavigateBack = { navController.popBackStack() },
-                    onSaveSeed = { _, _, _, _, _, _, _, _, _, _, _ ->
-                        viewModel.saveSeed {
-                            scope.launch {
-                                delay(500)
-                                navController.popBackStack()
-                            }
-                        }
-                    }
-                )
-            }
-
-            composable(
-                route = Screen.EditSeed.route,
-                arguments = listOf(
-                    navArgument("seedId") { type = NavType.StringType }
-                ),
-                enterTransition = { fadeIn(animationSpec = tween(300)) },
-                exitTransition = { fadeOut(animationSpec = tween(300)) }
-            ) {
-                val viewModel = hiltViewModel<EditSeedViewModel>()
-                val seedDetailViewModel = hiltViewModel<SeedDetailViewModel>()
-                val scope = rememberCoroutineScope()
-                EditSeedScreen(
-                    viewModel = viewModel,
-                    onNavigateBack = { navController.popBackStack() },
-                    onSaveSeed = {
-                        scope.launch {
-                            delay(500)
-                            seedDetailViewModel.refreshSeed()
-                            navController.popBackStack()
-                        }
-                    }
-                )
-            }
-
-            composable(
-                route = Screen.GardenList.route,
-                enterTransition = { fadeIn(animationSpec = tween(300)) },
-                exitTransition = { fadeOut(animationSpec = tween(300)) }
-            ) {
-                GardenOverviewScreen(
-                    onNavigateToGardenDetails = { gardenId ->
-                        // TODO: Implementera navigering till trädgårdsdetaljer
-                    }
-                )
-            }
-
-            composable(
-                route = Screen.Settings.route,
-                enterTransition = { fadeIn(animationSpec = tween(300)) },
-                exitTransition = { fadeOut(animationSpec = tween(300)) }
-            ) {
-                SettingsScreen()
-            }
+        
+        composable(route = Screen.SeedList.route) {
+            // TODO: Implementera SeedListScreen
+        }
+        
+        composable(route = Screen.Settings.route) {
+            // TODO: Implementera SettingsScreen
         }
     }
 } 

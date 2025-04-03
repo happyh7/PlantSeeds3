@@ -15,33 +15,35 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.bps.plantseeds3.presentation.navigation.Screen
 
 @Composable
-fun BottomNavigationBar(navController: NavController) {
+fun BottomNavigationBar(
+    navController: NavController
+) {
     val items = listOf(
         NavigationItem(
-            title = "Frön",
-            icon = Icons.Default.List,
-            route = Screen.SeedList.route
+            name = "Trädgårdar",
+            route = Screen.GardenOverview.route,
+            icon = Icons.Default.Home
         ),
         NavigationItem(
-            title = "Trädgårdar",
-            icon = Icons.Default.Home,
-            route = Screen.GardenList.route
+            name = "Fröer",
+            route = Screen.SeedList.route,
+            icon = Icons.Default.List
         ),
         NavigationItem(
-            title = "Inställningar",
-            icon = Icons.Default.Settings,
-            route = Screen.Settings.route
+            name = "Inställningar",
+            route = Screen.Settings.route,
+            icon = Icons.Default.Settings
         )
     )
 
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
-
     NavigationBar {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
+
         items.forEach { item ->
             NavigationBarItem(
-                icon = { Icon(item.icon, contentDescription = item.title) },
-                label = { Text(text = item.title) },
+                icon = { Icon(item.icon, contentDescription = item.name) },
+                label = { Text(text = item.name) },
                 selected = currentRoute == item.route,
                 onClick = {
                     navController.navigate(item.route) {
@@ -60,7 +62,7 @@ fun BottomNavigationBar(navController: NavController) {
 }
 
 private data class NavigationItem(
-    val title: String,
-    val icon: androidx.compose.ui.graphics.vector.ImageVector,
-    val route: String
+    val name: String,
+    val route: String,
+    val icon: androidx.compose.ui.graphics.vector.ImageVector
 ) 
