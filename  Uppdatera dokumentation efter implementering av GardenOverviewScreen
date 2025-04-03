@@ -1,0 +1,5 @@
+[33mcommit 159bb30311e26bf014a5535e1f4723d2cf3d79d7[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/garden-module[m[33m)[m
+Author: happyh7 <happy_h7@hotmail.com>
+Date:   Thu Apr 3 16:49:46 2025 +0200
+
+    Fix: Uppdatera GardenDetail för att hantera Flow och Resource korrekt - Uppdatera GardenDetailViewModel för att hantera Flow och Resource - Förenkla GardenDetailState datastruktur - Uppdatera GardenDetailScreen för att matcha dialogernas signaturer - Fixa kompileringsfel och lyckat bygge

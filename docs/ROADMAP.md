@@ -14,14 +14,14 @@ Detta dokument beskriver utvecklingsplanen för PlantSeeds3-appen, med fokus på
 
 ### Fas 2: Fröhantering (Seed-modulen)
 1. [x] Implementera SeedListScreen
-2. [ ] Implementera SeedDetailScreen
+2. [x] Implementera SeedDetailScreen
    - Nästa: Byt till garden-modulen efter att SeedDetailScreen är klar
-3. [ ] Implementera fröhanteringsoperationer
+3. [x] Implementera fröhanteringsoperationer
 4. [ ] Implementera fröstatistik
 5. [ ] Implementera frönotifieringar
 
 ### Fas 3: Trädgårdshantering (Garden-modulen)
-1. [ ] Implementera GardenOverviewScreen
+1. [x] Implementera GardenOverviewScreen
    - Nästa: Byt tillbaka till common-modulen för optimering
 2. [ ] Implementera GardenPlanningScreen
 3. [ ] Implementera PlantCareScreen
@@ -45,7 +45,7 @@ Detta dokument beskriver utvecklingsplanen för PlantSeeds3-appen, med fokus på
 
 ### Seed-modulen
 - [x] Frölistor och detaljer
-- [ ] Fröhanteringsoperationer
+- [x] Fröhanteringsoperationer
 - [ ] Fröstatistik
 - [ ] Frönotifieringar
 
@@ -71,10 +71,10 @@ Detta dokument beskriver utvecklingsplanen för PlantSeeds3-appen, med fokus på
 
 ## Nästa Steg
 1. [x] Slutföra grundläggande UI-komponenter i common-modulen
-2. Implementera SeedDetailScreen i seed-modulen
-3. Byt till garden-modulen för GardenOverviewScreen
-4. Återvänd till common-modulen för optimering
-5. Implementera auth-modulen i slutet av utvecklingen
+2. [x] Implementera SeedDetailScreen i seed-modulen
+3. [x] Byt till garden-modulen för GardenOverviewScreen
+4. [ ] Återvänd till common-modulen för optimering
+5. [ ] Implementera auth-modulen i slutet av utvecklingen
 
 ## Noteringar
 - Varje modul ska ha egen dokumentation och roadmap

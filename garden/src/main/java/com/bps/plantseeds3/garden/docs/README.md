@@ -22,7 +22,7 @@ garden/
 
 ## Roadmap för garden-modulen
 1. [x] Sätta upp grundläggande struktur
-2. [ ] Implementera GardenOverviewScreen
+2. [x] Implementera GardenOverviewScreen
    - Nästa: Byt tillbaka till common-modulen för optimering
 3. [ ] Implementera GardenPlanningScreen
 4. [ ] Implementera PlantCareScreen
@@ -30,9 +30,15 @@ garden/
 6. [ ] Implementera växtnotifieringar
 
 ## Nästa steg
-Implementera GardenOverviewScreen för att visa översikt över trädgården. Efter att detta är klart, byt tillbaka till common-modulen för optimering.
+Byt tillbaka till common-modulen för optimering. Efter att optimeringen är klar, återvänd för att implementera GardenPlanningScreen.
 
 ## Changelog
+### 2024-04-03
+- Implementerat GardenOverviewScreen med grundläggande funktionalitet
+- Lagt till GardenList-komponent
+- Lagt till AddGardenDialog och EditGardenDialog
+- Implementerat CRUD-operationer för trädgårdar
+
 ### 2024-03-31
 - Skapad modulstruktur
 - Förberedd för implementering av trädgårdsfunktionalitet
