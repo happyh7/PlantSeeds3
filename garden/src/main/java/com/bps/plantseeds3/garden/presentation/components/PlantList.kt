@@ -10,28 +10,28 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.bps.plantseeds3.garden.domain.model.Garden
+import com.bps.plantseeds3.domain.model.Plant
 
 @Composable
-fun GardenList(
-    gardens: List<Garden>,
-    onGardenClick: (String) -> Unit,
-    onDeleteGarden: (Garden) -> Unit,
-    onEditGarden: (Garden) -> Unit
+fun PlantList(
+    plants: List<Plant>,
+    onPlantClick: (String) -> Unit,
+    onDeletePlant: (Plant) -> Unit,
+    onEditPlant: (Plant) -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        gardens.forEach { garden ->
+        plants.forEach { plant ->
             var showDeleteDialog by remember { mutableStateOf(false) }
             
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp)
-                    .clickable { onGardenClick(garden.id) },
+                    .clickable { onPlantClick(plant.id) },
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
                 Row(
@@ -43,10 +43,15 @@ fun GardenList(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = garden.name,
+                            text = plant.name,
                             style = MaterialTheme.typography.titleLarge
                         )
-                        garden.description?.let { description ->
+                        Text(
+                            text = plant.species,
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                        plant.description?.let { description ->
                             Text(
                                 text = description,
                                 style = MaterialTheme.typography.bodyMedium,
@@ -56,17 +61,17 @@ fun GardenList(
                     }
                     
                     Row {
-                        IconButton(onClick = { onEditGarden(garden) }) {
+                        IconButton(onClick = { onEditPlant(plant) }) {
                             Icon(
                                 Icons.Default.Edit,
-                                contentDescription = "Redigera trädgård",
+                                contentDescription = "Redigera växt",
                                 tint = MaterialTheme.colorScheme.primary
                             )
                         }
                         IconButton(onClick = { showDeleteDialog = true }) {
                             Icon(
                                 Icons.Default.Delete,
-                                contentDescription = "Ta bort trädgård",
+                                contentDescription = "Ta bort växt",
                                 tint = MaterialTheme.colorScheme.error
                             )
                         }
@@ -77,12 +82,12 @@ fun GardenList(
             if (showDeleteDialog) {
                 AlertDialog(
                     onDismissRequest = { showDeleteDialog = false },
-                    title = { Text("Ta bort trädgård") },
-                    text = { Text("Är du säker på att du vill ta bort ${garden.name}?") },
+                    title = { Text("Ta bort växt") },
+                    text = { Text("Är du säker på att du vill ta bort ${plant.name}?") },
                     confirmButton = {
                         TextButton(
                             onClick = {
-                                onDeleteGarden(garden)
+                                onDeletePlant(plant)
                                 showDeleteDialog = false
                             }
                         ) {

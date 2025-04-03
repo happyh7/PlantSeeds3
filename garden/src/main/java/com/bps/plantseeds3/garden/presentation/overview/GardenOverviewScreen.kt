@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.bps.plantseeds3.garden.presentation.components.AddGardenDialog
+import com.bps.plantseeds3.garden.presentation.components.EditGardenDialog
 import com.bps.plantseeds3.garden.presentation.components.GardenList
 
 @Composable
@@ -45,6 +46,9 @@ fun GardenOverviewScreen(
                     onGardenClick = onNavigateToGardenDetail,
                     onDeleteGarden = { garden ->
                         viewModel.onEvent(GardenOverviewEvent.DeleteGarden(garden))
+                    },
+                    onEditGarden = { garden ->
+                        viewModel.onEvent(GardenOverviewEvent.ShowEditGardenDialog(garden))
                     }
                 )
             }
@@ -56,6 +60,18 @@ fun GardenOverviewScreen(
                         viewModel.onEvent(GardenOverviewEvent.AddGarden(garden))
                     }
                 )
+            }
+
+            state.gardenToEdit?.let { garden ->
+                if (state.isEditGardenDialogVisible) {
+                    EditGardenDialog(
+                        garden = garden,
+                        onDismiss = { viewModel.onEvent(GardenOverviewEvent.HideEditGardenDialog) },
+                        onConfirm = { updatedGarden ->
+                            viewModel.onEvent(GardenOverviewEvent.EditGarden(updatedGarden))
+                        }
+                    )
+                }
             }
 
             state.error?.let { error ->

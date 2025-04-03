@@ -66,6 +66,21 @@ class GardenOverviewViewModel @Inject constructor(
                     }
                 }
             }
+            is GardenOverviewEvent.EditGarden -> {
+                viewModelScope.launch {
+                    try {
+                        repository.updateGarden(event.garden)
+                        _state.update { it.copy(isEditGardenDialogVisible = false) }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Error updating garden", e)
+                        _state.update { 
+                            it.copy(
+                                error = "Kunde inte uppdatera trädgård: ${e.message}"
+                            )
+                        }
+                    }
+                }
+            }
             is GardenOverviewEvent.DeleteGarden -> {
                 viewModelScope.launch {
                     try {
@@ -85,6 +100,22 @@ class GardenOverviewViewModel @Inject constructor(
             }
             is GardenOverviewEvent.HideAddGardenDialog -> {
                 _state.update { it.copy(isAddGardenDialogVisible = false) }
+            }
+            is GardenOverviewEvent.ShowEditGardenDialog -> {
+                _state.update { 
+                    it.copy(
+                        isEditGardenDialogVisible = true,
+                        gardenToEdit = event.garden
+                    )
+                }
+            }
+            is GardenOverviewEvent.HideEditGardenDialog -> {
+                _state.update { 
+                    it.copy(
+                        isEditGardenDialogVisible = false,
+                        gardenToEdit = null
+                    )
+                }
             }
         }
     }

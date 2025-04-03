@@ -1,7 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
 }
 
@@ -37,6 +37,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
     
     kotlinOptions {
@@ -64,11 +65,14 @@ dependencies {
     
     // Hilt
     implementation("com.google.dagger:hilt-android:2.50")
-    kapt("com.google.dagger:hilt-android-compiler:2.50")
+    ksp("com.google.dagger:hilt-android-compiler:2.50")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     
     // Logging
     implementation("com.jakewharton.timber:timber:5.0.1")
+    
+    // Desugaring
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
     
     // Testing
     testImplementation("junit:junit:4.13.2")
